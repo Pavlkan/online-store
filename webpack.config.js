@@ -20,7 +20,7 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
-    devtool: "inline-source-map",
+    devtool: "source-map",
     devServer: {
         static: {
             directory: path.resolve(__dirname, "build"),
