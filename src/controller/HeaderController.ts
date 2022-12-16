@@ -1,4 +1,4 @@
-import { HeaderComponent } from "../view/components/HeaderComponent";
+import { HeaderComponent } from "../view/components/header/HeaderComponent";
 import { BaseController } from "./BaseController";
 
 export class HeaderController extends BaseController<HeaderComponent> {

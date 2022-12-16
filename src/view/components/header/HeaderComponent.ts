@@ -1,5 +1,6 @@
-import { HeaderController } from "../../controller/HeaderController";
-import { BaseComponent } from "../BaseComponent";
+import { HeaderController } from "../../../controller/HeaderController";
+import { BaseComponent } from "../../BaseComponent";
+import "./header.css";
 
 interface HeaderComponentProps {
     controller: HeaderController;
