@@ -2,7 +2,7 @@ export abstract class BaseComponent<T> {
     public element: HTMLElement;
     private props: T;
 
-    constructor(className: string, props: T, tag: string = "div") {
+    constructor(className: string, props: T, tag = "div") {
         this.element = document.createElement(tag);
         this.element.classList.add(className);
         this.props = props;
@@ -14,6 +14,11 @@ export abstract class BaseComponent<T> {
         // override in inheritors if needed
     }
 
-    protected render(): void {}
-    protected addListeners(): void {}
+    protected render(): void {
+        // render in inheritors if needed
+    }
+
+    protected addListeners(): void {
+        // addListeners in inheritors if needed
+    }
 }

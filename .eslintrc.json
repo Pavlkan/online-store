@@ -16,5 +16,6 @@
         "class-methods-use-this": "off",
         "@typescript-eslint/no-explicit-any": "error"
     },
-    "parser": "@typescript-eslint/parser"
+    "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["webpack.config.js"]
 }
