@@ -1,0 +1,21 @@
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: rgb(68, 185, 68);
+}
+
+.footer__developers-gitHub,
+.footer__RSS-logo,
+.footer__year {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer__developers-gitHub-link,
+.footer__RSS-logo-link {
+  cursor: pointer;
+  color: black;
+}
