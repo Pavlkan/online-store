@@ -31,6 +31,7 @@ module.exports = {
         },
         compress: true,
         port: 9000,
+        historyApiFallback: true,
     },
     plugins: [new HtmlWebpackPlugin({ template: path.resolve(__dirname, "src/index.html") })],
     mode: "development",

@@ -11,7 +11,6 @@ main.classList.add("main");
 const onlineStore: OnlineStore = new OnlineStore();
 
 const router = new Router(main, onlineStore);
-router.navigateTo("catalogPage");
 const headerController = new HeaderController();
 
 root.append(headerController.component.element, main);
