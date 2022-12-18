@@ -1,9 +1,7 @@
-// import { ProductCardController } from "../../../controller/ProductCardController";
 import { Product } from "../../../model/Product";
 import { BaseComponent } from "../../BaseComponent";
 
 interface ProductCardComponentProps {
-    // controller: ProductCardController;
     product: Product;
 }
 

@@ -1,6 +1,6 @@
 import { BaseController } from "../controller/BaseController";
 import { CatalogPageController } from "../controller/pages/CatalogPageController";
-import { OnlineStore } from "../model/OnlineStore"; //===============================
+import { OnlineStore } from "../model/OnlineStore"; 
 
 export class Router {
     private onlineStore: OnlineStore;
