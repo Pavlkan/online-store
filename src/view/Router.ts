@@ -1,18 +1,18 @@
 import { BaseController } from "../controller/BaseController";
-import { HeaderController } from "../controller/HeaderController";
+import { CatalogPageController } from "../controller/pages/CatalogPageController";
+import { OnlineStore } from "../model/OnlineStore"; 
 
 export class Router {
-    private onlineShop: unknown;
+    private onlineStore: OnlineStore;
     private pageMap: Map<string, () => BaseController>;
     private container: HTMLElement;
     private currentPage?: string;
     private pageController?: BaseController;
 
-    constructor(container: HTMLElement, onlineShop: unknown) {
+    constructor(container: HTMLElement, onlineStore: OnlineStore) {
         this.container = container;
-        this.onlineShop = onlineShop;
-        this.pageMap = new Map([["catalogPage", () => new HeaderController()]]);
-        // TODO change map to actual pages
+        this.onlineStore = onlineStore;
+        this.pageMap = new Map([["catalogPage", () => new CatalogPageController(this.onlineStore)]]);
     }
 
     public navigateTo(page: string) {
