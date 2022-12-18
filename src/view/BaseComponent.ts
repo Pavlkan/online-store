@@ -1,6 +1,6 @@
 export abstract class BaseComponent<T> {
     public element: HTMLElement;
-    private props: T;
+    protected props: T;
 
     constructor(className: string, props: T, tag = "div") {
         this.element = document.createElement(tag);
@@ -10,7 +10,7 @@ export abstract class BaseComponent<T> {
         this.addListeners();
     }
 
-    public beforeRemove() {
+    protected beforeRemove() {
         // override in inheritors if needed
     }
 
