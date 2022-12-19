@@ -1,3 +1,4 @@
+import { FooterController } from './controller/FooterController';
 import { HeaderController } from "./controller/HeaderController";
 import { OnlineStore } from "./model/OnlineStore";
 import "./styles.css";
@@ -14,5 +15,9 @@ const router = new Router(main, onlineStore);
 const headerController = new HeaderController();
 
 root.append(headerController.component.element, main);
+
+const footerController = new FooterController();
+
+root.append(footerController.component.element);
 
 document.body.append(root);
