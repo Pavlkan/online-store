@@ -1,4 +1,4 @@
-import { FooterController } from './controller/FooterController';
+import { FooterController } from "./controller/FooterController";
 import { HeaderController } from "./controller/HeaderController";
 import { OnlineStore } from "./model/OnlineStore";
 import "./styles.css";
@@ -11,7 +11,7 @@ main.classList.add("main");
 
 const onlineStore: OnlineStore = new OnlineStore();
 
-const router = new Router(main, onlineStore);
+new Router(main, onlineStore);
 const headerController = new HeaderController();
 
 root.append(headerController.component.element, main);

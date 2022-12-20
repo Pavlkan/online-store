@@ -1,17 +1,19 @@
 import { Product } from "../../../model/Product";
 import { BaseComponent } from "../../BaseComponent";
+import { Router } from "../../Router";
 import "./product-card.css";
 
 interface ProductCardComponentProps {
     product: Product;
+    router: Router;
 }
 
 export class ProductCardComponent extends BaseComponent<ProductCardComponentProps> {
     private choiceButton!: HTMLElement;
     private detailsButton!: HTMLElement;
 
-    constructor(product: Product) {
-        super("product-card", { product });
+    constructor(product: Product, router: Router) {
+        super("product-card", { product, router });
     }
 
     render() {
@@ -51,5 +53,18 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
         content.append(description, controls);
         this.element.append(title, content);
         this.element.style.background = `url('${this.props.product.thumbnail}') 0% 0% / cover`;
+    }
+
+    addListeners() {
+        this.element.addEventListener("click", (event): void => {
+            if (event.target instanceof HTMLElement) {
+                if (event.target === this.choiceButton) {
+                    console.log("btnclc");
+                    return;
+                }
+                console.log("click");
+                this.props.router.navigateTo(`product/${this.props.product.id}`);
+            }
+        });
     }
 }
