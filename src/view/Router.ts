@@ -1,5 +1,6 @@
 import { BaseController } from "../controller/BaseController";
 import { CatalogPageController } from "../controller/pages/CatalogPageController";
+import { ProductPageController } from "../controller/pages/ProductPageController";
 import { OnlineStore } from "../model/OnlineStore";
 
 export class Router {
@@ -12,24 +13,26 @@ export class Router {
     constructor(container: HTMLElement, onlineStore: OnlineStore) {
         this.container = container;
         this.onlineStore = onlineStore;
-        this.pageMap = new Map([["catalog", () => new CatalogPageController(this.onlineStore)]]);
+        this.pageMap = new Map<string, () => BaseController>([
+            ["catalog", () => new CatalogPageController(this.onlineStore, this)],
+            ["product", () => new ProductPageController(this.onlineStore, this)],
+        ]);
 
         const currentPage: string = this.getCurrentPage();
         this.navigateTo(currentPage);
+        this.onNavigation();
     }
 
     public navigateTo(page: string) {
-        if (!this.pageMap.has(page)) page = "catalog";
-        const factory = this.pageMap.get(page);
-        if (!factory || this.currentPage === page) return;
+        if (this.currentPage === page) return;
+        const factory = this.getControllerFactory(page);
 
+        this.updateUrl(page);
         this.pageController?.remove();
         this.pageController = factory();
         this.container.innerHTML = "";
         this.container.append(this.pageController.component.element);
         this.currentPage = page;
-
-        this.updateUrl(page);
     }
 
     public getSegments(): string[] {
@@ -37,11 +40,34 @@ export class Router {
     }
 
     private updateUrl(url: string): void {
-        window.history.pushState(null, "", url);
+        let pageInUrl = false;
+        for (const declaredPage of this.pageMap.keys()) {
+            if (url.includes(declaredPage)) pageInUrl = true;
+        }
+        if (!pageInUrl) {
+            url = "catalog";
+        }
+        if (url !== this.getCurrentPage()) window.history.pushState(null, "", url);
     }
 
     private getCurrentPage(): string {
         const segments: string[] = this.getSegments();
-        return segments[0] ?? "";
+        return segments.join("/");
+    }
+
+    private getControllerFactory(page: string): () => BaseController {
+        let pageToFind = "";
+        for (const declaredPage of this.pageMap.keys()) {
+            if (page.includes(declaredPage)) pageToFind = declaredPage;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.pageMap.get(pageToFind || "catalog")!;
+    }
+
+    private onNavigation(): void {
+        window.addEventListener("popstate", () => {
+            const currentPage: string = this.getCurrentPage();
+            this.navigateTo(currentPage);
+        });
     }
 }

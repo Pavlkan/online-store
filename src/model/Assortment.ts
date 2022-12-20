@@ -1920,6 +1920,10 @@ export class Assortment {
         return this.categories;
     }
 
+    public getProductById(id: number): Product | null {
+        return this.assortment.find((product: Product) => product.id === id) ?? null;
+    }
+
     private createCategories(): Categories {
         return this.getAssortment().reduce((categories: Categories, product: Product) => {
             const category: Product[] | undefined = categories.get(product.category);
