@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve",
+    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
     "build": "rimraf ./build && webpack",
     "lint": "eslint ./src",
     "format": "npx eslint ./src --fix"
