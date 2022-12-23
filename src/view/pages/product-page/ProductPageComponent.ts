@@ -1,11 +1,13 @@
 import { ProductPageController } from "../../../controller/pages/ProductPageController";
 import { Product } from "../../../model/Product";
 import { BaseComponent } from "../../BaseComponent";
+import { Router } from '../../Router';
 import './product-page-component.css';
 
 interface ProductPageComponentProps {
   controller: ProductPageController;
   product: Product;
+  router: Router;
 }
 
 export class ProductPageComponent extends BaseComponent<ProductPageComponentProps> {
@@ -15,8 +17,8 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   private productImages!: HTMLImageElement[];
   private navItemClickable!: HTMLParagraphElement;
 
-  constructor(controller: ProductPageController, product: Product) {
-    super("product-description-page", { controller, product });
+  constructor(controller: ProductPageController, product: Product, router: Router) {
+    super("product-description-page", { controller, product, router });
   }
 
   render(): void {
@@ -106,5 +108,16 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productCardData.append(productCardImagesContainer, productCardThumbnailContainer, productCardList, controls);
     this.productPageContainer.append(navContainer, productCardContainer);
     this.element.append(this.productPageContainer);
+  }
+
+  addListeners() {
+    this.element.addEventListener("click", (event): void => {
+      if (event.target instanceof HTMLParagraphElement) {
+        if (event.target === this.navItemClickable) {
+          console.log("STORE");
+          this.props.router.navigateTo(`catalog`);
+        }
+      }
+    });
   }
 }
