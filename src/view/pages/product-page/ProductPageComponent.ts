@@ -13,6 +13,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   private choiceButton!: HTMLButtonElement;
   private buyButton!: HTMLButtonElement;
   private productImages!: HTMLImageElement[];
+  private navItemClickable!: HTMLParagraphElement;
 
   constructor(controller: ProductPageController, product: Product) {
     super("product-description-page", { controller, product });
@@ -25,8 +26,12 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     const navContainer = document.createElement('div');
     navContainer.className = "nav-container";
 
+    this.navItemClickable = document.createElement('p');
+    this.navItemClickable.className = "nav-container__item_clickable";
+    this.navItemClickable.innerText = 'STORE';
+    navContainer.append(this.navItemClickable);
+
     navContainer.insertAdjacentHTML("beforeend", `
-          <p class="nav-container__item_clickable">STORE</p>
           <span> >> </span>
           <p class="nav-container__item">${this.props.product.category}</p>
           <span> >> </span>
@@ -35,7 +40,6 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
           <p class="nav-container__item">${this.props.product.title}</p>
         `
     );
-
     const productCardContainer = document.createElement('div');
     productCardContainer.className = "product-card-container";
 
