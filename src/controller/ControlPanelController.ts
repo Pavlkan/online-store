@@ -1,18 +1,22 @@
+import { OnlineStore } from "../model/OnlineStore";
 import { ControlPanelComponent } from "../view/components/control-panel/ControlPanelComponent";
 import { BaseController } from "./BaseController";
-import { CatalogPageController } from "./pages/CatalogPageController";
 
 export class ControlPanelController extends BaseController<ControlPanelComponent> {
     public component: ControlPanelComponent;
-    public controller: CatalogPageController;
 
-    constructor(controller: CatalogPageController) {
+    constructor(onlineStore: OnlineStore) {
         super();
-        this.controller = controller;
-        this.component = new ControlPanelComponent(this);
+        this.component = new ControlPanelComponent(this, onlineStore.getSorter());
     }
 
+    // TODO Move to view
     public changeProductCardsSize(size: string): void {
-        this.controller.changeProductCardsSize(size);
+        const cards = document.querySelectorAll(".product-card");
+        cards.forEach((product: Element): void => {
+            if (product.classList.contains(size)) return;
+            product.classList.remove("small", "big");
+            product.classList.add(size);
+        });
     }
 }

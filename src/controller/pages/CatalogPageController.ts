@@ -16,17 +16,8 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
         super();
         this.onlineStore = onlineStore;
         this.router = router;
-        this.controlPanel = new ControlPanelController(this);
+        this.controlPanel = new ControlPanelController(this.onlineStore);
         this.catalog = new CatalogController(onlineStore, this.router);
         this.component = new CatalogPageComponent(this, this.controlPanel.component, this.catalog.component);
-    }
-
-    public changeProductCardsSize(size: string): void {
-        const cards = document.querySelectorAll(".product-card");
-        cards.forEach((product: Element): void => {
-            if (product.classList.contains(size)) return;
-            product.classList.remove("small", "big");
-            product.classList.add(size);
-        });
     }
 }
