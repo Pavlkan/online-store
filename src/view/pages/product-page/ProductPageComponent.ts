@@ -118,7 +118,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
           this.props.router.navigateTo(`catalog`);
         }
       }
-      for (let image of this.productImages) {
+      for (const image of this.productImages) {
         if (event.target instanceof HTMLImageElement && (event.target === image)) {
           this.productCardThumbnail.src = image.src;
         }
