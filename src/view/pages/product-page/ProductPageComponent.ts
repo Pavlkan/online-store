@@ -121,6 +121,14 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
           this.productCardThumbnail.src = image.src;
         }
       }
+      if (event.target instanceof HTMLButtonElement && event.target === this.choiceButton) {
+        if (this.choiceButton.innerText === "ADD TO CART") {
+          this.choiceButton.innerText = "DROP FROM CART";
+        } else {
+          this.choiceButton.innerText = "ADD TO CART";
+        }
+        // TODO add logic for adding products to cart
+      }
     });
   }
 }
