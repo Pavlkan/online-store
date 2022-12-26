@@ -28,6 +28,10 @@ export class ControlPanelComponent extends BaseComponent<ControlPanelComponentPr
             this.sortOptions.append(optionElement);
         });
 
+        this.props.sorter.subscribe((optionValue: string) => {
+            this.sortOptions.children;
+        });
+
         this.sizeOptions = document.createElement("div");
         this.sizeOptions.classList.add("control-panel__size-options");
         const smallSize = document.createElement("button");
@@ -44,8 +48,17 @@ export class ControlPanelComponent extends BaseComponent<ControlPanelComponentPr
     protected addListeners(): void {
         this.sizeOptions.addEventListener("click", (event) => {
             if (event.target instanceof HTMLElement && event.target.id) {
-                this.props.controller.changeProductCardsSize(event.target.id);
+                this.changeProductCardsSize(event.target.id);
             }
+        });
+    }
+
+    private changeProductCardsSize(size: string): void {
+        const cards = document.querySelectorAll(".product-card");
+        cards.forEach((product: Element): void => {
+            if (product.classList.contains(size)) return;
+            product.classList.remove("small", "big");
+            product.classList.add(size);
         });
     }
 }
