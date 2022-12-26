@@ -1,4 +1,5 @@
 import { Assortment, Categories } from "./Assortment";
+import { Product } from "./Product";
 import { Sorter } from "./Sorter";
 
 export class OnlineStore {
@@ -16,6 +17,10 @@ export class OnlineStore {
 
     public getCategories(): Categories {
         return this.assortment.getCategories();
+    }
+
+    public getAssortment(): Product[] {
+        return this.assortment.getAssortment();
     }
 
     public getSorter(): Sorter {
