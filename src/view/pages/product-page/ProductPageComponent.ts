@@ -113,13 +113,11 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
 
   addListeners() {
     this.element.addEventListener("click", (event): void => {
-      if (event.target instanceof HTMLParagraphElement) {
-        if (event.target === this.navItemClickable) {
-          this.props.router.navigateTo(`catalog`);
-        }
+      if (event.target instanceof HTMLParagraphElement && event.target === this.navItemClickable) {
+        this.props.router.navigateTo(`catalog`);
       }
       for (const image of this.productImages) {
-        if (event.target instanceof HTMLImageElement && (event.target === image)) {
+        if (event.target instanceof HTMLImageElement && event.target === image) {
           this.productCardThumbnail.src = image.src;
         }
       }
