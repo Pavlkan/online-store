@@ -8,7 +8,6 @@
 .nav-container {
   display: flex;
   justify-content: space-evenly;
-  /* font-size: var(--font-common); */
   font-size: 1rem;
   font-weight: 500;
   gap: 1rem;
@@ -122,10 +121,10 @@
 
 .product-card-thumbnail-container {
   display: flex;
-  width: auto;
-  height: 12rem;
+  width: 33%;
+  max-height: 50%;
   border-radius: var(--border-radius-container);
-  border: var(--border-thick);
+  border: var(--border-thin);
   margin: auto;
 }
 
