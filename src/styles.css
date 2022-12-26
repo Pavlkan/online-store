@@ -98,7 +98,6 @@ h6 {
 }
 
 :root {
-
   --color-bg-outer: aliceblue;
   /* для бэкграунда под контейнерами */
   --color-bg-inner: rgb(193, 189, 189, 0.3);
@@ -114,6 +113,7 @@ h6 {
   --font-common: 1.4rem;
   --font-product-price: 1.8rem;
   --font-card-title: 1.5rem;
+
   --border-radius-container: 0.5rem;
   --border-thick: 1px solid var(--color-logo-border);
   --border-thin: 2px solid var(--color-logo-border);
@@ -121,7 +121,6 @@ h6 {
 
   --font-common-media-500px: 1.0rem;
 }
-
 
 .inner-container {
   display: flex;
@@ -142,5 +141,16 @@ h6 {
   background: var(--color-bg-footer-header);
   padding: 0.5rem;
   font-size: var(--font-card-title);
+  font-weight: 600;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  padding: 3% 5%;
+  border: var(--border-thin);
+  border-radius: 5px;
+  background: var(--color-bg-btn);
   font-weight: 600;
 }
