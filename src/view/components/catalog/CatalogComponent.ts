@@ -3,7 +3,7 @@ import { Categories } from "../../../model/Assortment";
 import { Product } from "../../../model/Product";
 import { BaseComponent } from "../../BaseComponent";
 import { Router } from "../../Router";
-import { ProductCardComponent } from "../productCardComponent/ProductCardComponent";
+import { ProductCardComponent } from "../productCard/ProductCardComponent";
 import "./catalog-component.css";
 
 interface CatalogComponentProps {
