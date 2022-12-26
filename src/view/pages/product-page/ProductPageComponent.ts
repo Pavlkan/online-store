@@ -97,11 +97,11 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productPrice.innerText = `$ ${this.props.product.price}`;
 
     this.choiceButton = document.createElement("button");
-    this.choiceButton.className = "product-card__choice-btn";
+    this.choiceButton.className = "product-card__choice-btn button";
     this.choiceButton.innerText = "ADD TO CART";
 
     this.buyButton = document.createElement("button");
-    this.buyButton.className = "product-card__buy-btn";
+    this.buyButton.className = "product-card__buy-btn button";
     this.buyButton.innerText = "BUY NOW";
 
     controls.append(productPrice, this.choiceButton, this.buyButton);
