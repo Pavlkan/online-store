@@ -15,6 +15,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   private choiceButton!: HTMLButtonElement;
   private buyButton!: HTMLButtonElement;
   private productImages!: HTMLImageElement[];
+  private productCardThumbnail!: HTMLImageElement;
   private navItemClickable!: HTMLParagraphElement;
 
   constructor(controller: ProductPageController, product: Product, router: Router) {
@@ -68,11 +69,11 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
 
     const productCardThumbnailContainer = document.createElement('div');
     productCardThumbnailContainer.className = "product-card-thumbnail-container";
-    const productCardThumbnail = document.createElement('img');
-    productCardThumbnail.className = "product-card__thumbnail_product-page";
-    productCardThumbnail.src = `${this.props.product.thumbnail}`;
-    productCardThumbnail.alt = 'Image of product';
-    productCardThumbnailContainer.append(productCardThumbnail);
+    this.productCardThumbnail = document.createElement('img');
+    this.productCardThumbnail.className = "product-card__thumbnail_product-page";
+    this.productCardThumbnail.src = `${this.props.product.thumbnail}`;
+    this.productCardThumbnail.alt = 'Image of product';
+    productCardThumbnailContainer.append(this.productCardThumbnail);
 
     const productCardList = document.createElement('div');
     productCardList.className = "product-card__list_product-page";
@@ -114,8 +115,12 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     this.element.addEventListener("click", (event): void => {
       if (event.target instanceof HTMLParagraphElement) {
         if (event.target === this.navItemClickable) {
-          console.log("STORE");
           this.props.router.navigateTo(`catalog`);
+        }
+      }
+      for (let image of this.productImages) {
+        if (event.target instanceof HTMLImageElement && (event.target === image)) {
+          this.productCardThumbnail.src = image.src;
         }
       }
     });
