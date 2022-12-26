@@ -24,7 +24,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
 
   render(): void {
     this.productPageContainer = document.createElement('div');
-    this.productPageContainer.className = "product-description-page-container";
+    this.productPageContainer.className = "product-description-page-container outer-container";
 
     const navContainer = document.createElement('div');
     navContainer.className = "nav-container";
@@ -44,10 +44,10 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
         `
     );
     const productCardContainer = document.createElement('div');
-    productCardContainer.className = "product-card-container";
+    productCardContainer.className = "product-card-container inner-container";
 
     const title = document.createElement("h4");
-    title.classList.add("product-card__title_product-page");
+    title.className = "product-card__title_product-page title";
     title.innerText = this.props.product.title;
 
     const productCardData = document.createElement('div');
