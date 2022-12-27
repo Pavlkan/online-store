@@ -8,6 +8,6 @@ export class CatalogController extends BaseController<CatalogComponent> {
 
     constructor(onlineStore: OnlineStore, router: Router) {
         super();
-        this.component = new CatalogComponent(this, onlineStore.getAssortment(), router);
+        this.component = new CatalogComponent(this, onlineStore.getSelection(), router);
     }
 }
