@@ -28,4 +28,11 @@ export class ControlPanelController extends BaseController<ControlPanelComponent
             this.sizerController.component.element
         );
     }
+
+    public remove(): void {
+        this.sorterController.remove();
+        this.counterOfFindsController.remove();
+        this.searcherController.remove();
+        this.sizerController.remove();
+    }
 }

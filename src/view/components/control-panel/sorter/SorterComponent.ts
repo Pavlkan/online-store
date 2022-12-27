@@ -8,11 +8,17 @@ interface SorterComponentProps {
 }
 
 export class SorterComponent extends BaseComponent<SorterComponentProps> {
+    private sorterSubscriptionId!: number;
+
     constructor(controller: SorterController, sorter: Sorter) {
         super("control-panel__select-options", { controller, sorter }, "select");
     }
 
-    render() {
+    public beforeRemove(): void {
+        this.props.sorter.unsubscribe(this.sorterSubscriptionId);
+    }
+
+    protected render() {
         this.props.sorter.getOptions().forEach((option) => {
             const optionElement = document.createElement("option");
             optionElement.innerText = option;
@@ -21,9 +27,22 @@ export class SorterComponent extends BaseComponent<SorterComponentProps> {
             this.element.append(optionElement);
         });
 
-        // TODO realize subscription
-        this.props.sorter.subscribe(() => {
-            this.element.children;
+        this.subscribeOnSortOption();
+    }
+
+    protected addListeners(): void {
+        this.element.addEventListener("change", () => {
+            this.props.controller.sort((this.element as HTMLSelectElement).value);
+        });
+    }
+
+    private subscribeOnSortOption(): void {
+        this.sorterSubscriptionId = this.props.sorter.subscribe((sortOption: string) => {
+            const options = this.element.children;
+            for (let i = 0; i < options.length; i++) {
+                const selected = (options[i] as HTMLOptionElement).value === sortOption;
+                (options[i] as HTMLOptionElement).selected = selected;
+            }
         });
     }
 }

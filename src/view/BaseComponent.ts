@@ -10,7 +10,7 @@ export abstract class BaseComponent<T> {
         this.addListeners();
     }
 
-    protected beforeRemove() {
+    public beforeRemove() {
         // override in inheritors if needed
     }
 

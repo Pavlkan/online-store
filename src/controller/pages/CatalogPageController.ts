@@ -20,4 +20,8 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
         this.catalog = new CatalogController(onlineStore, this.router);
         this.component = new CatalogPageComponent(this, this.controlPanel.component, this.catalog.component);
     }
+
+    public remove(): void {
+        this.controlPanel.remove();
+    }
 }
