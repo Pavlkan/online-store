@@ -8,12 +8,18 @@ interface CounterOfFindsComponentProps {
 }
 
 export class CounterOfFindsComponent extends BaseComponent<CounterOfFindsComponentProps> {
+    private counterSubscriptionId!: number;
+
     constructor(controller: CounterOfFindsController, counterOfFinds: CounterOfFinds) {
         super("control-panel__counter", { controller, counterOfFinds });
     }
 
+    public beforeRemove(): void {
+        this.props.counterOfFinds.unsubscribe(this.counterSubscriptionId);
+    }
+
     protected render() {
-        this.props.counterOfFinds.subscribe((counter) => {
+        this.counterSubscriptionId = this.props.counterOfFinds.subscribe((counter) => {
             this.element.innerText = `Found: ${counter}`;
         });
     }

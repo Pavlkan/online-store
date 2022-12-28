@@ -10,4 +10,8 @@ export class CounterOfFindsController extends BaseController<CounterOfFindsCompo
         super();
         this.component = new CounterOfFindsComponent(this, counterOfFinds);
     }
+
+    public remove(): void {
+        this.component.beforeRemove();
+    }
 }
