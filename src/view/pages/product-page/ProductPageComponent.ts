@@ -1,6 +1,6 @@
-import { ProductPageController } from "../../../controller/pages/ProductPageController";
-import { Product } from "../../../model/Product";
-import { BaseComponent } from "../../BaseComponent";
+import { ProductPageController } from '../../../controller/pages/ProductPageController';
+import { Product } from '../../../model/Product';
+import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
 import './product-page-component.css';
 
@@ -19,22 +19,22 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   private navItemClickable!: HTMLParagraphElement;
 
   constructor(controller: ProductPageController, product: Product, router: Router) {
-    super("product-description-page", { controller, product, router });
+    super('product-description-page', { controller, product, router }, 'div');
   }
 
   render(): void {
     this.productPageContainer = document.createElement('div');
-    this.productPageContainer.className = "product-description-page-container outer-container";
+    this.productPageContainer.className = 'product-description-page-container outer-container';
 
     const navContainer = document.createElement('div');
-    navContainer.className = "nav-container";
+    navContainer.className = 'nav-container';
 
     this.navItemClickable = document.createElement('p');
-    this.navItemClickable.className = "nav-container__item_clickable";
+    this.navItemClickable.className = 'nav-container__item_clickable';
     this.navItemClickable.innerText = 'STORE';
     navContainer.append(this.navItemClickable);
 
-    navContainer.insertAdjacentHTML("beforeend", `
+    navContainer.insertAdjacentHTML('beforeend', `
           <span> >> </span>
           <p class="nav-container__item">${this.props.product.category}</p>
           <span> >> </span>
@@ -44,21 +44,21 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
         `
     );
     const productCardContainer = document.createElement('div');
-    productCardContainer.className = "product-card-container inner-container";
+    productCardContainer.className = 'product-card-container inner-container';
 
-    const title = document.createElement("h4");
-    title.className = "product-card__title_product-page title";
+    const title = document.createElement('h4');
+    title.className = 'product-card__title_product-page title';
     title.innerText = this.props.product.title;
 
     const productCardData = document.createElement('div');
-    productCardData.className = "product-card__data";
+    productCardData.className = 'product-card__data';
 
     const productCardImagesContainer = document.createElement('div');
-    productCardImagesContainer.className = "product-card__images-container";
+    productCardImagesContainer.className = 'product-card__images-container';
 
-    this.productImages = this.props.product.images.map(source => {
+    this.productImages = this.props.product.images.map((source) => {
       const image = document.createElement('img');
-      image.className = "product-card__image";
+      image.className = 'product-card__image';
       image.src = source;
       image.alt = 'Image of product';
 
@@ -68,15 +68,15 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productCardImagesContainer.append(...this.productImages);
 
     const productCardThumbnailContainer = document.createElement('div');
-    productCardThumbnailContainer.className = "product-card-thumbnail-container";
+    productCardThumbnailContainer.className = 'product-card-thumbnail-container';
     this.productCardThumbnail = document.createElement('img');
-    this.productCardThumbnail.className = "product-card__thumbnail_product-page";
+    this.productCardThumbnail.className = 'product-card__thumbnail_product-page';
     this.productCardThumbnail.src = `${this.props.product.thumbnail}`;
     this.productCardThumbnail.alt = 'Image of product';
     productCardThumbnailContainer.append(this.productCardThumbnail);
 
     const productCardList = document.createElement('div');
-    productCardList.className = "product-card__list_product-page";
+    productCardList.className = 'product-card__list_product-page';
 
     productCardList.insertAdjacentHTML('beforeend', `
         <div class="product-title__content">
@@ -89,20 +89,20 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
         </div>`
     );
 
-    const controls = document.createElement("div");
-    controls.className = "product-card__btns";
+    const controls = document.createElement('div');
+    controls.className = 'product-card__btns';
 
-    const productPrice = document.createElement("div");
-    productPrice.className = "product-card__price";
+    const productPrice = document.createElement('div');
+    productPrice.className = 'product-card__price';
     productPrice.innerText = `$ ${this.props.product.price}`;
 
-    this.choiceButton = document.createElement("button");
-    this.choiceButton.className = "product-card__choice-btn button";
-    this.choiceButton.innerText = "ADD TO CART";
+    this.choiceButton = document.createElement('button');
+    this.choiceButton.className = 'product-card__choice-btn button';
+    this.choiceButton.innerText = 'ADD TO CART';
 
-    this.buyButton = document.createElement("button");
-    this.buyButton.className = "product-card__buy-btn button";
-    this.buyButton.innerText = "BUY NOW";
+    this.buyButton = document.createElement('button');
+    this.buyButton.className = 'product-card__buy-btn button';
+    this.buyButton.innerText = 'BUY NOW';
 
     controls.append(productPrice, this.choiceButton, this.buyButton);
     productCardContainer.append(title, productCardData);
@@ -112,7 +112,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   }
 
   addListeners() {
-    this.element.addEventListener("click", (event): void => {
+    this.element.addEventListener('click', (event): void => {
       if (event.target instanceof HTMLParagraphElement && event.target === this.navItemClickable) {
         this.props.router.navigateTo(`catalog`);
       }
@@ -122,10 +122,10 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
         }
       }
       if (event.target instanceof HTMLButtonElement && event.target === this.choiceButton) {
-        if (this.choiceButton.innerText === "ADD TO CART") {
-          this.choiceButton.innerText = "DROP FROM CART";
+        if (this.choiceButton.innerText === 'ADD TO CART') {
+          this.choiceButton.innerText = 'DROP FROM CART';
         } else {
-          this.choiceButton.innerText = "ADD TO CART";
+          this.choiceButton.innerText = 'ADD TO CART';
         }
         // TODO add logic for adding products to cart
       }
