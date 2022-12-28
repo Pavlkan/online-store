@@ -42,7 +42,6 @@ export class Selection extends Observable<Product[]> {
         const searchedProducts = this.searcher.search(this.assortment.getAssortment());
         const sortedProducts = this.sorter.sort(searchedProducts);
         this.notify(sortedProducts);
-        this.searcher.notify(this.searcher.getData());
         this.counterOfFinds.notify(this.counterOfFinds.count(sortedProducts));
     }
 }
