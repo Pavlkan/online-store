@@ -3,7 +3,7 @@ type Subscriber<Data> = (data: Data) => void;
 type Mapper<Input, Output> = (input: Input) => Output;
 
 export class Observable<Data> {
-    private data: Data;
+    protected data: Data;
     private subscribers: Subscribers<Data, unknown> = new Map();
     private lastId = 0;
 
