@@ -4,7 +4,6 @@ import { BaseController } from "./BaseController";
 
 export class CounterOfFindsController extends BaseController<CounterOfFindsComponent> {
     public component: CounterOfFindsComponent;
-    private counterOfFinds!: CounterOfFinds;
 
     constructor(counterOfFinds: CounterOfFinds) {
         super();

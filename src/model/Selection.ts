@@ -18,22 +18,31 @@ export class Selection extends Observable<Product[]> {
         this.counterOfFinds = counterOfFinds;
         this.searcher = searcher;
 
+        this.subscribeOnControlPanel();
+    }
+
+    private subscribeOnControlPanel() {
         this.subscribeOnSearch();
         this.subscribeOnSorter();
     }
 
     private subscribeOnSearch(): void {
         this.searcher.subscribe(() => {
-            const searchedProducts = this.searcher.search(this.assortment.getAssortment());
-            this.notify(searchedProducts);
-            this.counterOfFinds.notify(this.counterOfFinds.count(searchedProducts));
+            this.realizeSubscription();
         });
     }
 
     private subscribeOnSorter(): void {
         this.sorter.subscribe(() => {
-            const sortedProducts = this.sorter.sort(this.assortment.getAssortment());
-            this.notify(sortedProducts);
+            this.realizeSubscription();
         });
+    }
+
+    private realizeSubscription(): void {
+        const searchedProducts = this.searcher.search(this.assortment.getAssortment());
+        const sortedProducts = this.sorter.sort(searchedProducts);
+        this.notify(sortedProducts);
+        this.searcher.notify(this.searcher.getData());
+        this.counterOfFinds.notify(this.counterOfFinds.count(sortedProducts));
     }
 }
