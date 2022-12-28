@@ -1,8 +1,8 @@
-import { OnlineStore } from "../../model/OnlineStore";
-import { Product } from "../../model/Product";
-import { ProductPageComponent } from "../../view/pages/product-page/ProductPageComponent";
-import { Router } from "../../view/Router";
-import { BaseController } from "../BaseController";
+import { OnlineStore } from '../../model/OnlineStore';
+import { Product } from '../../model/Product';
+import { ProductPageComponent } from '../../view/pages/product-page/ProductPageComponent';
+import { Router } from '../../view/Router';
+import { BaseController } from '../BaseController';
 
 export class ProductPageController extends BaseController<ProductPageComponent> {
   public component: ProductPageComponent;
