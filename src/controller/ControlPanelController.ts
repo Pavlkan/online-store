@@ -16,7 +16,7 @@ export class ControlPanelController extends BaseController<ControlPanelComponent
     constructor(onlineStore: OnlineStore) {
         super();
         this.sorterController = new SorterController(onlineStore.getSorter());
-        this.counterOfFindsController = new CounterOfFindsController();
+        this.counterOfFindsController = new CounterOfFindsController(onlineStore.getCounterOfFinds());
         this.searcherController = new SearcherController(onlineStore.getSearcher());
         this.sizerController = new SizerController();
         this.component = new ControlPanelComponent(
