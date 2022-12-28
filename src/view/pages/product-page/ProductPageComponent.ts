@@ -2,7 +2,7 @@ import { ProductPageController } from '../../../controller/pages/ProductPageCont
 import { Product } from '../../../model/Product';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
-import './product-page-component.css';
+import './product-page.css';
 
 interface ProductPageComponentProps {
   controller: ProductPageController;
@@ -47,18 +47,18 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productCardContainer.className = 'product-card-container inner-container';
 
     const title = document.createElement('h4');
-    title.className = 'product-card__title_product-page title';
+    title.className = 'description-page-product-card__title title';
     title.innerText = this.props.product.title;
 
-    const productCardData = document.createElement('div');
-    productCardData.className = 'product-card__data';
+    const productCardDetails = document.createElement('div');
+    productCardDetails.className = 'description-page-product-card__details';
 
     const productCardImagesContainer = document.createElement('div');
-    productCardImagesContainer.className = 'product-card__images-container';
+    productCardImagesContainer.className = 'description-page-description-page-product-card__images-container';
 
     this.productImages = this.props.product.images.map((source) => {
       const image = document.createElement('img');
-      image.className = 'product-card__image';
+      image.className = 'description-page-product-card__image';
       image.src = source;
       image.alt = 'Image of product';
 
@@ -68,45 +68,45 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productCardImagesContainer.append(...this.productImages);
 
     const productCardThumbnailContainer = document.createElement('div');
-    productCardThumbnailContainer.className = 'product-card-thumbnail-container';
+    productCardThumbnailContainer.className = 'description-page-product-card-thumbnail-container';
     this.productCardThumbnail = document.createElement('img');
-    this.productCardThumbnail.className = 'product-card__thumbnail_product-page';
+    this.productCardThumbnail.className = 'description-page-product-card__thumbnail';
     this.productCardThumbnail.src = `${this.props.product.thumbnail}`;
     this.productCardThumbnail.alt = 'Image of product';
     productCardThumbnailContainer.append(this.productCardThumbnail);
 
     const productCardList = document.createElement('div');
-    productCardList.className = 'product-card__list_product-page';
+    productCardList.className = 'description-page-product-card__list';
 
     productCardList.insertAdjacentHTML('beforeend', `
-        <div class="product-title__content">
-          <p class="description__item_product-page">Description: ${this.props.product.description}</p>
-          <p class="description__item_product-page">Discount: ${this.props.product.discountPercentage}</p>
-          <p class="description__item_product-page">Rating: ${this.props.product.rating}</p>
-          <p class="description__item_product-page">Stock: ${this.props.product.stock}</p>
-          <p class="description__item_product-page">Brand: ${this.props.product.brand}</p>
-          <p class="description__item_product-page">Category: ${this.props.product.category}</p>
+        <div class="product-card-list__content">
+          <p class="description-page-description__item">Description: ${this.props.product.description}</p>
+          <p class="description-page-description__item">Discount: ${this.props.product.discountPercentage}</p>
+          <p class="description-page-description__item">Rating: ${this.props.product.rating}</p>
+          <p class="description-page-description__item">Stock: ${this.props.product.stock}</p>
+          <p class="description-page-description__item">Brand: ${this.props.product.brand}</p>
+          <p class="description-page-description__item">Category: ${this.props.product.category}</p>
         </div>`
     );
 
     const controls = document.createElement('div');
-    controls.className = 'product-card__btns';
+    controls.className = 'description-page-product-card-controls';
 
     const productPrice = document.createElement('div');
-    productPrice.className = 'product-card__price';
+    productPrice.className = 'description-page-product-card__price';
     productPrice.innerText = `$ ${this.props.product.price}`;
 
     this.choiceButton = document.createElement('button');
-    this.choiceButton.className = 'product-card__choice-btn button';
+    this.choiceButton.className = 'description-page-product-card__choice-btn button';
     this.choiceButton.innerText = 'ADD TO CART';
 
     this.buyButton = document.createElement('button');
-    this.buyButton.className = 'product-card__buy-btn button';
+    this.buyButton.className = 'description-page-product-card__buy-btn button';
     this.buyButton.innerText = 'BUY NOW';
 
     controls.append(productPrice, this.choiceButton, this.buyButton);
-    productCardContainer.append(title, productCardData);
-    productCardData.append(productCardImagesContainer, productCardThumbnailContainer, productCardList, controls);
+    productCardContainer.append(title, productCardDetails);
+    productCardDetails.append(productCardImagesContainer, productCardThumbnailContainer, productCardList, controls);
     this.productPageContainer.append(navContainer, productCardContainer);
     this.element.append(this.productPageContainer);
   }
