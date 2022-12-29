@@ -108,16 +108,18 @@ h6 {
   --color-font-btn: rgb(47, 50, 52);
   --color-price: rgb(51, 53, 54);
 
-  --font-logo: 3.0rem;
+  --font-logo: 2.0rem;
   --font-card-description: 0.8rem;
   --font-common: 1.4rem;
   --font-product-price: 1.8rem;
   --font-card-title: 1.5rem;
 
   --border-radius-container: 0.5rem;
+  --border-radius-footer-header: 1.5rem;
   --border-thick: 1px solid var(--color-logo-border);
   --border-thin: 2px solid var(--color-logo-border);
 
+  --text-shadow: 0 0 10px rgb(71 125 178), 0 0 20px rgb(6 87 119), 0 0 30px rgb(242 246 247), 0 0 40px rgb(11 79 106);
   --font-common-media-500px: 1.0rem;
 }
 
