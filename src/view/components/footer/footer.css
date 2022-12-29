@@ -2,8 +2,12 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  background-color: rgb(68, 185, 68);
+  border-radius: var(--border-radius-footer-header) var(--border-radius-footer-header) 0 0;
+  border-top: var(--border-thin);
+  background-color: var(--color-bg-footer-header);
+  padding: 1.0%;
+  text-shadow: var(--text-shadow);
+  color: var(--color-logo-border);
 }
 
 .footer__developers-gitHub,
@@ -12,10 +16,11 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  gap: 0.5rem;
 }
 
 .footer__developers-gitHub-link,
 .footer__RSS-logo-link {
   cursor: pointer;
-  color: black;
+  color: var(--color-logo-border);
 }
