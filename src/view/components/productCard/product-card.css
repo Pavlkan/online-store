@@ -8,7 +8,18 @@
     border: 1px solid red;
     border-radius: 5px;
 
-    /* background-size: cover; */
+    transition: 0.1s;
+}
+
+.product-card.small {
+    width: 14%;
+    margin: 0.5%;
+}
+
+.product-card.small button {
+    padding: 2% 4%;
+
+    font-size: 0.8rem;
 }
 
 .product-card__title {

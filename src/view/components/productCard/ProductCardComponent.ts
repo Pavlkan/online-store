@@ -16,7 +16,7 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
         super("product-card", { product, router });
     }
 
-    render() {
+    protected render() {
         const title = document.createElement("h4");
         title.classList.add("product-card__title");
         title.innerText = this.props.product.title;

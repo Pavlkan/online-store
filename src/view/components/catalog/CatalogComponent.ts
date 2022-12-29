@@ -1,35 +1,43 @@
 import { CatalogController } from "../../../controller/CatalogController";
-import { Categories } from "../../../model/Assortment";
 import { Product } from "../../../model/Product";
+import { Selection } from "../../../model/Selection";
 import { BaseComponent } from "../../BaseComponent";
 import { Router } from "../../Router";
-import { ProductCardComponent } from "../productCardComponent/ProductCardComponent";
+import { ProductCardComponent } from "../productCard/ProductCardComponent";
 import "./catalog-component.css";
 
 interface CatalogComponentProps {
     controller: CatalogController;
-    categories: Categories;
+    selection: Selection;
     router: Router;
+    cardComponents: ProductCardComponent[];
 }
 
 export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
-    constructor(controller: CatalogController, categories: Categories, router: Router) {
-        super("catalog", { controller, categories, router }, "dev");
+    private subscriptionSelectionId!: number;
+
+    constructor(controller: CatalogController, selection: Selection, router: Router) {
+        super("catalog", { controller, selection, router, cardComponents: [] });
     }
 
-    render() {
-        for (const category of this.props.categories.keys()) {
-            this.createCategoryComponent(category).forEach((productCard) => {
-                this.element.append(productCard.element);
-            });
-        }
-        // TODO Use assortment arr instead of categories
+    public beforeRemove(): void {
+        this.props.selection.unsubscribe(this.subscriptionSelectionId);
     }
 
-    private createCategoryComponent(category: string): ProductCardComponent[] {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.props.categories.get(category)!.map((product: Product): ProductCardComponent => {
-            return new ProductCardComponent(product, this.props.router);
+    protected render() {
+        this.subscriptionSelectionId = this.props.selection.subscribe((products: Product[]): void => {
+            this.renderCategoryComponents(products);
+        });
+    }
+
+    private renderCategoryComponents(products: Product[]): void {
+        this.props.cardComponents.forEach((component: ProductCardComponent) => component.beforeRemove());
+        this.element.innerHTML = "";
+        this.props.cardComponents = products.map(
+            (product: Product) => new ProductCardComponent(product, this.props.router)
+        );
+        this.props.cardComponents.forEach((component: ProductCardComponent): void => {
+            this.element.append(component.element);
         });
     }
 }

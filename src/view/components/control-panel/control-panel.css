@@ -1,0 +1,13 @@
+.control-panel {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.control-panel__size-options {
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
