@@ -1,5 +1,7 @@
 import { Assortment, Categories } from "./Assortment";
+import { CategoryFilter } from "./CategoryFilter";
 import { CounterOfFinds } from "./CounterOfFinds";
+import { Filters } from "./Filters";
 import { Product } from "./Product";
 import { Searcher } from "./Searcher";
 import { Selection } from "./Selection";
@@ -10,6 +12,8 @@ export class OnlineStore {
     private sorter: Sorter;
     private counterOfFinds: CounterOfFinds;
     private searcher: Searcher;
+    private filters: Filters;
+    private categoryFilter: CategoryFilter;
     private selection: Selection;
 
     constructor() {
@@ -17,7 +21,11 @@ export class OnlineStore {
         this.sorter = new Sorter();
         this.counterOfFinds = new CounterOfFinds(this.assortment);
         this.searcher = new Searcher();
-        this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher);
+
+        this.categoryFilter = new CategoryFilter(this.assortment);
+        this.filters = new Filters(this.assortment, this.categoryFilter);
+
+        this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher, this.filters);
     }
 
     public getProductById(id: number) {
@@ -46,5 +54,13 @@ export class OnlineStore {
 
     public getSelection(): Selection {
         return this.selection;
+    }
+
+    public getFilters() {
+        return this.filters;
+    }
+
+    public getCategoryFilter(): CategoryFilter {
+        return this.filters.getCategoryFilter();
     }
 }

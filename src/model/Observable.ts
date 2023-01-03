@@ -20,13 +20,13 @@ export class Observable<Data> {
         return this.lastId++;
     }
 
-    notify(data: Data) {
+    notify(data: Data, compare = true) {
         const prevData = this.data;
         this.data = data;
         this.subscribers.forEach(([mapper, cb]) => {
             const newResult = mapper(this.data);
             const lastResult = mapper(prevData);
-            if (newResult !== lastResult) {
+            if (!compare || newResult !== lastResult) {
                 cb(newResult);
             }
         });
