@@ -34,7 +34,9 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     this.navItemClickable.innerText = 'STORE';
     navContainer.append(this.navItemClickable);
 
-    navContainer.insertAdjacentHTML('beforeend', `
+    navContainer.insertAdjacentHTML(
+      'beforeend',
+      `
           <span> >> </span>
           <p class="nav-container__item">${this.props.product.category}</p>
           <span> >> </span>
@@ -78,7 +80,9 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     const productCardList = document.createElement('div');
     productCardList.className = 'description-page-product-card__list';
 
-    productCardList.insertAdjacentHTML('beforeend', `
+    productCardList.insertAdjacentHTML(
+      'beforeend',
+      `
         <div class="product-card-list__content">
           <p class="description-page-description__item">Description: ${this.props.product.description}</p>
           <p class="description-page-description__item">Discount: ${this.props.product.discountPercentage}</p>
@@ -128,6 +132,10 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
           this.choiceButton.innerText = 'ADD TO CART';
         }
         // TODO add logic for adding products to cart
+      }
+      if (event.target instanceof HTMLButtonElement && event.target === this.buyButton) {
+        console.log('buyButton');
+        this.props.router.navigateTo(`cart/`);
       }
     });
   }
