@@ -1,0 +1,11 @@
+.filters__category, .filters__brand {
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filters__label {
+    display: flex;
+    flex-direction: row-reverse;
+}

@@ -1,19 +1,21 @@
-import { Assortment, Categories } from "./Assortment";
-import { CategoryFilter } from "./CategoryFilter";
-import { CounterOfFinds } from "./CounterOfFinds";
-import { Filters } from "./Filters";
-import { Product } from "./Product";
-import { Searcher } from "./Searcher";
-import { Selection } from "./Selection";
-import { Sorter } from "./Sorter";
+import { Assortment, Categories } from './Assortment';
+import { BrandFilter } from './BrandFilter';
+import { CategoryFilter } from './CategoryFilter';
+import { CounterOfFinds } from './CounterOfFinds';
+import { Filters } from './Filters';
+import { Product } from './Product';
+import { Searcher } from './Searcher';
+import { Selection } from './Selection';
+import { Sorter } from './Sorter';
 
 export class OnlineStore {
     private assortment: Assortment;
     private sorter: Sorter;
     private counterOfFinds: CounterOfFinds;
     private searcher: Searcher;
-    private filters: Filters;
     private categoryFilter: CategoryFilter;
+    private brandFilter: BrandFilter;
+    private filters: Filters;
     private selection: Selection;
 
     constructor() {
@@ -23,7 +25,8 @@ export class OnlineStore {
         this.searcher = new Searcher();
 
         this.categoryFilter = new CategoryFilter(this.assortment);
-        this.filters = new Filters(this.assortment, this.categoryFilter);
+        this.brandFilter = new BrandFilter(this.assortment);
+        this.filters = new Filters(this.categoryFilter, this.brandFilter);
 
         this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher, this.filters);
     }
@@ -61,6 +64,10 @@ export class OnlineStore {
     }
 
     public getCategoryFilter(): CategoryFilter {
-        return this.filters.getCategoryFilter();
+        return this.categoryFilter;
+    }
+
+    public getBrandFilter(): BrandFilter {
+        return this.brandFilter;
     }
 }
