@@ -4,11 +4,13 @@ import { Router } from "../../view/Router";
 import { BaseController } from "../BaseController";
 import { CatalogController } from "../CatalogController";
 import { ControlPanelController } from "../ControlPanelController";
+import { FiltersPanelController } from "../filters/FiltersPanelController";
 
 export class CatalogPageController extends BaseController<CatalogPageComponent> {
     public component: CatalogPageComponent;
     public onlineStore: OnlineStore;
     public router: Router;
+    public filtersPanel: FiltersPanelController;
     public catalog: CatalogController;
     public controlPanel: ControlPanelController;
 
@@ -16,9 +18,15 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
         super();
         this.onlineStore = onlineStore;
         this.router = router;
+        this.filtersPanel = new FiltersPanelController(onlineStore.getCategoryFilter());
         this.controlPanel = new ControlPanelController(this.onlineStore);
         this.catalog = new CatalogController(onlineStore, this.router);
-        this.component = new CatalogPageComponent(this, this.controlPanel.component, this.catalog.component);
+        this.component = new CatalogPageComponent(
+            this,
+            this.filtersPanel.component,
+            this.controlPanel.component,
+            this.catalog.component
+        );
     }
 
     public remove(): void {
