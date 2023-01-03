@@ -135,7 +135,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
       }
       if (event.target instanceof HTMLButtonElement && event.target === this.buyButton) {
         console.log('buyButton');
-        this.props.router.navigateTo(`cart/`);
+        this.props.router.navigateTo("cart");
       }
     });
   }
