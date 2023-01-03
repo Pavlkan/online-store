@@ -1,4 +1,5 @@
 import { BaseController } from "../controller/BaseController";
+import { CartPageController } from '../controller/pages/CartPageController';
 import { CatalogPageController } from "../controller/pages/CatalogPageController";
 import { ProductPageController } from "../controller/pages/ProductPageController";
 import { OnlineStore } from "../model/OnlineStore";
@@ -16,6 +17,7 @@ export class Router {
         this.pageMap = new Map<string, () => BaseController>([
             ["catalog", () => new CatalogPageController(this.onlineStore, this)],
             ["product", () => new ProductPageController(this.onlineStore, this)],
+            ["cart", () => new CartPageController(this.onlineStore, this)],
         ]);
 
         const currentPage: string = this.getCurrentPage();
