@@ -19,7 +19,12 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
         this.onlineStore = onlineStore;
         this.router = router;
         this.controlPanel = new ControlPanelController(this.onlineStore);
-        this.filtersPanel = new FiltersPanelController(onlineStore.getCategoryFilter(), onlineStore.getBrandFilter());
+        this.filtersPanel = new FiltersPanelController(
+            onlineStore.getCategoryFilter(),
+            onlineStore.getBrandFilter(),
+            onlineStore.getPriceFilter(),
+            onlineStore.getStockFilter()
+        );
         this.catalog = new CatalogController(onlineStore, this.router);
         this.component = new CatalogPageComponent(
             this,
