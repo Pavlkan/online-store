@@ -1,5 +1,5 @@
 import { BaseController } from "../controller/BaseController";
-import { CartPageController } from '../controller/pages/CartPageController';
+import { CartPageController } from "../controller/pages/CartPageController";
 import { CatalogPageController } from "../controller/pages/CatalogPageController";
 import { ProductPageController } from "../controller/pages/ProductPageController";
 import { OnlineStore } from "../model/OnlineStore";
