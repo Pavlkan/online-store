@@ -1,10 +1,10 @@
-import { OnlineStore } from "../../model/OnlineStore";
-import { CatalogPageComponent } from "../../view/pages/catalog-page/CatalogPageComponent";
-import { Router } from "../../view/Router";
-import { BaseController } from "../BaseController";
-import { CatalogController } from "../CatalogController";
-import { ControlPanelController } from "../ControlPanelController";
-import { FiltersPanelController } from "../filters/FiltersPanelController";
+import { OnlineStore } from '../../model/OnlineStore';
+import { CatalogPageComponent } from '../../view/pages/catalog-page/CatalogPageComponent';
+import { Router } from '../../view/Router';
+import { BaseController } from '../BaseController';
+import { CatalogController } from '../CatalogController';
+import { ControlPanelController } from '../ControlPanelController';
+import { FiltersPanelController } from '../filters/FiltersPanelController';
 
 export class CatalogPageController extends BaseController<CatalogPageComponent> {
     public component: CatalogPageComponent;
@@ -18,8 +18,13 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
         super();
         this.onlineStore = onlineStore;
         this.router = router;
-        this.filtersPanel = new FiltersPanelController(onlineStore.getCategoryFilter());
         this.controlPanel = new ControlPanelController(this.onlineStore);
+        this.filtersPanel = new FiltersPanelController(
+            onlineStore.getCategoryFilter(),
+            onlineStore.getBrandFilter(),
+            onlineStore.getPriceFilter(),
+            onlineStore.getStockFilter()
+        );
         this.catalog = new CatalogController(onlineStore, this.router);
         this.component = new CatalogPageComponent(
             this,
@@ -31,5 +36,6 @@ export class CatalogPageController extends BaseController<CatalogPageComponent> 
 
     public remove(): void {
         this.controlPanel.remove();
+        this.filtersPanel.remove();
     }
 }

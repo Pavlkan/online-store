@@ -1,10 +1,10 @@
-import { Assortment } from "./Assortment";
-import { Observable } from "./Observable";
-import { Product } from "./Product";
+import { Assortment } from '../Assortment';
+import { Observable } from '../Observable';
+import { Product } from '../Product';
 
-export type CategoryFilterData = Map<string, boolean>;
+export type BrandFilterData = Map<string, boolean>;
 
-export class CategoryFilter extends Observable<CategoryFilterData> {
+export class BrandFilter extends Observable<BrandFilterData> {
     private assortment: Assortment;
 
     constructor(assortment: Assortment) {
@@ -17,20 +17,20 @@ export class CategoryFilter extends Observable<CategoryFilterData> {
     public filter(products: Product[]): Product[] {
         if (!this.isTouched()) return products;
         return products.filter((product: Product) => {
-            return this.getData().get(product.category);
+            return this.getData().get(product.brand);
         });
     }
 
-    public updateFilter(category: string, selected: boolean): void {
-        const filter: CategoryFilterData = new Map(this.getData());
-        filter.set(category, selected);
+    public updateFilter(brand: string, selected: boolean): void {
+        const filter: BrandFilterData = new Map(this.getData());
+        filter.set(brand, selected);
         this.notify(filter);
     }
 
     private initializeFilter(): void {
-        const filter: CategoryFilterData = new Map();
-        this.assortment.getCategories().forEach((_, category) => {
-            filter.set(category, false);
+        const filter: BrandFilterData = new Map();
+        this.assortment.getBrands().forEach((_, brand) => {
+            filter.set(brand, false);
         });
         this.notify(filter);
     }

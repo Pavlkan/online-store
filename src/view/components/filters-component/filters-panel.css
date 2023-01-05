@@ -1,0 +1,133 @@
+.filters {
+    width: 30%;
+}
+
+.filters__category, .filters__brand {
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filters__label {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* range-input filters */
+
+*,
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.filters__price-filter,
+.filters__stock-filter {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10%;
+    padding: 5%;
+    border: 1px solid rgb(255, 128, 128);
+    border-radius: 10px;
+
+    background-color: #fffbd8;
+}
+
+.price-filter__range-container,
+.stock-filter__range-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    outline: none;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.price-filter__slider-track,
+.stock-filter__slider-track {
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    margin: auto;
+    top: 1.7em;
+    bottom: 0;
+    border-radius: 5px;
+
+    background-color: red;
+}
+
+input[type="range"]::-webkit-slider-runnable-track{
+    -webkit-appearance: none;
+    height: 5px;
+}
+
+input[type="range"]::-moz-range-track{
+    -moz-appearance: none;
+    height: 5px;
+}
+
+input[type="range"]::-ms-track{
+    appearance: none;
+    height: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    background-color: rgb(255, 128, 128);
+    cursor: pointer;
+    pointer-events: auto;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb{
+    -webkit-appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(255, 128, 128);
+    pointer-events: auto;
+}
+input[type="range"]::-ms-thumb{
+    appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(255, 128, 128);
+    pointer-events: auto;
+}
+input[type="range"]:active::-webkit-slider-thumb{
+    background-color: #ffffff;
+    border: 3px solid rgb(255, 128, 128);
+}
+
+.price-filter__numeric-panel,
+.stock-filter__numeric-panel {
+    width: 50%;
+    margin: auto;
+    position: relative;
+    padding: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #fecb32;
+}
