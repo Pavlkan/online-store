@@ -1,6 +1,7 @@
 import { BaseComponent } from "../../BaseComponent";
 import { CartComponent } from "../../components/cart/CartComponent";
 import { CartPageController } from "../../../controller/pages/CartPageController";
+import "./cart-page.css";
 
 interface CartPageProps {
     controller: CartPageController;
@@ -112,7 +113,7 @@ export class CartPageComponent extends BaseComponent<CartPageProps> {
 
         this.element.append(this.props.cartComponent.element);
 
-        console.log("cart", localStorage.getItem("cart"));
+        // console.log("cart", localStorage.getItem("cart"));
     }
 
     addListeners() {
