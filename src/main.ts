@@ -1,13 +1,13 @@
-import { FooterController } from './controller/FooterController';
-import { HeaderController } from './controller/HeaderController';
-import { OnlineStore } from './model/OnlineStore';
-import { Router } from './view/Router';
-import './styles.css';
+import { FooterController } from "./controller/FooterController";
+import { HeaderController } from "./controller/HeaderController";
+import { OnlineStore } from "./model/OnlineStore";
+import { Router } from "./view/Router";
+import "./styles.css";
 
-const root = document.createElement('div');
-root.id = 'root';
-const main = document.createElement('main');
-main.classList.add('main');
+const root = document.createElement("div");
+root.id = "root";
+const main = document.createElement("main");
+main.classList.add("main");
 
 const onlineStore: OnlineStore = new OnlineStore();
 
