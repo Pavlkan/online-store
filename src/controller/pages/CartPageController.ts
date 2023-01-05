@@ -15,6 +15,7 @@ export class CartPageController extends BaseController<CartPageComponent> {
     }
 
     public remove(): void {
+        this.cartCatalogController.remove();
         this.component.beforeRemove();
     }
 }

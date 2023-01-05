@@ -26,6 +26,7 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
         this.limitInput = document.createElement('input');
         this.limitInput.type = 'number';
         this.limitInput.min = '1';
+        this.limitInput.value = '3';
         limit.innerText = 'LIMIT:';
         limit.append(this.limitInput);
 
