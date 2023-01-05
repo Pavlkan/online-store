@@ -1,14 +1,14 @@
 import { Assortment, Categories } from './Assortment';
-import { BrandFilter } from './BrandFilter';
-import { CategoryFilter } from './CategoryFilter';
+import { BrandFilter } from './filters/BrandFilter';
+import { CategoryFilter } from './filters/CategoryFilter';
 import { CounterOfFinds } from './CounterOfFinds';
-import { Filters } from './Filters';
-import { PriceFilter } from './PriceFilter';
+import { Filters } from './filters/Filters';
+import { PriceFilter } from './filters/PriceFilter';
 import { Product } from './Product';
 import { Searcher } from './Searcher';
 import { Selection } from './Selection';
 import { Sorter } from './Sorter';
-import { StockFilter } from './StockFilter';
+import { StockFilter } from './filters/StockFilter';
 
 export class OnlineStore {
     private assortment: Assortment;

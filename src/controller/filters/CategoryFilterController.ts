@@ -1,6 +1,6 @@
-import { CategoryFilter } from "../../model/CategoryFilter";
-import { CategoryFilterComponent } from "../../view/components/filters-component/category-filter-component/CategoryFilterComponents";
-import { BaseController } from "../BaseController";
+import { CategoryFilter } from '../../model/filters/CategoryFilter';
+import { CategoryFilterComponent } from '../../view/components/filters-component/category-filter-component/CategoryFilterComponents';
+import { BaseController } from '../BaseController';
 
 export class CategoryFilterController extends BaseController<CategoryFilterComponent> {
     public component: CategoryFilterComponent;

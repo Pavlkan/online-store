@@ -1,5 +1,5 @@
 import { StockFilterController } from '../../../../controller/filters/StockFilterController';
-import { StockFilter } from '../../../../model/StockFilter';
+import { StockFilter } from '../../../../model/filters/StockFilter';
 import { BaseComponent } from '../../../BaseComponent';
 
 interface StockFilterComponentProps {

@@ -1,5 +1,5 @@
 import { PriceFilterController } from '../../../../controller/filters/PriceFilterController';
-import { PriceFilter } from '../../../../model/PriceFilter';
+import { PriceFilter } from '../../../../model/filters/PriceFilter';
 import { BaseComponent } from '../../../BaseComponent';
 import './price-filter.css';
 
@@ -29,8 +29,8 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
         this.priceFilterSubscriptionId = this.props.priceFilter.subscribe((priceRange: number[]) => {
             (this.sliderOne as HTMLInputElement).value = `${priceRange[0]}`;
             (this.sliderTwo as HTMLInputElement).value = `${priceRange[1]}`;
-            this.minPrice.innerText = `${priceRange[0]}`;
-            this.maxPrice.innerText = `${priceRange[1]}`;
+            this.minPrice.innerText = `€${priceRange[0]}`;
+            this.maxPrice.innerText = `€${priceRange[1]}`;
         });
     }
 
@@ -64,9 +64,9 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
         this.minPrice.id = 'range1';
         this.maxPrice.id = 'range2';
 
-        this.minPrice.innerText = `${filter[0]}`;
+        this.minPrice.innerText = `€${filter[0]}`;
         arrow.innerText = '⟷';
-        this.maxPrice.innerText = `${filter[1]}`;
+        this.maxPrice.innerText = `€${filter[1]}`;
 
         numericPanel.append(this.minPrice, arrow, this.maxPrice);
         this.element.append(numericPanel);

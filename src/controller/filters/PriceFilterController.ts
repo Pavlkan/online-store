@@ -1,4 +1,4 @@
-import { PriceFilter } from '../../model/PriceFilter';
+import { PriceFilter } from '../../model/filters/PriceFilter';
 import { PriceFilterComponent } from '../../view/components/filters-component/price-filter-component/PriceFilterComponent';
 import { BaseController } from '../BaseController';
 

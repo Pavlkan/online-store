@@ -1,4 +1,4 @@
-import { StockFilter } from '../../model/StockFilter';
+import { StockFilter } from '../../model/filters/StockFilter';
 import { StockFilterComponent } from '../../view/components/filters-component/stock-filter-component/StockFilterComponent';
 import { BaseController } from '../BaseController';
 

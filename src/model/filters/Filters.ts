@@ -1,8 +1,8 @@
 import { BrandFilter } from './BrandFilter';
 import { CategoryFilter } from './CategoryFilter';
-import { Observable } from './Observable';
+import { Observable } from '../Observable';
 import { PriceFilter } from './PriceFilter';
-import { Product } from './Product';
+import { Product } from '../Product';
 import { StockFilter } from './StockFilter';
 
 export class Filters extends Observable<void> {

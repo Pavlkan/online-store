@@ -1,5 +1,5 @@
 import { BrandFilterController } from '../../../../controller/filters/BrandFilterController';
-import { BrandFilter, BrandFilterData } from '../../../../model/BrandFilter';
+import { BrandFilter, BrandFilterData } from '../../../../model/filters/BrandFilter';
 import { BaseComponent } from '../../../BaseComponent';
 
 interface BrandFilterComponentProps {
@@ -20,12 +20,11 @@ export class BrandFilterComponent extends BaseComponent<BrandFilterComponentProp
 
     protected render() {
         this.createInputElements();
-        // TODO Split creation and updating
         this.brandFilterSubscriptionId = this.props.brandFilter.subscribe((filter: BrandFilterData) => {
             filter.forEach((selected, brand) => {
                 const inputArr = Array.from(this.element.querySelectorAll('input'));
                 const input = inputArr.find((element) => element.value === brand);
-                input!.checked = selected;
+                if (input) input.checked = selected;
             });
         });
     }

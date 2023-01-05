@@ -1,6 +1,6 @@
-import { Assortment } from './Assortment';
-import { Observable } from './Observable';
-import { Product } from './Product';
+import { Assortment } from '../Assortment';
+import { Observable } from '../Observable';
+import { Product } from '../Product';
 
 export type PriceFilterData = number[];
 
@@ -16,8 +16,7 @@ export class PriceFilter extends Observable<PriceFilterData> {
 
     public filter(products: Product[]): Product[] {
         return products.filter((product: Product) => {
-            const minPrice = this.getData()[0];
-            const maxPrice = this.getData()[1];
+            const [minPrice, maxPrice] = this.getData();
             return product.price >= minPrice && product.price <= maxPrice;
         });
     }
@@ -29,7 +28,7 @@ export class PriceFilter extends Observable<PriceFilterData> {
 
     private initializeFilter(): void {
         const filter = [];
-        const assortmentSortedByPrice = this.assortment.getAssortment().sort((a: Product, b: Product) => {
+        const assortmentSortedByPrice = [...this.assortment.getAssortment()].sort((a: Product, b: Product) => {
             return a.price - b.price;
         });
         filter.push(

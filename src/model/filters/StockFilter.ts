@@ -1,6 +1,6 @@
-import { Assortment } from './Assortment';
-import { Observable } from './Observable';
-import { Product } from './Product';
+import { Assortment } from '../Assortment';
+import { Observable } from '../Observable';
+import { Product } from '../Product';
 
 export type StockFilterData = number[];
 
@@ -16,8 +16,7 @@ export class StockFilter extends Observable<StockFilterData> {
 
     public filter(products: Product[]): Product[] {
         return products.filter((product: Product) => {
-            const minStock = this.getData()[0];
-            const maxStock = this.getData()[1];
+            const [minStock, maxStock] = this.getData();
             return product.stock >= minStock && product.stock <= maxStock;
         });
     }
@@ -29,7 +28,7 @@ export class StockFilter extends Observable<StockFilterData> {
 
     private initializeFilter(): void {
         const filter = [];
-        const assortmentSortedByStock = this.assortment.getAssortment().sort((a: Product, b: Product) => {
+        const assortmentSortedByStock = [...this.assortment.getAssortment()].sort((a: Product, b: Product) => {
             return a.stock - b.stock;
         });
         filter.push(

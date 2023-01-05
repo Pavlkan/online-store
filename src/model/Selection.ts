@@ -1,10 +1,10 @@
-import { Assortment } from "./Assortment";
-import { CounterOfFinds } from "./CounterOfFinds";
-import { Filters } from "./Filters";
-import { Observable } from "./Observable";
-import { Product } from "./Product";
-import { Searcher } from "./Searcher";
-import { Sorter } from "./Sorter";
+import { Assortment } from './Assortment';
+import { CounterOfFinds } from './CounterOfFinds';
+import { Filters } from './filters/Filters';
+import { Observable } from './Observable';
+import { Product } from './Product';
+import { Searcher } from './Searcher';
+import { Sorter } from './Sorter';
 
 export class Selection extends Observable<Product[]> {
     private assortment: Assortment;

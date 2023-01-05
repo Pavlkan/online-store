@@ -1,5 +1,5 @@
 import { CategoryFilterController } from '../../../../controller/filters/CategoryFilterController';
-import { CategoryFilter, CategoryFilterData } from '../../../../model/CategoryFilter';
+import { CategoryFilter, CategoryFilterData } from '../../../../model/filters/CategoryFilter';
 import { BaseComponent } from '../../../BaseComponent';
 import './category-filter.css';
 
@@ -21,12 +21,11 @@ export class CategoryFilterComponent extends BaseComponent<CategoryFilterCompone
 
     protected render() {
         this.createInputElements();
-        // TODO Split creation and updating
         this.categoryFilterSubscriptionId = this.props.categoryFilter.subscribe((filter: CategoryFilterData) => {
             filter.forEach((selected, category) => {
                 const inputArr = Array.from(this.element.querySelectorAll('input'));
                 const input = inputArr.find((element) => element.value === category);
-                input!.checked = selected;
+                if (input) input.checked = selected;
             });
         });
     }

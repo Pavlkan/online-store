@@ -1,6 +1,6 @@
-import { BrandFilter } from "../../model/BrandFilter";
-import { BrandFilterComponent } from "../../view/components/filters-component/brand-filter-component/BrandFilterComponent";
-import { BaseController } from "../BaseController";
+import { BrandFilter } from '../../model/filters/BrandFilter';
+import { BrandFilterComponent } from '../../view/components/filters-component/brand-filter-component/BrandFilterComponent';
+import { BaseController } from '../BaseController';
 
 export class BrandFilterController extends BaseController<BrandFilterComponent> {
     public component: BrandFilterComponent;

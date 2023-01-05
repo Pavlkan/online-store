@@ -1,7 +1,7 @@
-import { BrandFilter } from '../../model/BrandFilter';
-import { CategoryFilter } from '../../model/CategoryFilter';
-import { PriceFilter } from '../../model/PriceFilter';
-import { StockFilter } from '../../model/StockFilter';
+import { BrandFilter } from '../../model/filters/BrandFilter';
+import { CategoryFilter } from '../../model/filters/CategoryFilter';
+import { PriceFilter } from '../../model/filters/PriceFilter';
+import { StockFilter } from '../../model/filters/StockFilter';
 import { FiltersPanelComponent } from '../../view/components/filters-component/FiltersPanelComponent';
 import { BaseController } from '../BaseController';
 import { BrandFilterController } from './BrandFilterController';

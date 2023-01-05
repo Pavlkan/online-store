@@ -1931,36 +1931,9 @@ export class Assortment {
         return this.assortment.find((product: Product) => product.id === id) ?? null;
     }
 
-    // private createCategories(): Categories {
-    //     return this.getAssortment().reduce((categories: Categories, product: Product) => {
-    //         const category: Product[] | undefined = categories.get(product.category);
-    //         if (category) {
-    //             category.push(product);
-    //         } else {
-    //             categories.set(product.category, [product]);
-    //         }
-    //         return categories;
-    //     }, new Map());
-    // }
-
-    // private createBrands(): Brands {
-    //     return this.getAssortment().reduce((brands: Brands, product: Product) => {
-    //         const brand: Product[] | undefined = brands.get(product.brand);
-    //         if (brand) {
-    //             brand.push(product);
-    //         } else {
-    //             brands.set(product.brand, [product]);
-    //         }
-    //         return brands;
-    //     }, new Map());
-    // }
-
     private createProductGroup(group: string): Categories | Brands {
         return this.getAssortment().reduce((groupAcc: Categories | Brands, product: Product) => {
-            let key: keyof Product = 'category';
-            if (group === 'brand') {
-                key = 'brand';
-            }
+            const key: keyof Product = group === 'brand' ? 'brand' : 'category';
             const groupElement: Product[] | undefined = groupAcc.get(product[key]);
             if (groupElement) {
                 groupElement.push(product);

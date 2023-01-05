@@ -1,6 +1,6 @@
-import { Assortment } from './Assortment';
-import { Observable } from './Observable';
-import { Product } from './Product';
+import { Assortment } from '../Assortment';
+import { Observable } from '../Observable';
+import { Product } from '../Product';
 
 export type BrandFilterData = Map<string, boolean>;
 
