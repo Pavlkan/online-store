@@ -1,33 +1,42 @@
-import { Product } from "../../../model/Product";
-import { BaseComponent } from "../../BaseComponent";
-import { Router } from "../../Router";
-import "./product-card.css";
+import { CatalogController } from '../../../controller/CatalogController';
+import { Cart, CartData } from '../../../model/Cart';
+import { Product } from '../../../model/Product';
+import { BaseComponent } from '../../BaseComponent';
+import { Router } from '../../Router';
+import './product-card.css';
 
 interface ProductCardComponentProps {
+    controller: CatalogController;
     product: Product;
     router: Router;
+    cart: Cart;
 }
 
 export class ProductCardComponent extends BaseComponent<ProductCardComponentProps> {
     private choiceButton!: HTMLElement;
     private detailsButton!: HTMLElement;
+    private cartSubscriptionId!: number;
 
-    constructor(product: Product, router: Router) {
-        super("product-card", { product, router });
+    constructor(controller: CatalogController, product: Product, router: Router, cart: Cart) {
+        super('product-card', { controller, product, router, cart });
+    }
+
+    public beforeRemove(): void {
+        this.props.cart.unsubscribe(this.cartSubscriptionId);
     }
 
     protected render() {
-        const title = document.createElement("h4");
-        title.classList.add("product-card__title");
+        const title = document.createElement('h4');
+        title.classList.add('product-card__title');
         title.innerText = this.props.product.title;
 
-        const content = document.createElement("div");
-        content.classList.add("product-title__content");
+        const content = document.createElement('div');
+        content.classList.add('product-title__content');
 
-        const description = document.createElement("div");
-        description.classList.add("product-card__description");
+        const description = document.createElement('div');
+        description.classList.add('product-card__description');
         description.insertAdjacentHTML(
-            "afterbegin",
+            'afterbegin',
             `
                 <p class="description__item">Category: ${this.props.product.category}</p>
                 <p class="description__item">Brand: ${this.props.product.brand}</p>
@@ -38,33 +47,43 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
             `
         );
 
-        const controls = document.createElement("div");
-        controls.classList.add("product-card__controls");
+        const controls = document.createElement('div');
+        controls.classList.add('product-card__controls');
 
-        this.choiceButton = document.createElement("button");
-        this.choiceButton.classList.add("product-card__choice-button");
-        this.choiceButton.innerText = "Add to card";
+        this.choiceButton = document.createElement('button');
+        this.choiceButton.classList.add('product-card__choice-button');
+        this.choiceButton.innerText = 'Add to card';
 
-        this.detailsButton = document.createElement("button");
-        this.detailsButton.classList.add("product-card__details-button");
-        this.detailsButton.innerText = "Details";
+        this.detailsButton = document.createElement('button');
+        this.detailsButton.classList.add('product-card__details-button');
+        this.detailsButton.innerText = 'Details';
 
         controls.append(this.choiceButton, this.detailsButton);
         content.append(description, controls);
         this.element.append(title, content);
         this.element.style.background = `url('${this.props.product.thumbnail}') 0% 0% / cover`;
+
+        this.cartSubscriptionId = this.props.cart.subscribe((cart: CartData) => {
+            if (cart.has(this.props.product)) {
+                this.choiceButton.innerText = 'Drop from cart';
+            } else {
+                this.choiceButton.innerText = 'Add to cart';
+            }
+        });
     }
 
     addListeners() {
-        this.element.addEventListener("click", (event): void => {
+        this.element.addEventListener('click', (event): void => {
             if (event.target instanceof HTMLElement) {
                 if (event.target === this.choiceButton) {
-                    console.log("btnclc");
                     return;
                 }
-                console.log("click");
                 this.props.router.navigateTo(`product/${this.props.product.id}`);
             }
+        });
+
+        this.choiceButton.addEventListener('click', (): void => {
+            this.props.controller.toggleProduct(this.props.product);
         });
     }
 }
