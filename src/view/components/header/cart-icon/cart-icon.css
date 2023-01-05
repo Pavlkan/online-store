@@ -1,0 +1,16 @@
+.header__cart-icon {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.header__cart {
+    /* TODO fix before deploy */
+    background: url(/src/assets/svg/shopping-cart.svg);
+    width: 4rem;
+    height: 3rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}

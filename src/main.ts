@@ -11,8 +11,8 @@ main.classList.add('main');
 
 const onlineStore: OnlineStore = new OnlineStore();
 
-new Router(main, onlineStore);
-const headerController = new HeaderController(onlineStore);
+const router = new Router(main, onlineStore);
+const headerController = new HeaderController(onlineStore, router);
 
 root.append(headerController.component.element, main);
 

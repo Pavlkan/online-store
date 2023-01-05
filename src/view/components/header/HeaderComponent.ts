@@ -1,12 +1,15 @@
 import { HeaderController } from '../../../controller/HeaderController';
 import { Cart } from '../../../model/Cart';
 import { BaseComponent } from '../../BaseComponent';
+import { Router } from '../../Router';
+import { CartIconComponent } from './cart-icon/CartIconComponent';
 import './header.css';
 import { TotalAmountComponent } from './total-amount/TotalAmountComponent';
 
 interface HeaderComponentProps {
     controller: HeaderController;
     cart: Cart;
+    router: Router;
 }
 
 export class HeaderComponent extends BaseComponent<HeaderComponentProps> {
@@ -14,14 +17,15 @@ export class HeaderComponent extends BaseComponent<HeaderComponentProps> {
     private title!: HTMLHeadingElement;
     private icon!: HTMLDivElement;
     private amountComponent!: TotalAmountComponent;
-    private cartLogo!: HTMLImageElement;
+    private cartIconComponent!: CartIconComponent;
 
-    constructor(controller: HeaderController, cart: Cart) {
-        super('header', { controller, cart }, 'header');
+    constructor(controller: HeaderController, cart: Cart, router: Router) {
+        super('header', { controller, cart, router }, 'header');
     }
 
     public beforeRemove(): void {
         this.amountComponent.beforeRemove();
+        this.cartIconComponent.beforeRemove();
     }
 
     protected render() {
@@ -39,10 +43,8 @@ export class HeaderComponent extends BaseComponent<HeaderComponentProps> {
         this.logo.append(this.icon, this.title);
 
         this.amountComponent = new TotalAmountComponent(this.props.cart);
+        this.cartIconComponent = new CartIconComponent(this.props.cart, this.props.router);
 
-        this.cartLogo = document.createElement('img');
-        this.cartLogo.className = 'header__cart';
-
-        this.element.append(this.logo, this.amountComponent.element, this.cartLogo);
+        this.element.append(this.logo, this.amountComponent.element, this.cartIconComponent.element);
     }
 }

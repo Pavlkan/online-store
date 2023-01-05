@@ -33,11 +33,3 @@
   font-size: 1.5rem;
 }
 
-.header__cart {
-  background: url(/src/assets/svg/shopping-cart.svg);
-  width: 4rem;
-  height: 3rem;
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
