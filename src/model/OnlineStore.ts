@@ -9,6 +9,7 @@ import { Searcher } from './Searcher';
 import { Selection } from './Selection';
 import { Sorter } from './Sorter';
 import { StockFilter } from './filters/StockFilter';
+import { Cart } from './Cart';
 
 export class OnlineStore {
     private assortment: Assortment;
@@ -21,6 +22,7 @@ export class OnlineStore {
     private stockFilter: StockFilter;
     private filters: Filters;
     private selection: Selection;
+    private cart: Cart;
 
     constructor() {
         this.assortment = new Assortment();
@@ -35,6 +37,7 @@ export class OnlineStore {
         this.filters = new Filters(this.categoryFilter, this.brandFilter, this.priceFilter, this.stockFilter);
 
         this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher, this.filters);
+        this.cart = new Cart();
     }
 
     public getProductById(id: number) {
@@ -83,5 +86,9 @@ export class OnlineStore {
 
     public getStockFilter(): StockFilter {
         return this.stockFilter;
+    }
+
+    public getCart() {
+        return this.cart;
     }
 }

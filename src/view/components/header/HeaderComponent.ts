@@ -1,45 +1,48 @@
-import { throws } from "assert";
-import { HeaderController } from "../../../controller/HeaderController";
-import { BaseComponent } from "../../BaseComponent";
-import "./header.css";
+import { HeaderController } from '../../../controller/HeaderController';
+import { Cart } from '../../../model/Cart';
+import { BaseComponent } from '../../BaseComponent';
+import './header.css';
+import { TotalAmountComponent } from './total-amount/TotalAmountComponent';
 
 interface HeaderComponentProps {
     controller: HeaderController;
+    cart: Cart;
 }
 
 export class HeaderComponent extends BaseComponent<HeaderComponentProps> {
     private logo!: HTMLDivElement;
     private title!: HTMLHeadingElement;
     private icon!: HTMLDivElement;
+    private amountComponent!: TotalAmountComponent;
+    private cartLogo!: HTMLImageElement;
 
-    private amountContainer!: HTMLElement;
-    public cart!: HTMLImageElement;
+    constructor(controller: HeaderController, cart: Cart) {
+        super('header', { controller, cart }, 'header');
+    }
 
-    constructor(controller: HeaderController) {
-        super("header", { controller }, "header");
+    public beforeRemove(): void {
+        this.amountComponent.beforeRemove();
     }
 
     protected render() {
-        this.logo = document.createElement("div");
-        this.logo.classList.add("header__logo");
+        this.logo = document.createElement('div');
+        this.logo.classList.add('header__logo');
 
-        this.title = document.createElement("h1");
-        this.title.className = "header__title";
-        this.title.innerText = "Online Store";
+        this.title = document.createElement('h1');
+        this.title.className = 'header__title';
+        this.title.innerText = 'Online Store';
 
-        this.icon = document.createElement("div");
-        this.icon.classList.add("header__icon");
-        this.icon.innerText = "🛍";
+        this.icon = document.createElement('div');
+        this.icon.classList.add('header__icon');
+        this.icon.innerText = '🛍';
 
         this.logo.append(this.icon, this.title);
 
-        this.amountContainer = document.createElement("div");
-        this.amountContainer.classList.add("header__amount-container");
-        this.amountContainer.innerText = "Cart total: ";
+        this.amountComponent = new TotalAmountComponent(this.props.cart);
 
-        this.cart = document.createElement("img");
-        this.cart.className = "header__cart";
+        this.cartLogo = document.createElement('img');
+        this.cartLogo.className = 'header__cart';
 
-        this.element.append(this.logo, this.amountContainer, this.cart);
+        this.element.append(this.logo, this.amountComponent.element, this.cartLogo);
     }
 }

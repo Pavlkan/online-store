@@ -1,4 +1,5 @@
 import { ProductPageController } from '../../../controller/pages/ProductPageController';
+import { Cart, CartData } from '../../../model/Cart';
 import { Product } from '../../../model/Product';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
@@ -8,6 +9,7 @@ interface ProductPageComponentProps {
   controller: ProductPageController;
   product: Product;
   router: Router;
+  cart: Cart;
 }
 
 export class ProductPageComponent extends BaseComponent<ProductPageComponentProps> {
@@ -17,12 +19,17 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
   private productImages!: HTMLImageElement[];
   private productCardThumbnail!: HTMLImageElement;
   private navItemClickable!: HTMLParagraphElement;
+  private cartSubscriptionId!: number;
 
-  constructor(controller: ProductPageController, product: Product, router: Router) {
-    super('product-description-page', { controller, product, router }, 'div');
+  constructor(controller: ProductPageController, product: Product, router: Router, cart: Cart) {
+    super('product-description-page', { controller, product, router, cart }, 'div');
   }
 
-  render(): void {
+  public beforeRemove(): void {
+    this.props.cart.unsubscribe(this.cartSubscriptionId);
+  }
+
+  protected render(): void {
     this.productPageContainer = document.createElement('div');
     this.productPageContainer.className = 'product-description-page-container outer-container';
 
@@ -109,9 +116,11 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
     productCardDetails.append(productCardImagesContainer, productCardThumbnailContainer, productCardList, controls);
     this.productPageContainer.append(navContainer, productCardContainer);
     this.element.append(this.productPageContainer);
+
+    this.subscribeOnCart();
   }
 
-  addListeners() {
+  protected addListeners() {
     this.element.addEventListener('click', (event): void => {
       if (event.target instanceof HTMLParagraphElement && event.target === this.navItemClickable) {
         this.props.router.navigateTo(`catalog`);
@@ -122,13 +131,18 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
         }
       }
       if (event.target instanceof HTMLButtonElement && event.target === this.choiceButton) {
-        if (this.choiceButton.innerText === 'ADD TO CART') {
-          this.choiceButton.innerText = 'DROP FROM CART';
-        } else {
-          this.choiceButton.innerText = 'ADD TO CART';
-        }
-        // TODO add logic for adding products to cart
+        this.props.controller.toggleProduct(this.props.product);
       }
     });
+  }
+
+  private subscribeOnCart() {
+    this.cartSubscriptionId = this.props.cart.subscribe((cart: CartData) => {
+      if (cart.has(this.props.product)) {
+        this.choiceButton.innerText = 'Drop from cart';
+    } else {
+        this.choiceButton.innerText = 'Add to cart';
+    }
+    })
   }
 }
