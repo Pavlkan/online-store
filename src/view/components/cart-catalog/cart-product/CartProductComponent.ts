@@ -74,6 +74,7 @@ export class CartProductComponent extends BaseComponent<CartProductComponentProp
         this.incBtn.innerText = '+';
         this.productQuantity = document.createElement('span');
         this.productQuantity.className = 'products-num';
+        this.productQuantity.innerText = this.props.productQuantity.toString();
 
         this.decBtn = document.createElement('button');
         this.decBtn.className = 'btn-decrement';
@@ -81,7 +82,7 @@ export class CartProductComponent extends BaseComponent<CartProductComponentProp
 
         const amountControl = document.createElement('div');
         amountControl.className = 'amount-control';
-        // amountControl.innerText = `€ ${}`;
+        amountControl.innerText = `€ ${this.props.productQuantity * this.props.product.price}`;
 
         incDecControl.append(this.incBtn, this.productQuantity, this.decBtn);
         numberControl.append(stockControl, incDecControl, amountControl);
@@ -90,23 +91,16 @@ export class CartProductComponent extends BaseComponent<CartProductComponentProp
     }
 
     protected addListeners(): void {
-        this.element.addEventListener('click', (event): void => {
-            if (event.target === this.productInfo) {
-                this.props.router.navigateTo(`product/${this.props.product.id}`);
-                console.log('product');
-            }
-            if (
-                event.target instanceof HTMLButtonElement &&
-                (event.target === this.incBtn || event.target === this.decBtn)
-            ) {
-                const quantity = this.props.controller.changeProductQuantity(
-                    this.props.product,
-                    this.props.productQuantity
-                );
+        this.incBtn.addEventListener('click', () => {
+            this.props.controller.changeProductQuantity(this.props.product, this.props.productQuantity + 1);
+        });
 
-                this.productQuantity.innerText = `${quantity}`;
-                console.log('incBtn & DecBtn');
-            }
+        this.decBtn.addEventListener('click', () => {
+            this.props.controller.changeProductQuantity(this.props.product, this.props.productQuantity - 1);
+        });
+
+        this.productInfo.addEventListener('click', () => {
+            this.props.router.navigateTo(`product/${this.props.product.id}`);
         });
     }
 }
