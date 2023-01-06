@@ -4,7 +4,7 @@ import { Product } from '../../../model/Product';
 import { Selection } from '../../../model/Selection';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
-import { ProductCardComponent } from '../productCard/ProductCardComponent';
+import { ProductCardComponent } from '../product-сard/ProductCardComponent';
 import './catalog-component.css';
 
 interface CatalogComponentProps {

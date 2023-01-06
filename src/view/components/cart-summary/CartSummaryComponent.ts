@@ -1,10 +1,14 @@
 import { CartSummaryController } from '../../../controller/cart/CartSummaryController';
 import { Cart } from '../../../model/Cart';
 import { BaseComponent } from '../../BaseComponent';
+import { Modal } from '../../modal/Modal';
+import { Router } from '../../Router';
+import { PurchaseFormComponent } from '../purchase-form/PurchaseFormComponent';
 
 interface CartSummaryComponentProps {
     controller: CartSummaryController;
     cart: Cart;
+    router: Router;
 }
 
 export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProps> {
@@ -15,8 +19,8 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
     private promoCodeInput!: HTMLInputElement;
     private buyButton!: HTMLButtonElement;
 
-    constructor(controller: CartSummaryController, cart: Cart) {
-        super('cart-page__summary', { controller, cart });
+    constructor(controller: CartSummaryController, cart: Cart, router: Router) {
+        super('cart-page__summary', { controller, cart, router });
     }
 
     public beforeRemove(): void {
@@ -46,13 +50,19 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
 
     protected addListeners(): void {
         this.promoCodeInput.addEventListener('input', () => {
-            const currentValue = this.promoCodeInput.value.toUpperCase();   
+            const currentValue = this.promoCodeInput.value.toUpperCase();
             if (currentValue === 'RS') {
                 // TODO drop RS discount
             }
             if (currentValue === 'EPM') {
                 // TODO drop EPM discount
             }
+        });
+
+        this.buyButton.addEventListener('click', () => {
+            const modal = new Modal();
+            const form = new PurchaseFormComponent(this.props.router, modal);
+            modal.attach(form.element);
         });
     }
 
