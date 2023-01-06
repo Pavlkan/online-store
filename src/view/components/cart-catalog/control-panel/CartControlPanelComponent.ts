@@ -92,6 +92,7 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
         this.paginationCounter.value = '1';
         this.nextButton.innerText = '>';
 
+        pagination.innerText = 'PAGE: ';
         pagination.append(this.previousButton, this.paginationCounter, this.nextButton);
 
         this.controlsContainer.append(pagination);
