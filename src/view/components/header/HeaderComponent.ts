@@ -47,4 +47,10 @@ export class HeaderComponent extends BaseComponent<HeaderComponentProps> {
 
         this.element.append(this.logo, this.amountComponent.element, this.cartIconComponent.element);
     }
+
+    protected addListeners(): void {
+        this.logo.addEventListener('click', () => {
+            this.props.router.navigateTo('catalog');
+        });
+    }
 }
