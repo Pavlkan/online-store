@@ -14,10 +14,8 @@ const onlineStore: OnlineStore = new OnlineStore();
 const router = new Router(main, onlineStore);
 const headerController = new HeaderController(onlineStore, router);
 
-root.append(headerController.component.element, main);
-
 const footerController = new FooterController();
 
-root.append(footerController.component.element);
+root.append(headerController.component.element, main, footerController.component.element);
 
 document.body.append(root);
