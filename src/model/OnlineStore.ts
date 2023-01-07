@@ -48,8 +48,8 @@ export class OnlineStore {
         return this.assortment.getCategories();
     }
 
-    public getAssortment(): Product[] {
-        return this.assortment.getAssortment();
+    public getAssortment(): Assortment {
+        return this.assortment;
     }
 
     public getSorter(): Sorter {

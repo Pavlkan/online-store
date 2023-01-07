@@ -2,6 +2,7 @@ import { BrandFilter } from '../../model/filters/BrandFilter';
 import { CategoryFilter } from '../../model/filters/CategoryFilter';
 import { PriceFilter } from '../../model/filters/PriceFilter';
 import { StockFilter } from '../../model/filters/StockFilter';
+import { OnlineStore } from '../../model/OnlineStore';
 import { FiltersPanelComponent } from '../../view/components/filters-component/FiltersPanelComponent';
 import { BaseController } from '../BaseController';
 import { BrandFilterController } from './BrandFilterController';
@@ -20,10 +21,15 @@ export class FiltersPanelController extends BaseController<FiltersPanelComponent
         categoryFilter: CategoryFilter,
         brandFilter: BrandFilter,
         priceFilter: PriceFilter,
-        stockFilter: StockFilter
+        stockFilter: StockFilter,
+        onlineStore: OnlineStore
     ) {
         super();
-        this.categoryFilterController = new CategoryFilterController(categoryFilter);
+        this.categoryFilterController = new CategoryFilterController(
+            categoryFilter,
+            onlineStore.getAssortment(),
+            onlineStore.getSelection()
+        );
         this.brandFilterController = new BrandFilterController(brandFilter);
         this.priceFilterController = new PriceFilterController(priceFilter);
         this.stockFilterController = new StockFilterController(stockFilter);
