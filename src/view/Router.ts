@@ -41,6 +41,24 @@ export class Router {
         return document.location.pathname.split('/').filter(Boolean);
     }
 
+    public updateQueryParams(name: string, value: string): void {
+        const search = new URLSearchParams(document.location.search);
+        if (value) {
+            search.set(name, value);
+        } else {
+            search.delete(name);
+        }
+        const path = document.location.pathname.slice(1);
+        window.history.pushState(null, '', `${path}?${search.toString()}`);
+    }
+
+    public getQueryParam(name: string): string[] {
+        const search = new URLSearchParams(document.location.search);
+        let param = search.get(name);
+        param = param ? decodeURIComponent(param) : '';
+        return param.split(',').filter(Boolean);
+    }
+
     private updateUrl(url: string): void {
         let pageInUrl = false;
         for (const declaredPage of this.pageMap.keys()) {
@@ -49,7 +67,7 @@ export class Router {
         if (!pageInUrl) {
             url = 'catalog';
         }
-        if (url !== this.getCurrentPage()) window.history.pushState(null, '', url);
+        if (url !== this.getCurrentPage()) window.history.pushState(null, '', `${url}${document.location.search}`);
     }
 
     private getCurrentPage(): string {
