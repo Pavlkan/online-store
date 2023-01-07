@@ -101,7 +101,7 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
 
     const productPrice = document.createElement('div');
     productPrice.className = 'description-page-product-card__price';
-    productPrice.innerText = `$ ${this.props.product.price}`;
+    productPrice.innerText = `€ ${this.props.product.price}`;
 
     this.choiceButton = document.createElement('button');
     this.choiceButton.className = 'description-page-product-card__choice-btn button';

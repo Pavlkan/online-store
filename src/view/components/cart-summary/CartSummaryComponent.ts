@@ -61,7 +61,7 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
 
         this.buyButton.addEventListener('click', () => {
             const modal = new Modal();
-            const form = new PurchaseFormComponent(this.props.router, modal);
+            const form = new PurchaseFormComponent(this.props.controller, this.props.router, modal);
             modal.attach(form.element);
         });
     }

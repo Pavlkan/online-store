@@ -1,5 +1,64 @@
 .purchase-form {
-    width: 100px;
-    height: 100px;
-    background-color: red;
+    width: 50%;
+    height: 50%;
+    padding: 2%;
+
+    border: 1px solid brown;
+    border-radius: 10px;
+
+    background-color: gray;
+}
+
+.purchase-form__person-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.purchase-form__card-info-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-form__card-thru-cvv-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.purchase-form__person-info-title {
+    margin-bottom: 1%;
+}
+
+.purchase-form__person-info-container input {
+    width: 50%;
+}
+
+.purchase-form__person-info-container input,
+.purchase-form__card-number,
+.purchase-form__card-THRU,
+.purchase-form__card-CVV {
+    margin-bottom: 1%;
+    padding: 1%;
+
+    border: 1px solid yellow;
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.purchase-form__person-info-container input.valid,
+.purchase-form__card-number.valid,
+.purchase-form__card-THRU.valid,
+.purchase-form__card-CVV.valid {
+    border: 5px solid greenyellow;
+}
+
+.purchase-form__person-info-container input.invalid.blur,
+.purchase-form__card-number.invalid.blur,
+.purchase-form__card-THRU.invalid.blur,
+.purchase-form__card-CVV.invalid.blur {
+    border: 5px solid red;
 }

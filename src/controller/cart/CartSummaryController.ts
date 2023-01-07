@@ -5,13 +5,19 @@ import { BaseController } from '../BaseController';
 
 export class CartSummaryController extends BaseController<CartSummaryComponent> {
     public component: CartSummaryComponent;
+    private cart: Cart;
 
     constructor(cart: Cart, router: Router) {
         super();
+        this.cart = cart;
         this.component = new CartSummaryComponent(this, cart, router);
     }
 
     public remove(): void {
         this.component.beforeRemove();
+    }
+
+    public clearCart(): void {
+        this.cart.clearCart();
     }
 }
