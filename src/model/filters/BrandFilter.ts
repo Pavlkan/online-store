@@ -21,6 +21,10 @@ export class BrandFilter extends Observable<BrandFilterData> {
         });
     }
 
+    public resetFilter(): void {
+        this.initializeFilter();
+    }
+
     public updateFilter(brand: string, selected: boolean): void {
         const filter: BrandFilterData = new Map(this.getData());
         filter.set(brand, selected);

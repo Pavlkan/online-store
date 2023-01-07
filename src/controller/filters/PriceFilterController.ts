@@ -17,6 +17,7 @@ export class PriceFilterController extends BaseController<PriceFilterComponent> 
     }
 
     public filter(min: number, max: number): void {
+        this.priceFilter.touch();
         this.priceFilter.updateFilter(min, max);
     }
 }

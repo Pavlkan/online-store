@@ -34,11 +34,6 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
         });
     }
 
-    private createFilterInterface() {
-        this.createNumericPanel();
-        this.createRangeElement();
-    }
-
     protected addListeners(): void {
         this.element.addEventListener('input', (event) => {
             if (event.target instanceof HTMLInputElement) {
@@ -47,6 +42,11 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
                 this.props.controller.filter(Math.min(valueOne, valueTwo), Math.max(valueOne, valueTwo));
             }
         });
+    }
+
+    private createFilterInterface() {
+        this.createNumericPanel();
+        this.createRangeElement();
     }
 
     private createNumericPanel() {
@@ -73,7 +73,7 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
     }
 
     private createRangeElement() {
-        const filter = this.props.priceFilter.getData();
+        const filter = this.props.priceFilter.getMaxRange();
 
         const rangeContainer = document.createElement('div');
         const sliderTrack = document.createElement('div');

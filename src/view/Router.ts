@@ -59,6 +59,10 @@ export class Router {
         return param.split(',').filter(Boolean);
     }
 
+    public getFullUrl(): string {
+        return document.location.href;
+    }
+
     private updateUrl(url: string): void {
         let pageInUrl = false;
         for (const declaredPage of this.pageMap.keys()) {
