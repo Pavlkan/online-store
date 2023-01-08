@@ -6,6 +6,10 @@ export class Searcher extends Observable<string> {
         super('');
     }
 
+    public reset(): void {
+        this.notify('');
+    }
+
     public search(products: Product[]): Product[] {
         return products.filter((product: Product) => {
             let flag = false;
