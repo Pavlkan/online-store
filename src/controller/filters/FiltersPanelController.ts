@@ -68,6 +68,7 @@ export class FiltersPanelController extends BaseController<FiltersPanelComponent
     public resetFilters(): void {
         this.onlineStore.getSorter().reset();
         this.onlineStore.getSearcher().reset();
+        this.onlineStore.getSizer().reset();
         this.onlineStore.getFilters().resetFilters();
     }
 

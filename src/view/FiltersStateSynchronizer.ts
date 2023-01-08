@@ -25,6 +25,7 @@ export class FiltersStateSynchronizer {
 
         this.initializeSorterState();
         this.initializeSearcherState();
+        this.initializeSizerState();
     }
 
     private initializeSorterState(): void {
@@ -38,6 +39,14 @@ export class FiltersStateSynchronizer {
     private initializeSearcherState(): void {
         const searcher = this.router.getQueryParam('searcher');
         this.onlineStore.getSearcher().notify(searcher.toString());
+    }
+
+    private initializeSizerState(): void {
+        const size = this.router.getQueryParam('sizing');
+        if (size.length) {
+            this.onlineStore.getSizer().touch();
+            setTimeout(() => this.onlineStore.getSizer().notify(size.toString(), false), 10);
+        }
     }
 
     private initializeCategoryFilterState(): void {
@@ -76,6 +85,7 @@ export class FiltersStateSynchronizer {
 
         this.syncSorterStateInUrl();
         this.syncSearcherStateInUrl();
+        this.syncSizerStateInUrl();
     }
 
     private syncSearcherStateInUrl(): void {
@@ -90,6 +100,16 @@ export class FiltersStateSynchronizer {
                 this.router.updateQueryParams('sorting', sorter);
             } else {
                 this.router.updateQueryParams('sorting', '');
+            }
+        });
+    }
+
+    private syncSizerStateInUrl(): void {
+        this.onlineStore.getSizer().subscribe((size: string) => {
+            if (this.onlineStore.getSizer().isTouched()) {
+                this.router.updateQueryParams('sizing', size);
+            } else {
+                this.router.updateQueryParams('sizing', '');
             }
         });
     }
