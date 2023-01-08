@@ -4,6 +4,7 @@ import { OnlineStore } from '../model/OnlineStore';
 import { Router } from './Router';
 import { PriceFilterData } from '../model/filters/PriceFilter';
 import { StockFilterData } from '../model/filters/StockFilter';
+import { CartPaginationData } from '../model/CartPagination';
 
 export class FiltersStateSynchronizer {
     private onlineStore: OnlineStore;
@@ -26,6 +27,8 @@ export class FiltersStateSynchronizer {
         this.initializeSorterState();
         this.initializeSearcherState();
         this.initializeSizerState();
+
+        this.initializeCartPaginationState();
     }
 
     private initializeSorterState(): void {
@@ -79,6 +82,23 @@ export class FiltersStateSynchronizer {
         }
     }
 
+    private initializeCartPaginationState(): void {
+        const limitParam = this.router.getQueryParam('pagination-limit');
+        const pageParam = this.router.getQueryParam('pagination-page');
+
+        if (limitParam.length) {
+            const limit = Number(limitParam[0]);
+            this.onlineStore.getCartPagination().touch();
+            this.onlineStore.getCartPagination().update({ limit });
+        }
+
+        if (pageParam.length) {
+            const page = Number(pageParam[0]);
+            this.onlineStore.getCartPagination().touch();
+            this.onlineStore.getCartPagination().update({ page });
+        }
+    }
+
     private syncFiltersStateInUrl(): void {
         this.syncCategoryFilterStateInUrl();
         this.syncBrandFilterStateInUrl();
@@ -88,6 +108,8 @@ export class FiltersStateSynchronizer {
         this.syncSorterStateInUrl();
         this.syncSearcherStateInUrl();
         this.syncSizerStateInUrl();
+
+        this.syncCartPaginationStateInUrl();
     }
 
     private syncSearcherStateInUrl(): void {
@@ -158,6 +180,19 @@ export class FiltersStateSynchronizer {
                 this.router.updateQueryParams('stock-range', stockRange);
             } else {
                 this.router.updateQueryParams('stock-range', '');
+            }
+        });
+    }
+
+    private syncCartPaginationStateInUrl(): void {
+        this.onlineStore.getCartPagination().subscribe((cartPagination: CartPaginationData) => {
+            if (this.onlineStore.getCartPagination().isTouched()) {
+                const { limit, page } = cartPagination;
+                this.router.updateQueryParams('pagination-limit', limit.toString());
+                this.router.updateQueryParams('pagination-page', page.toString());
+            } else {
+                this.router.updateQueryParams('pagination-limit', '');
+                this.router.updateQueryParams('pagination-page', '');
             }
         });
     }

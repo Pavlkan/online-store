@@ -1,5 +1,6 @@
 import { CartCatalogController } from '../../../controller/cart/CartCatalogController';
-import { Cart, CartData } from '../../../model/Cart';
+import { Cart } from '../../../model/Cart';
+import { CartPagination } from '../../../model/CartPagination';
 import { Product } from '../../../model/Product';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
@@ -11,30 +12,28 @@ interface CartCatalogComponentProps {
     cart: Cart;
     router: Router;
     productComponents: CartProductComponent[];
-    limit: number;
-    page: number;
-    cartData: CartData;
+    cartPagination: CartPagination;
 }
 
 export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProps> {
     private controlPanel!: CartControlPanelComponent;
     private cartSubscriptionId!: number;
+    private cartPaginationSubscriptionId!: number;
     private productsContainer!: HTMLElement;
 
-    constructor(controller: CartCatalogController, cart: Cart, router: Router) {
+    constructor(controller: CartCatalogController, cart: Cart, router: Router, cartPagination: CartPagination) {
         super('cart-page__catalog', {
             controller,
             cart,
             router,
             productComponents: [],
-            limit: 3,
-            page: 1,
-            cartData: new Map(),
+            cartPagination,
         });
     }
 
     public beforeRemove(): void {
         this.props.cart.unsubscribe(this.cartSubscriptionId);
+        this.props.cartPagination.unsubscribe(this.cartPaginationSubscriptionId);
         this.controlPanel.beforeRemove();
         this.removeProductComponents();
     }
@@ -44,15 +43,22 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
     }
 
     protected render(): void {
-        this.controlPanel = new CartControlPanelComponent(this, this.onControlPanelChange.bind(this));
+        this.controlPanel = new CartControlPanelComponent(
+            this.onControlPanelChange.bind(this),
+            this.props.cartPagination,
+            this.props.cart
+        );
 
         this.productsContainer = document.createElement('div');
         this.productsContainer.classList.add('catalog__products-container');
 
         this.element.append(this.controlPanel.element, this.productsContainer);
 
-        this.cartSubscriptionId = this.props.cart.subscribe((cart: CartData) => {
-            this.props.cartData = cart;
+        this.cartSubscriptionId = this.props.cart.subscribe(() => {
+            this.renderProductComponents();
+        });
+
+        this.cartPaginationSubscriptionId = this.props.cartPagination.subscribe(() => {
             this.renderProductComponents();
         });
     }
@@ -66,16 +72,12 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
     }
 
     private getPaginationData(): [Product, number][] {
-        return Array.from(this.props.cartData).slice(
-            this.props.limit * (this.props.page - 1),
-            this.props.limit * this.props.page
-        );
+        const { page, limit } = this.props.cartPagination.getData();
+        return Array.from(this.props.cart.getData()).slice(limit * (page - 1), limit * page);
     }
 
     private onControlPanelChange(limitNumber: number, pageNumber: number): void {
-        this.props.limit = limitNumber;
-        this.props.page = pageNumber;
-        this.renderProductComponents();
+        this.props.controller.updatePagination(pageNumber, limitNumber);
     }
 
     private removeProductComponents(): void {

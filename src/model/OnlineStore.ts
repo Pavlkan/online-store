@@ -10,6 +10,7 @@ import { Sorter } from './Sorter';
 import { StockFilter } from './filters/StockFilter';
 import { Cart } from './Cart';
 import { Sizer } from './Sizer';
+import { CartPagination } from './CartPagination';
 
 export class OnlineStore {
     private assortment: Assortment;
@@ -24,6 +25,7 @@ export class OnlineStore {
     private filters: Filters;
     private selection: Selection;
     private cart: Cart;
+    private cartPagination: CartPagination;
 
     constructor() {
         this.assortment = new Assortment();
@@ -46,7 +48,8 @@ export class OnlineStore {
             this.filters,
             this.sizer
         );
-        this.cart = new Cart();
+        this.cart = new Cart(this.assortment);
+        this.cartPagination = new CartPagination(this.cart);
     }
 
     public getProductById(id: number) {
@@ -101,7 +104,11 @@ export class OnlineStore {
         return this.stockFilter;
     }
 
-    public getCart() {
+    public getCart(): Cart {
         return this.cart;
+    }
+
+    public getCartPagination(): CartPagination {
+        return this.cartPagination;
     }
 }

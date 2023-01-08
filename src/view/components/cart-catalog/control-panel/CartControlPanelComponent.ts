@@ -1,22 +1,26 @@
+import { Cart } from '../../../../model/Cart';
+import { CartPagination, CartPaginationData } from '../../../../model/CartPagination';
 import { BaseComponent } from '../../../BaseComponent';
-import { CartCatalogComponent } from '../CartCatalogComponent';
 
 type OnChange = (limitNumber: number, pageNumber: number) => void;
 
 interface CartControlPanelComponentProps {
-    cartCatalogComponent: CartCatalogComponent;
     onChange: OnChange;
+    cartPagination: CartPagination;
+    cart: Cart;
 }
 
 export class CartControlPanelComponent extends BaseComponent<CartControlPanelComponentProps> {
     private limitInput!: HTMLInputElement;
+    private limitLabel!: HTMLElement;
+    private cartPaginationSubscriptionId!: number;
     private controlsContainer!: HTMLElement;
     private previousButton!: HTMLElement;
     private paginationCounter!: HTMLInputElement;
     private nextButton!: HTMLElement;
 
-    constructor(cartCatalogComponent: CartCatalogComponent, onChange: OnChange) {
-        super('cart-page__control-panel', { cartCatalogComponent, onChange });
+    constructor(onChange: OnChange, cartPagination: CartPagination, cart: Cart) {
+        super('cart-page__control-panel', { onChange, cartPagination, cart });
     }
 
     protected render(): void {
@@ -31,10 +35,23 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
         this.createPagination();
 
         this.element.append(title, this.controlsContainer);
+
+        this.cartPaginationSubscriptionId = this.props.cartPagination.subscribe(
+            (cartPagination: CartPaginationData) => {
+                const { limit, page } = cartPagination;
+                this.limitInput.max = this.props.cart.getData().size.toString();
+                this.limitInput.value = limit.toString();
+                this.paginationCounter.value = page.toString();
+            }
+        );
     }
 
     protected addListeners(): void {
         this.limitInput.addEventListener('change', () => {
+            if (this.limitInput.value === '0') {
+                this.limitInput.value = '1';
+                return;
+            }
             this.updateCartCatalog();
         });
 
@@ -47,8 +64,7 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
 
         this.nextButton.addEventListener('click', () => {
             const currentPaginationCounter = +this.paginationCounter.value;
-            const limit = +this.limitInput.value;
-            if (+currentPaginationCounter >= this.props.cartCatalogComponent.getMaxLimit() / limit) return;
+            if (currentPaginationCounter >= this.props.cartPagination.getTotalPages()) return;
             this.paginationCounter.value = (currentPaginationCounter + 1).toString();
             this.updateCartCatalog();
         });
@@ -61,18 +77,16 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
     }
 
     private createLimit(): void {
-        const limit = document.createElement('div');
-        limit.classList.add('control-panel__limit');
+        this.limitLabel = document.createElement('div');
+        this.limitLabel.classList.add('control-panel__limit');
         this.limitInput = document.createElement('input');
         this.limitInput.type = 'number';
         this.limitInput.min = '1';
-        this.limitInput.max = this.props.cartCatalogComponent.getMaxLimit().toString();
-        this.limitInput.value = '3';
-        limit.innerText = 'LIMIT:';
+        this.limitLabel.innerText = 'LIMIT:';
 
-        limit.append(this.limitInput);
+        this.limitLabel.append(this.limitInput);
 
-        this.controlsContainer.append(limit);
+        this.controlsContainer.append(this.limitLabel);
     }
 
     private createPagination(): void {
@@ -89,7 +103,6 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
 
         this.previousButton.innerText = '<';
         this.paginationCounter.readOnly = true;
-        this.paginationCounter.value = '1';
         this.nextButton.innerText = '>';
 
         pagination.innerText = 'PAGE: ';

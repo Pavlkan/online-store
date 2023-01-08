@@ -12,7 +12,11 @@ export class CartPageController extends BaseController<CartPageComponent> {
 
     constructor(onlineStore: OnlineStore, router: Router) {
         super();
-        this.cartCatalogController = new CartCatalogController(onlineStore.getCart(), router);
+        this.cartCatalogController = new CartCatalogController(
+            onlineStore.getCart(),
+            router,
+            onlineStore.getCartPagination()
+        );
         this.cartSummaryController = new CartSummaryController(onlineStore.getCart(), router);
         this.component = new CartPageComponent(
             this,
