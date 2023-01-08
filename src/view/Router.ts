@@ -2,6 +2,7 @@ import { BaseController } from '../controller/BaseController';
 import { CartPageController } from '../controller/pages/CartPageController';
 import { CatalogPageController } from '../controller/pages/CatalogPageController';
 import { ProductPageController } from '../controller/pages/ProductPageController';
+import { UnknownPageController } from '../controller/pages/UnknownPageController';
 import { OnlineStore } from '../model/OnlineStore';
 
 export class Router {
@@ -18,6 +19,7 @@ export class Router {
             ['catalog', () => new CatalogPageController(this.onlineStore, this)],
             ['product', () => new ProductPageController(this.onlineStore, this)],
             ['cart', () => new CartPageController(this.onlineStore, this)],
+            ['404', () => new UnknownPageController(this)],
         ]);
 
         const currentPage: string = this.getCurrentPage();
@@ -68,7 +70,7 @@ export class Router {
         for (const declaredPage of this.pageMap.keys()) {
             if (url.includes(declaredPage)) pageInUrl = true;
         }
-        if (!pageInUrl) {
+        if (!pageInUrl && url === '') {
             url = 'catalog';
         }
         if (url !== this.getCurrentPage()) window.history.pushState(null, '', `${url}${document.location.search}`);
@@ -80,12 +82,15 @@ export class Router {
     }
 
     private getControllerFactory(page: string): () => BaseController {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (page === '') return this.pageMap.get('catalog')!;
         let pageToFind = '';
         for (const declaredPage of this.pageMap.keys()) {
-            if (page.includes(declaredPage)) pageToFind = declaredPage;
+            const main = page.split('/')[0] ?? '';
+            if (main === declaredPage) pageToFind = declaredPage;
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return this.pageMap.get(pageToFind || 'catalog')!;
+        return this.pageMap.get(pageToFind || '404')!;
     }
 
     private onNavigation(): void {
