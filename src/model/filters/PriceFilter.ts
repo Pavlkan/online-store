@@ -22,6 +22,11 @@ export class PriceFilter extends Observable<PriceFilterData> {
         this.notify(filter);
     }
 
+    public updateFilter(min: number, max: number): void {
+        const filter: PriceFilterData = [min, max];
+        this.notify(filter);
+    }
+
     public isTouched(): boolean {
         return this.touched;
     }
@@ -45,11 +50,6 @@ export class PriceFilter extends Observable<PriceFilterData> {
     public resetFilter(): void {
         this.touched = false;
         this.updateRange(this.assortment.getAssortment());
-    }
-
-    public updateFilter(min: number, max: number): void {
-        const filter: PriceFilterData = [min, max];
-        this.notify(filter);
     }
 
     protected compare(prev: PriceFilterData, current: PriceFilterData): boolean {

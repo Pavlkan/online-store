@@ -79,6 +79,10 @@ export class FiltersPanelController extends BaseController<FiltersPanelComponent
             if (!this.onlineStore.getPriceFilter().isTouched()) {
                 this.onlineStore.getPriceFilter().updateRange(products);
             }
+
+            if (!this.onlineStore.getStockFilter().isTouched()) {
+                this.onlineStore.getStockFilter().updateRange(products);
+            }
         });
     }
 }

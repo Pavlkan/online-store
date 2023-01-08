@@ -35,10 +35,10 @@ export class Filters extends Observable<void> {
     }
 
     public resetFilters(): void {
-        // TODO Stock
         this.brandFilter.resetFilter();
         this.categoryFilter.resetFilter();
         this.priceFilter.resetFilter();
+        this.stockFilter.resetFilter();
     }
 
     private subscribeOnFilters(): void {

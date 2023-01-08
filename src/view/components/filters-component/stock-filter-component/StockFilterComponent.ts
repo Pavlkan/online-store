@@ -33,11 +33,6 @@ export class StockFilterComponent extends BaseComponent<StockFilterComponentProp
         });
     }
 
-    private createFilterInterface() {
-        this.createNumericPanel();
-        this.createRangeElement();
-    }
-
     protected addListeners(): void {
         this.element.addEventListener('input', (event) => {
             if (event.target instanceof HTMLInputElement) {
@@ -46,6 +41,11 @@ export class StockFilterComponent extends BaseComponent<StockFilterComponentProp
                 this.props.controller.filter(Math.min(valueOne, valueTwo), Math.max(valueOne, valueTwo));
             }
         });
+    }
+
+    private createFilterInterface() {
+        this.createNumericPanel();
+        this.createRangeElement();
     }
 
     private createNumericPanel() {
@@ -72,7 +72,7 @@ export class StockFilterComponent extends BaseComponent<StockFilterComponentProp
     }
 
     private createRangeElement() {
-        const filter = this.props.stockFilter.getData();
+        const filter = this.props.stockFilter.getMaxRange();
 
         const rangeContainer = document.createElement('div');
         const sliderTrack = document.createElement('div');
