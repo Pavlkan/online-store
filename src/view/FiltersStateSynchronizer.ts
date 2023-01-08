@@ -38,14 +38,16 @@ export class FiltersStateSynchronizer {
 
     private initializeSearcherState(): void {
         const searcher = this.router.getQueryParam('searcher');
-        this.onlineStore.getSearcher().notify(searcher.toString());
+        if (searcher.length) {
+            this.onlineStore.getSearcher().notify(searcher[0]);
+        }
     }
 
     private initializeSizerState(): void {
         const size = this.router.getQueryParam('sizing');
         if (size.length) {
             this.onlineStore.getSizer().touch();
-            setTimeout(() => this.onlineStore.getSizer().notify(size.toString(), false), 10);
+            this.onlineStore.getSizer().notify(size[0]);
         }
     }
 
@@ -62,7 +64,7 @@ export class FiltersStateSynchronizer {
     private initializePriceFilterState(): void {
         const price = this.router.getQueryParam('price-range');
         if (price.length) {
-            const priceProcessed = price.toString().split('-');
+            const priceProcessed = price[0].split('-');
             this.onlineStore.getPriceFilter().touch();
             this.onlineStore.getPriceFilter().updateFilter(+priceProcessed[0], +priceProcessed[1]);
         }
@@ -71,7 +73,7 @@ export class FiltersStateSynchronizer {
     private initializeStockFilterState(): void {
         const stock = this.router.getQueryParam('stock-range');
         if (stock.length) {
-            const stockProcessed = stock.toString().split('-');
+            const stockProcessed = stock[0].split('-');
             this.onlineStore.getStockFilter().touch();
             this.onlineStore.getStockFilter().updateFilter(+stockProcessed[0], +stockProcessed[1]);
         }

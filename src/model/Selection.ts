@@ -63,7 +63,7 @@ export class Selection extends Observable<Product[]> {
         const sortedProducts = this.sorter.sort(searchedProducts);
         const filteredProducts = this.filters.filter(sortedProducts);
         this.notify(filteredProducts);
-        this.sizer.notify(this.sizer.getData(), false);
+        this.sizer.notify(this.sizer.getData());
         this.counterOfFinds.notify(this.counterOfFinds.count(filteredProducts));
     }
 }

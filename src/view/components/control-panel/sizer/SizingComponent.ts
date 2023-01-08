@@ -1,6 +1,7 @@
 import { SizerController } from '../../../../controller/SizerController';
 import { Sizer } from '../../../../model/Sizer';
 import { BaseComponent } from '../../../BaseComponent';
+import './sizing-component.css';
 
 interface SizerComponentProps {
     controller: SizerController;
@@ -27,9 +28,14 @@ export class SizerComponent extends BaseComponent<SizerComponentProps> {
         bigSize.id = 'big';
         this.element.append(smallSize, bigSize);
 
-        this.sizerSubscriptionId = this.props.sizer.subscribe(() => {
-            const cards = Array.from(document.querySelectorAll('.product-card'));
-            this.props.sizer.sizing(cards as HTMLElement[]);
+        this.sizerSubscriptionId = this.props.sizer.subscribe((size: string) => {
+            if (size === 'small') {
+                bigSize.classList.remove('_active');
+                smallSize.classList.add('_active');
+            } else {
+                smallSize.classList.remove('_active');
+                bigSize.classList.add('_active');
+            }
         });
     }
 

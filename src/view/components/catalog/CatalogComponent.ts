@@ -2,6 +2,7 @@ import { CatalogController } from '../../../controller/CatalogController';
 import { Cart } from '../../../model/Cart';
 import { Product } from '../../../model/Product';
 import { Selection } from '../../../model/Selection';
+import { Sizer } from '../../../model/Sizer';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
 import { ProductCardComponent } from '../product-сard/ProductCardComponent';
@@ -13,13 +14,14 @@ interface CatalogComponentProps {
     router: Router;
     cart: Cart;
     cardComponents: ProductCardComponent[];
+    sizer: Sizer;
 }
 
 export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
     private subscriptionSelectionId!: number;
 
-    constructor(controller: CatalogController, selection: Selection, router: Router, cart: Cart) {
-        super('catalog', { controller, selection, router, cart, cardComponents: [] });
+    constructor(controller: CatalogController, selection: Selection, router: Router, cart: Cart, sizer: Sizer) {
+        super('catalog', { controller, selection, router, cart, cardComponents: [], sizer });
     }
 
     public beforeRemove(): void {
@@ -37,7 +39,13 @@ export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
         this.removeCardsComponents();
         this.props.cardComponents = products.map(
             (product: Product) =>
-                new ProductCardComponent(this.props.controller, product, this.props.router, this.props.cart)
+                new ProductCardComponent(
+                    this.props.controller,
+                    product,
+                    this.props.router,
+                    this.props.cart,
+                    this.props.sizer
+                )
         );
         this.props.cardComponents.forEach((component: ProductCardComponent): void => {
             this.element.append(component.element);

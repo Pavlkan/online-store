@@ -1,6 +1,7 @@
 import { CatalogController } from '../../../controller/CatalogController';
 import { Cart, CartData } from '../../../model/Cart';
 import { Product } from '../../../model/Product';
+import { Sizer } from '../../../model/Sizer';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
 import './product-card.css';
@@ -10,19 +11,22 @@ interface ProductCardComponentProps {
     product: Product;
     router: Router;
     cart: Cart;
+    sizer: Sizer;
 }
 
 export class ProductCardComponent extends BaseComponent<ProductCardComponentProps> {
     private choiceButton!: HTMLElement;
     private detailsButton!: HTMLElement;
     private cartSubscriptionId!: number;
+    private sizerSubscriptionId!: number;
 
-    constructor(controller: CatalogController, product: Product, router: Router, cart: Cart) {
-        super('product-card', { controller, product, router, cart });
+    constructor(controller: CatalogController, product: Product, router: Router, cart: Cart, sizer: Sizer) {
+        super('product-card', { controller, product, router, cart, sizer });
     }
 
     public beforeRemove(): void {
         this.props.cart.unsubscribe(this.cartSubscriptionId);
+        this.props.sizer.unsubscribe(this.sizerSubscriptionId);
     }
 
     protected render() {
@@ -70,9 +74,17 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
                 this.choiceButton.innerText = 'Add to cart';
             }
         });
+
+        this.sizerSubscriptionId = this.props.sizer.subscribe((size: string) => {
+            if (size === 'small') {
+                this.element.classList.add('small');
+            } else {
+                this.element.classList.remove('small');
+            }
+        });
     }
 
-    addListeners() {
+    protected addListeners() {
         this.element.addEventListener('click', (event): void => {
             if (event.target instanceof HTMLElement) {
                 if (event.target === this.choiceButton) {

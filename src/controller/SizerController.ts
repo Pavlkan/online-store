@@ -18,6 +18,6 @@ export class SizerController extends BaseController<SizerComponent> {
 
     public sizing(size: string) {
         this.sizer.touch();
-        this.sizer.notify(size, false);
+        this.sizer.notify(size);
     }
 }

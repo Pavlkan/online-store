@@ -16,7 +16,7 @@ export class Searcher extends Observable<string> {
             if (this.getData() === '') return true;
             for (const prop in product) {
                 if (prop === 'id' || prop === 'thumbnail' || prop === 'images') continue;
-                if (this.isIncludes(product[prop as keyof Product])) {
+                if (this.includes(product[prop as keyof Product])) {
                     flag = true;
                     break;
                 }
@@ -25,7 +25,7 @@ export class Searcher extends Observable<string> {
         });
     }
 
-    private isIncludes(data: string | number | string[]): boolean {
+    private includes(data: string | number | string[]): boolean {
         if (Array.isArray(data)) return false;
         if (typeof data === 'number') {
             return data.toString() === this.getData().toLowerCase();

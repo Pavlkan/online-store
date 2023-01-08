@@ -4,7 +4,7 @@ export class Sizer extends Observable<string> {
     private touched = false;
 
     constructor() {
-        super('');
+        super('big');
     }
 
     public isTouched(): boolean {
@@ -18,14 +18,5 @@ export class Sizer extends Observable<string> {
     public reset() {
         this.touched = false;
         this.notify('big', false);
-    }
-
-    public sizing(cards: HTMLElement[]): void {
-        const size = this.getData();
-        cards.forEach((product: Element): void => {
-            if (product.classList.contains(size)) return;
-            product.classList.remove('small', 'big');
-            product.classList.add(size);
-        });
     }
 }
