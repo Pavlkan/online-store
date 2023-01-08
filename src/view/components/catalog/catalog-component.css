@@ -3,3 +3,11 @@
     flex-wrap: wrap;
 }
 
+.catalog._no-products {
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+

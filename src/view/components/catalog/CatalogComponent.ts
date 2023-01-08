@@ -36,6 +36,7 @@ export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
     }
 
     private renderCategoryComponents(products: Product[]): void {
+        this.element.classList.remove('_no-products');
         this.removeCardsComponents();
         this.props.cardComponents = products.map(
             (product: Product) =>
@@ -47,6 +48,10 @@ export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
                     this.props.sizer
                 )
         );
+        if (!this.props.cardComponents.length) {
+            this.element.classList.add('_no-products');
+            this.element.innerText = 'THERE ARE NO MATCHES';
+        }
         this.props.cardComponents.forEach((component: ProductCardComponent): void => {
             this.element.append(component.element);
         });

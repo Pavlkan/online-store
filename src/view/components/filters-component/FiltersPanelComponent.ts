@@ -35,7 +35,7 @@ export class FiltersPanelComponent extends BaseComponent<FiltersPanelComponentPr
 
         buttonContainer.classList.add('filters__button-container');
         this.resetFiltersButton.classList.add('filters__reset-filters-button');
-        this.copyLinkButton.classList.add('filters__reset-filters-button');
+        this.copyLinkButton.classList.add('filters__copy-filters-button');
 
         this.resetFiltersButton.innerText = 'Reset filters';
         this.copyLinkButton.innerText = 'Copy link';
@@ -59,6 +59,13 @@ export class FiltersPanelComponent extends BaseComponent<FiltersPanelComponentPr
 
         this.copyLinkButton.addEventListener('click', () => {
             this.props.controller.copyFilters();
+            this.copyLinkButton.innerText = 'Copied!';
+            this.copyLinkButton.classList.add('_copied');
+
+            setTimeout(() => {
+                this.copyLinkButton.innerText = 'Copy link';
+                this.copyLinkButton.classList.remove('_copied');
+            }, 3000);
         });
     }
 }
