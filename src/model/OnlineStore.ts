@@ -38,7 +38,14 @@ export class OnlineStore {
         this.stockFilter = new StockFilter(this.assortment);
         this.filters = new Filters(this.categoryFilter, this.brandFilter, this.priceFilter, this.stockFilter);
 
-        this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher, this.filters);
+        this.selection = new Selection(
+            this.assortment,
+            this.sorter,
+            this.counterOfFinds,
+            this.searcher,
+            this.filters,
+            this.sizer
+        );
         this.cart = new Cart();
     }
 
