@@ -32,6 +32,7 @@ export class CategoryFilterComponent extends BaseComponent<CategoryFilterCompone
 
     protected render() {
         this.createInputElements();
+        
         this.categoryFilterSubscriptionId = this.props.categoryFilter.subscribe((filter: CategoryFilterData) => {
             filter.forEach((selected, category) => {
                 const inputArr = Array.from(this.element.querySelectorAll('input'));

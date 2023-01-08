@@ -36,7 +36,11 @@ export class FiltersPanelController extends BaseController<FiltersPanelComponent
             onlineStore.getAssortment(),
             onlineStore.getSelection()
         );
-        this.brandFilterController = new BrandFilterController(brandFilter);
+        this.brandFilterController = new BrandFilterController(
+            brandFilter,
+            onlineStore.getAssortment(),
+            onlineStore.getSelection()
+        );
         this.priceFilterController = new PriceFilterController(priceFilter);
         this.stockFilterController = new StockFilterController(stockFilter);
         this.component = new FiltersPanelComponent(
