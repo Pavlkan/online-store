@@ -22,6 +22,22 @@ export class FiltersStateSynchronizer {
         this.initializeBrandFilterState();
         this.initializePriceFilterState();
         this.initializeStockFilterState();
+
+        this.initializeSorterState();
+        this.initializeSearcherState();
+    }
+
+    private initializeSorterState(): void {
+        const sorting = this.router.getQueryParam('sorting');
+        if (sorting.length) {
+            this.onlineStore.getSorter().touch();
+            this.onlineStore.getSorter().notify(sorting.toString());
+        }
+    }
+
+    private initializeSearcherState(): void {
+        const searcher = this.router.getQueryParam('searcher');
+        this.onlineStore.getSearcher().notify(searcher.toString());
     }
 
     private initializeCategoryFilterState(): void {
@@ -57,6 +73,25 @@ export class FiltersStateSynchronizer {
         this.syncBrandFilterStateInUrl();
         this.syncPriceFilterStateInUrl();
         this.syncStockFilterStateInUrl();
+
+        this.syncSorterStateInUrl();
+        this.syncSearcherStateInUrl();
+    }
+
+    private syncSearcherStateInUrl(): void {
+        this.onlineStore.getSearcher().subscribe((searcher: string) => {
+            this.router.updateQueryParams('searcher', searcher);
+        });
+    }
+
+    private syncSorterStateInUrl(): void {
+        this.onlineStore.getSorter().subscribe((sorter: string) => {
+            if (this.onlineStore.getSorter().isTouched()) {
+                this.router.updateQueryParams('sorting', sorter);
+            } else {
+                this.router.updateQueryParams('sorting', '');
+            }
+        });
     }
 
     private syncCategoryFilterStateInUrl(): void {

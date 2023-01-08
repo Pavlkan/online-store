@@ -1,6 +1,6 @@
-import { Sorter } from "../model/Sorter";
-import { SorterComponent as SorterComponent } from "../view/components/control-panel/sorter/SorterComponent";
-import { BaseController } from "./BaseController";
+import { Sorter } from '../model/Sorter';
+import { SorterComponent as SorterComponent } from '../view/components/control-panel/sorter/SorterComponent';
+import { BaseController } from './BaseController';
 
 export class SorterController extends BaseController<SorterComponent> {
     public component: SorterComponent;
@@ -18,6 +18,7 @@ export class SorterController extends BaseController<SorterComponent> {
     }
 
     public sort(data: string) {
+        this.sorter.touch();
         this.sorter.notify(data);
     }
 }
