@@ -28,11 +28,12 @@ export class CategoryFilterComponent extends BaseComponent<CategoryFilterCompone
 
     public beforeRemove(): void {
         this.props.categoryFilter.unsubscribe(this.categoryFilterSubscriptionId);
+        this.props.selection.unsubscribe(this.selectionSubscriptionId);
     }
 
     protected render() {
         this.createInputElements();
-        
+
         this.categoryFilterSubscriptionId = this.props.categoryFilter.subscribe((filter: CategoryFilterData) => {
             filter.forEach((selected, category) => {
                 const inputArr = Array.from(this.element.querySelectorAll('input'));
