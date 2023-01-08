@@ -32,6 +32,15 @@ export class CategoryFilterComponent extends BaseComponent<CategoryFilterCompone
     }
 
     protected render() {
+        const filterTitle = document.createElement('h3');
+        filterTitle.className = 'filter__title_fixed title';
+        filterTitle.innerText = 'Category';
+
+        const filterInputsContainer = document.createElement('div');
+        filterInputsContainer.className = 'filter__inputs-container';
+
+        this.element.append(filterTitle, filterInputsContainer);
+
         this.createInputElements();
 
         this.categoryFilterSubscriptionId = this.props.categoryFilter.subscribe((filter: CategoryFilterData) => {

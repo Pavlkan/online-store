@@ -24,6 +24,11 @@ export class PriceFilterComponent extends BaseComponent<PriceFilterComponentProp
     }
 
     protected render(): void {
+        const filterTitle = document.createElement('h3');
+        filterTitle.className = 'filter__title title';
+        filterTitle.innerText = 'Price';
+        this.element.append(filterTitle);
+
         this.createFilterInterface();
 
         this.priceFilterSubscriptionId = this.props.priceFilter.subscribe((priceRange: number[]) => {

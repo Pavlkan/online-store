@@ -30,8 +30,10 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
     }
 
     protected render() {
+        this.element.classList.add('inner-container');
+
         const title = document.createElement('h4');
-        title.classList.add('product-card__title');
+        title.className = 'product-card__title title';
         title.innerText = this.props.product.title;
 
         const content = document.createElement('div');
@@ -55,11 +57,11 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
         controls.classList.add('product-card__controls');
 
         this.choiceButton = document.createElement('button');
-        this.choiceButton.classList.add('product-card__choice-button');
+        this.choiceButton.className = 'product-card__choice-button button';
         this.choiceButton.innerText = 'Add to card';
 
         this.detailsButton = document.createElement('button');
-        this.detailsButton.classList.add('product-card__details-button');
+        this.detailsButton.className = 'product-card__details-button button';
         this.detailsButton.innerText = 'Details';
 
         controls.append(this.choiceButton, this.detailsButton);
@@ -70,8 +72,10 @@ export class ProductCardComponent extends BaseComponent<ProductCardComponentProp
         this.cartSubscriptionId = this.props.cart.subscribe((cart: CartData) => {
             if (cart.has(this.props.product)) {
                 this.choiceButton.innerText = 'Drop from cart';
+                this.element.classList.add('product-card-in-cart');
             } else {
                 this.choiceButton.innerText = 'Add to cart';
+                this.element.classList.remove('product-card-in-cart');
             }
         });
 
