@@ -1,3 +1,14 @@
+.filters__category-container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters__category-container.empty {
+    opacity: 0.7;
+}
+
 .filters__label {
     display: flex;
     flex-direction: row-reverse;

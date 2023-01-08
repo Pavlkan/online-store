@@ -153,4 +153,6 @@ export class ProductPageComponent extends BaseComponent<ProductPageComponentProp
             }
         });
     }
+    
+    
 }

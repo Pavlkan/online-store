@@ -4,18 +4,19 @@ import { CategoryFilter } from './filters/CategoryFilter';
 import { CounterOfFinds } from './CounterOfFinds';
 import { Filters } from './filters/Filters';
 import { PriceFilter } from './filters/PriceFilter';
-import { Product } from './Product';
 import { Searcher } from './Searcher';
 import { Selection } from './Selection';
 import { Sorter } from './Sorter';
 import { StockFilter } from './filters/StockFilter';
 import { Cart } from './Cart';
+import { Sizer } from './Sizer';
 
 export class OnlineStore {
     private assortment: Assortment;
     private sorter: Sorter;
     private counterOfFinds: CounterOfFinds;
     private searcher: Searcher;
+    private sizer: Sizer;
     private categoryFilter: CategoryFilter;
     private brandFilter: BrandFilter;
     private priceFilter: PriceFilter;
@@ -29,6 +30,7 @@ export class OnlineStore {
         this.sorter = new Sorter();
         this.counterOfFinds = new CounterOfFinds(this.assortment);
         this.searcher = new Searcher();
+        this.sizer = new Sizer();
 
         this.categoryFilter = new CategoryFilter(this.assortment);
         this.brandFilter = new BrandFilter(this.assortment);
@@ -36,7 +38,14 @@ export class OnlineStore {
         this.stockFilter = new StockFilter(this.assortment);
         this.filters = new Filters(this.categoryFilter, this.brandFilter, this.priceFilter, this.stockFilter);
 
-        this.selection = new Selection(this.assortment, this.sorter, this.counterOfFinds, this.searcher, this.filters);
+        this.selection = new Selection(
+            this.assortment,
+            this.sorter,
+            this.counterOfFinds,
+            this.searcher,
+            this.filters,
+            this.sizer
+        );
         this.cart = new Cart();
     }
 
@@ -48,8 +57,8 @@ export class OnlineStore {
         return this.assortment.getCategories();
     }
 
-    public getAssortment(): Product[] {
-        return this.assortment.getAssortment();
+    public getAssortment(): Assortment {
+        return this.assortment;
     }
 
     public getSorter(): Sorter {
@@ -62,6 +71,10 @@ export class OnlineStore {
 
     public getSearcher(): Searcher {
         return this.searcher;
+    }
+
+    public getSizer(): Sizer {
+        return this.sizer;
     }
 
     public getSelection(): Selection {

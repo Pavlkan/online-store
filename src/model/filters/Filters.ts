@@ -34,6 +34,13 @@ export class Filters extends Observable<void> {
         return stockedProducts;
     }
 
+    public resetFilters(): void {
+        this.brandFilter.resetFilter();
+        this.categoryFilter.resetFilter();
+        this.priceFilter.resetFilter();
+        this.stockFilter.resetFilter();
+    }
+
     private subscribeOnFilters(): void {
         this.categoryFilter.subscribe(() => {
             this.notify(undefined, false);

@@ -26,7 +26,7 @@ export class Observable<Data> {
         this.subscribers.forEach(([mapper, cb]) => {
             const newResult = mapper(this.data);
             const lastResult = mapper(prevData);
-            if (!compare || newResult !== lastResult) {
+            if (!compare || !this.compare(lastResult, newResult)) {
                 cb(newResult);
             }
         });
@@ -38,5 +38,9 @@ export class Observable<Data> {
 
     public getData(): Data {
         return this.data;
+    }
+
+    protected compare(prev: unknown, current: unknown): boolean {
+        return prev === current;
     }
 }

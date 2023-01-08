@@ -2,9 +2,10 @@ import { CatalogController } from '../../../controller/CatalogController';
 import { Cart } from '../../../model/Cart';
 import { Product } from '../../../model/Product';
 import { Selection } from '../../../model/Selection';
+import { Sizer } from '../../../model/Sizer';
 import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
-import { ProductCardComponent } from '../productCard/ProductCardComponent';
+import { ProductCardComponent } from '../product-сard/ProductCardComponent';
 import './catalog-component.css';
 
 interface CatalogComponentProps {
@@ -13,13 +14,14 @@ interface CatalogComponentProps {
     router: Router;
     cart: Cart;
     cardComponents: ProductCardComponent[];
+    sizer: Sizer;
 }
 
 export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
     private subscriptionSelectionId!: number;
 
-    constructor(controller: CatalogController, selection: Selection, router: Router, cart: Cart) {
-        super('catalog', { controller, selection, router, cart, cardComponents: [] });
+    constructor(controller: CatalogController, selection: Selection, router: Router, cart: Cart, sizer: Sizer) {
+        super('catalog', { controller, selection, router, cart, cardComponents: [], sizer });
     }
 
     public beforeRemove(): void {
@@ -34,11 +36,22 @@ export class CatalogComponent extends BaseComponent<CatalogComponentProps> {
     }
 
     private renderCategoryComponents(products: Product[]): void {
+        this.element.classList.remove('_no-products');
         this.removeCardsComponents();
         this.props.cardComponents = products.map(
             (product: Product) =>
-                new ProductCardComponent(this.props.controller, product, this.props.router, this.props.cart)
+                new ProductCardComponent(
+                    this.props.controller,
+                    product,
+                    this.props.router,
+                    this.props.cart,
+                    this.props.sizer
+                )
         );
+        if (!this.props.cardComponents.length) {
+            this.element.classList.add('_no-products');
+            this.element.innerText = 'THERE ARE NO MATCHES';
+        }
         this.props.cardComponents.forEach((component: ProductCardComponent): void => {
             this.element.append(component.element);
         });

@@ -21,6 +21,10 @@ export class CategoryFilter extends Observable<CategoryFilterData> {
         });
     }
 
+    public resetFilter(): void {
+        this.initializeFilter();
+    }
+
     public updateFilter(category: string, selected: boolean): void {
         const filter: CategoryFilterData = new Map(this.getData());
         filter.set(category, selected);

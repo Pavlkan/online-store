@@ -1,13 +1,22 @@
 import { SizerController } from '../../../../controller/SizerController';
+import { Sizer } from '../../../../model/Sizer';
 import { BaseComponent } from '../../../BaseComponent';
+import './sizing-component.css';
 
 interface SizerComponentProps {
     controller: SizerController;
+    sizer: Sizer;
 }
 
 export class SizerComponent extends BaseComponent<SizerComponentProps> {
-    constructor(controller: SizerController) {
-        super('control-panel__size-options', { controller });
+    private sizerSubscriptionId!: number;
+
+    constructor(controller: SizerController, sizer: Sizer) {
+        super('control-panel__size-options', { controller, sizer });
+    }
+
+    public beforeRemove(): void {
+        this.props.sizer.unsubscribe(this.sizerSubscriptionId);
     }
 
     render() {
@@ -20,22 +29,23 @@ export class SizerComponent extends BaseComponent<SizerComponentProps> {
         smallSize.id = 'small';
         bigSize.id = 'big';
         this.element.append(smallSize, bigSize);
-    }
 
-    protected addListeners(): void {
-        this.element.addEventListener('click', (event) => {
-            if (event.target instanceof HTMLElement && event.target.id) {
-                this.changeProductCardsSize(event.target.id);
+        this.sizerSubscriptionId = this.props.sizer.subscribe((size: string) => {
+            if (size === 'small') {
+                bigSize.classList.remove('_active');
+                smallSize.classList.add('_active');
+            } else {
+                smallSize.classList.remove('_active');
+                bigSize.classList.add('_active');
             }
         });
     }
 
-    private changeProductCardsSize(size: string): void {
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach((product: Element): void => {
-            if (product.classList.contains(size)) return;
-            product.classList.remove('small', 'big');
-            product.classList.add(size);
+    protected addListeners(): void {
+        this.element.addEventListener('click', (event) => {
+            if (event.target instanceof HTMLButtonElement && event.target.id) {
+                this.props.controller.sizing(event.target.id);
+            }
         });
     }
 }

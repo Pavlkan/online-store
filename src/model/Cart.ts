@@ -28,6 +28,10 @@ export class Cart extends Observable<CartData> {
         this.notify(new Map(this.getData()));
     }
 
+    public clearCart(): void {
+        this.notify(new Map());
+    }
+
     public getAmount(): number {
         let amount = 0;
         this.getData().forEach((quantity, product) => {

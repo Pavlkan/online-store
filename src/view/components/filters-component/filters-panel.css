@@ -174,3 +174,12 @@ input[type="range"]:active::-webkit-slider-thumb {
     display: flex;
     flex-direction: column;
 }
+
+.filters__copy-filters-button {
+    transition: all 0.3s;
+
+}
+
+.filters__copy-filters-button._copied {
+    background-color: rgba(255, 0, 0, 0.502);
+}

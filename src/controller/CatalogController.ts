@@ -12,7 +12,13 @@ export class CatalogController extends BaseController<CatalogComponent> {
     constructor(onlineStore: OnlineStore, router: Router) {
         super();
         this.cart = onlineStore.getCart();
-        this.component = new CatalogComponent(this, onlineStore.getSelection(), router, this.cart);
+        this.component = new CatalogComponent(
+            this,
+            onlineStore.getSelection(),
+            router,
+            this.cart,
+            onlineStore.getSizer()
+        );
     }
 
     public remove(): void {

@@ -17,6 +17,7 @@ export class StockFilterController extends BaseController<StockFilterComponent> 
     }
 
     public filter(min: number, max: number): void {
+        this.stockFilter.touch();
         this.stockFilter.updateFilter(min, max);
     }
 }

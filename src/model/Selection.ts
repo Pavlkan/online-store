@@ -4,11 +4,13 @@ import { Filters } from './filters/Filters';
 import { Observable } from './Observable';
 import { Product } from './Product';
 import { Searcher } from './Searcher';
+import { Sizer } from './Sizer';
 import { Sorter } from './Sorter';
 
 export class Selection extends Observable<Product[]> {
     private assortment: Assortment;
     private sorter: Sorter;
+    private sizer: Sizer;
     private counterOfFinds: CounterOfFinds;
     private searcher: Searcher;
     private filters: Filters;
@@ -18,13 +20,15 @@ export class Selection extends Observable<Product[]> {
         sorter: Sorter,
         counterOfFinds: CounterOfFinds,
         searcher: Searcher,
-        filters: Filters
+        filters: Filters,
+        sizer: Sizer
     ) {
         super([]);
         this.assortment = assortment;
         this.sorter = sorter;
         this.counterOfFinds = counterOfFinds;
         this.searcher = searcher;
+        this.sizer = sizer;
         this.filters = filters;
 
         this.subscribeOnControlPanel();
@@ -59,6 +63,7 @@ export class Selection extends Observable<Product[]> {
         const sortedProducts = this.sorter.sort(searchedProducts);
         const filteredProducts = this.filters.filter(sortedProducts);
         this.notify(filteredProducts);
+        this.sizer.notify(this.sizer.getData());
         this.counterOfFinds.notify(this.counterOfFinds.count(filteredProducts));
     }
 }

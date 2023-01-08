@@ -1,10 +1,10 @@
-import { OnlineStore } from "../model/OnlineStore";
-import { ControlPanelComponent } from "../view/components/control-panel/ControlPanelComponent";
-import { BaseController } from "./BaseController";
-import { CounterOfFindsController } from "./CounterOfFindsController";
-import { SearcherController } from "./SearcherController";
-import { SizerController } from "./SizerController";
-import { SorterController } from "./SorterController";
+import { OnlineStore } from '../model/OnlineStore';
+import { ControlPanelComponent } from '../view/components/control-panel/ControlPanelComponent';
+import { BaseController } from './BaseController';
+import { CounterOfFindsController } from './CounterOfFindsController';
+import { SearcherController } from './SearcherController';
+import { SizerController } from './SizerController';
+import { SorterController } from './SorterController';
 
 export class ControlPanelController extends BaseController<ControlPanelComponent> {
     public component: ControlPanelComponent;
@@ -18,7 +18,7 @@ export class ControlPanelController extends BaseController<ControlPanelComponent
         this.sorterController = new SorterController(onlineStore.getSorter());
         this.counterOfFindsController = new CounterOfFindsController(onlineStore.getCounterOfFinds());
         this.searcherController = new SearcherController(onlineStore.getSearcher());
-        this.sizerController = new SizerController();
+        this.sizerController = new SizerController(onlineStore.getSizer());
         this.component = new ControlPanelComponent(
             this,
             onlineStore.getSorter(),

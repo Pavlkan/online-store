@@ -39,8 +39,12 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
         this.removeProductComponents();
     }
 
+    public getMaxLimit(): number {
+        return this.props.cart.getData().size;
+    }
+
     protected render(): void {
-        this.controlPanel = new CartControlPanelComponent(this.onControlPanelChange.bind(this));
+        this.controlPanel = new CartControlPanelComponent(this, this.onControlPanelChange.bind(this));
 
         this.productsContainer = document.createElement('div');
         this.productsContainer.classList.add('catalog__products-container');
@@ -62,7 +66,10 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
     }
 
     private getPaginationData(): [Product, number][] {
-        return Array.from(this.props.cartData).slice(this.props.limit * (this.props.page - 1), this.props.limit * this.props.page);
+        return Array.from(this.props.cartData).slice(
+            this.props.limit * (this.props.page - 1),
+            this.props.limit * this.props.page
+        );
     }
 
     private onControlPanelChange(limitNumber: number, pageNumber: number): void {
