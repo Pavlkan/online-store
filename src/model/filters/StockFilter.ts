@@ -61,10 +61,14 @@ export class StockFilter extends Observable<StockFilterData> {
         const assortmentSortedByStock = [...products].sort((a: Product, b: Product) => {
             return a.stock - b.stock;
         });
-        filter.push(
-            assortmentSortedByStock[0].stock,
-            assortmentSortedByStock[assortmentSortedByStock.length - 1].stock
-        );
+        if (assortmentSortedByStock.length) {
+            filter.push(
+                assortmentSortedByStock[0].stock,
+                assortmentSortedByStock[assortmentSortedByStock.length - 1].stock
+            );
+        } else {
+            filter.push(0, 0);
+        }
 
         return filter as StockFilterData;
     }

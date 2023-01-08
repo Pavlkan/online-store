@@ -61,10 +61,14 @@ export class PriceFilter extends Observable<PriceFilterData> {
         const assortmentSortedByPrice = [...products].sort((a: Product, b: Product) => {
             return a.price - b.price;
         });
-        filter.push(
-            assortmentSortedByPrice[0].price,
-            assortmentSortedByPrice[assortmentSortedByPrice.length - 1].price
-        );
+        if (assortmentSortedByPrice.length) {
+            filter.push(
+                assortmentSortedByPrice[0].price,
+                assortmentSortedByPrice[assortmentSortedByPrice.length - 1].price
+            );
+        } else {
+            filter.push(0, 0);
+        }
 
         return filter as PriceFilterData;
     }
