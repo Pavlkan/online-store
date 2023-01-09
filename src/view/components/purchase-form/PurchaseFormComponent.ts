@@ -1,11 +1,11 @@
-import { CartSummaryController } from '../../../controller/cart/CartSummaryController';
+import { Cart } from '../../../model/Cart';
 import { BaseComponent } from '../../BaseComponent';
 import { Modal } from '../../modal/Modal';
 import { Router } from '../../Router';
 import './purchase-form.css';
 
 interface PurchaseFormComponentProps {
-    controller: CartSummaryController;
+    cart: Cart;
     router: Router;
     modal: Modal;
 }
@@ -21,8 +21,8 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     private errorAlarm!: HTMLElement;
     private confirmButton!: HTMLButtonElement;
 
-    constructor(controller: CartSummaryController, router: Router, modal: Modal) {
-        super('purchase-form', { controller, router, modal });
+    constructor(cart: Cart, router: Router, modal: Modal) {
+        super('purchase-form', { cart, router, modal });
     }
 
     protected render(): void {
@@ -197,7 +197,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
                 this.element.innerText = 'Thank you for purchase!';
                 this.element.classList.add('final');
                 setTimeout(() => {
-                    this.props.controller.clearCart();
+                    this.props.cart.clearCart();
                     this.props.modal.detach();
                     this.props.router.navigateTo('catalog');
                 }, 3000);

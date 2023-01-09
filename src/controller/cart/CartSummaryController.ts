@@ -16,8 +16,4 @@ export class CartSummaryController extends BaseController<CartSummaryComponent> 
     public remove(): void {
         this.component.beforeRemove();
     }
-
-    public clearCart(): void {
-        this.cart.clearCart();
-    }
 }
