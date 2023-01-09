@@ -21,7 +21,8 @@ export class CartPageController extends BaseController<CartPageComponent> {
         this.component = new CartPageComponent(
             this,
             this.cartCatalogController.component,
-            this.cartSummaryController.component
+            this.cartSummaryController.component,
+            onlineStore.getCart()
         );
     }
 
