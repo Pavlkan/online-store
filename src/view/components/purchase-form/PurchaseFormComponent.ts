@@ -19,6 +19,8 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     private validThruInput!: HTMLInputElement;
     private cvvInput!: HTMLInputElement;
     private errorAlarm!: HTMLElement;
+    private cardNumberTitle!: HTMLElement;
+    private cardNumberImg!: HTMLImageElement;
     private confirmButton!: HTMLButtonElement;
 
     constructor(cart: Cart, router: Router, modal: Modal) {
@@ -33,10 +35,34 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     private createPersonInfoSection(): void {
         const personInfoContainer = document.createElement('div');
         const personInfoTitle = document.createElement('h3');
+
+        const nameInputContainer = document.createElement('div');
+        const phoneInputContainer = document.createElement('div');
+        const addressInputContainer = document.createElement('div');
+        const mailInputContainer = document.createElement('div');
+        nameInputContainer.classList.add('input__container');
+        phoneInputContainer.classList.add('input__container');
+        addressInputContainer.classList.add('input__container');
+        mailInputContainer.classList.add('input__container');
+
+        const nameInputMessage = document.createElement('div');
+        const phoneInputMessage = document.createElement('div');
+        const addressInputMessage = document.createElement('div');
+        const mailInputMessage = document.createElement('div');
+        nameInputMessage.classList.add('input__message');
+        phoneInputMessage.classList.add('input__message');
+        addressInputMessage.classList.add('input__message');
+        mailInputMessage.classList.add('input__message');
+
         this.personNameInput = document.createElement('input');
         this.personPhoneInput = document.createElement('input');
         this.personAddressInput = document.createElement('input');
         this.personMailInput = document.createElement('input');
+
+        nameInputContainer.append(nameInputMessage, this.personNameInput);
+        phoneInputContainer.append(phoneInputMessage, this.personPhoneInput);
+        addressInputContainer.append(addressInputMessage, this.personAddressInput);
+        mailInputContainer.append(mailInputMessage, this.personMailInput);
 
         personInfoContainer.classList.add('purchase-form__person-info-container');
         personInfoTitle.classList.add('purchase-form__person-info-title');
@@ -46,7 +72,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.personMailInput.classList.add('purchase-form__person-mail');
 
         personInfoTitle.innerText = 'Personal details';
-        this.personNameInput.placeholder = 'Name';
+        this.personNameInput.placeholder = 'Name and Family name';
         this.personPhoneInput.placeholder = 'Phone number +375 XX X** ** **';
         this.personAddressInput.placeholder = 'Delivery address';
         this.personMailInput.placeholder = 'E-mail';
@@ -63,10 +89,10 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
 
         personInfoContainer.append(
             personInfoTitle,
-            this.personNameInput,
-            this.personPhoneInput,
-            this.personAddressInput,
-            this.personMailInput
+            nameInputContainer,
+            phoneInputContainer,
+            addressInputContainer,
+            mailInputContainer
         );
 
         this.element.append(personInfoContainer);
@@ -75,6 +101,8 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     private createCardInfoSection(): void {
         const cardInfoContainer = document.createElement('div');
         const cardInfoTitle = document.createElement('h3');
+        this.cardNumberImg = document.createElement('img');
+        this.cardNumberTitle = document.createElement('div');
         this.cardNumberInput = document.createElement('input');
         const thruCvvContainer = document.createElement('div');
         const validThruContainer = document.createElement('div');
@@ -85,8 +113,27 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.cvvInput = document.createElement('input');
         this.confirmButton = document.createElement('button');
 
+        const cardNumberInputContainer = document.createElement('div');
+        const validThruInputContainer = document.createElement('div');
+        const cvvInputContainer = document.createElement('div');
+        cardNumberInputContainer.classList.add('input__container');
+        validThruInputContainer.classList.add('input__container');
+        cvvInputContainer.classList.add('input__container');
+
+        const cardNumberInputMessage = document.createElement('div');
+        const validThruInputMessage = document.createElement('div');
+        const cvvInputMessage = document.createElement('div');
+        cardNumberInputMessage.classList.add('input__message');
+        validThruInputMessage.classList.add('input__message');
+        cvvInputMessage.classList.add('input__message');
+
+        cardNumberInputContainer.append(cardNumberInputMessage, this.cardNumberInput);
+        validThruInputContainer.append(validThruInputMessage, this.validThruInput);
+        cvvInputContainer.append(cvvInputMessage, this.cvvInput);
+
         cardInfoContainer.classList.add('purchase-form__card-info-container');
         cardInfoTitle.classList.add('purchase-form__card-info-title');
+        this.cardNumberTitle.classList.add('purchase-form__card-number-title');
         this.cardNumberInput.classList.add('purchase-form__card-number');
         thruCvvContainer.classList.add('purchase-form__card-thru-cvv-container');
         validThruContainer.classList.add('purchase-form__card-THRU-container');
@@ -117,6 +164,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.errorAlarm.classList.add('purchase-form__error-alarm');
 
         cardInfoTitle.innerText = 'Credit card details';
+        this.cardNumberTitle.innerText = 'Payment system:';
         this.cardNumberInput.placeholder = 'Card number';
         validThruForm.value = 'VALID:';
         this.validThruInput.placeholder = 'Valid THRU';
@@ -127,20 +175,21 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.cardNumberInput.required = true;
         this.cardNumberInput.maxLength = 12;
         this.validThruInput.required = true;
-        this.validThruInput.maxLength = 4;
+        this.validThruInput.maxLength = 5;
         this.cvvInput.required = true;
         this.cvvInput.maxLength = 3;
 
-        this.cardNumberInput.type = 'text';
+        this.cardNumberInput.type = 'number';
         this.validThruInput.type = 'text';
-        this.cvvInput.type = 'text';
+        this.cvvInput.type = 'number';
 
-        validThruContainer.append(validThruForm, this.validThruInput);
-        cvvContainer.append(cvvForm, this.cvvInput);
+        this.cardNumberTitle.append(this.cardNumberImg);
+        validThruContainer.append(validThruForm, validThruInputContainer);
+        cvvContainer.append(cvvForm, cvvInputContainer);
         thruCvvContainer.append(validThruContainer, cvvContainer);
         cardInfoContainer.append(
             cardInfoTitle,
-            this.cardNumberInput,
+            cardNumberInputContainer,
             thruCvvContainer,
             this.errorAlarm,
             this.confirmButton
@@ -162,18 +211,88 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         inputs.forEach((input) => {
             input.addEventListener('input', () => {
                 input.id = 'touched';
+                const message = input.previousElementSibling;
                 if (this.validation(input)) {
                     input.classList.add('valid');
+                    if (message) (message as HTMLElement).innerText = 'Valid';
                 } else {
                     input.classList.remove('valid');
                 }
             });
+
             input.addEventListener('blur', () => {
                 input.classList.add('blur');
+
+                if (input === this.validThruInput) {
+                    const currentValue = input.value;
+                    if (currentValue.length === 4) {
+                        input.value = currentValue.slice(0, 2) + '/' + currentValue.slice(2, 4);
+                    }
+                }
             });
+
             input.addEventListener('focus', () => {
                 input.classList.remove('blur');
+
+                if (input === this.validThruInput) {
+                    const currentValue = input.value;
+                    if (currentValue.length === 5) {
+                        input.value = currentValue.slice(0, 2) + currentValue.slice(3, 5);
+                    }
+                }
             });
+        });
+
+        this.cardNumberInput.addEventListener('input', () => {
+            const currentValue = this.cardNumberInput.value;
+            const message = this.cardNumberInput.previousElementSibling;
+            if (currentValue[0] === '2') {
+                this.cardNumberTitle.innerText = 'Payment system: МИР';
+                this.cardNumberImg.src = 'http://img.advertology.ru/aimages/2018/03/19/Mir_Logo_Id_04.jpg';
+            } else if (currentValue[0] === '4') {
+                this.cardNumberTitle.innerText = 'Payment system: VISA';
+            } else if (currentValue[0] === '7') {
+                this.cardNumberTitle.innerText = 'Payment system: УЭК';
+            } else if (currentValue[0] === '5') {
+                this.cardNumberTitle.innerText = 'Payment system: MasterCard';
+            } else if (currentValue.slice(0, 2) === '51') {
+                this.cardNumberTitle.innerText = 'Payment system: Maestro';
+            } else {
+                this.cardNumberTitle.innerText = 'Payment system: ';
+            }
+            if (currentValue.length > 16) {
+                this.cardNumberInput.value = currentValue.slice(0, 16);
+                if (this.validation(this.cardNumberInput)) {
+                    this.cardNumberInput.classList.add('valid');
+                    if (message) (message as HTMLElement).innerText = 'Valid';
+                } else {
+                    this.cardNumberInput.classList.remove('valid');
+                    if (message) (message as HTMLElement).innerText = '';
+                }
+            }
+        });
+
+        this.validThruInput.addEventListener('input', () => {
+            const currentValue = this.validThruInput.value;
+
+            const eng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const rus = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            const symbols = '~`!@#$%^&*()_-=+}{][";:>.<,*';
+
+            if (currentValue.length > 4) this.validThruInput.value = currentValue.slice(0, 4);
+
+            if (
+                eng.includes(currentValue[currentValue.length - 1].toUpperCase()) ||
+                rus.includes(currentValue[currentValue.length - 1].toUpperCase()) ||
+                symbols.includes(currentValue[currentValue.length - 1])
+            ) {
+                this.validThruInput.value = currentValue.slice(0, currentValue.length - 1);
+            }
+        });
+
+        this.cvvInput.addEventListener('input', () => {
+            const currentValue = this.cvvInput.value;
+            if (currentValue.length > 3) this.cvvInput.value = currentValue.slice(0, 3);
         });
 
         this.confirmButton.addEventListener('click', () => {
@@ -208,30 +327,46 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     private validation(input: HTMLInputElement): boolean {
         input.classList.remove('valid');
         input.classList.remove('invalid');
-        if (input === this.personNameInput && this.isValidText(input.value)) return true;
+        if (input === this.personNameInput && this.isValidName(input.value)) return true;
         if (input === this.personPhoneInput && this.isValidPhone(input.value)) return true;
         if (input === this.personAddressInput && this.isValidAddress(input.value)) return true;
         if (input === this.personMailInput && this.isMailValid(input.value)) return true;
         if (input === this.cardNumberInput && this.isValidCardNumber(input.value)) return true;
         if (input === this.validThruInput && this.isValidTHRU(input.value)) return true;
         if (input === this.cvvInput && this.isValidCVV(input.value)) return true;
+        const message = input.previousElementSibling;
+        if (message) (message as HTMLElement).innerText = 'Error';
         input.classList.add('invalid');
         return false;
     }
 
-    private isValidText(name: string): boolean {
-        if (name.length < 2) return false;
+    private isValidName(name: string): boolean {
+        if (name.length < 7 || !name.includes(' ')) return false;
         const eng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const rus = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-        return name.split('').every((letter) => {
-            const upLetter = letter.toUpperCase();
-            return eng.includes(upLetter) || rus.includes(upLetter);
-        });
+
+        const words = name.trim().split(' ').length >= 2;
+
+        const wordsLength = name
+            .trim()
+            .split(' ')
+            .every((word) => word.length >= 3);
+
+        const letters = name
+            .trim()
+            .split('')
+            .every((letter) => {
+                if (letter === ' ') return true;
+                const upLetter = letter.toUpperCase();
+                return eng.includes(upLetter) || rus.includes(upLetter);
+            });
+
+        return words && wordsLength && letters;
     }
 
     private isValidPhone(phone: string): boolean {
         const phoneTrimmed = phone.split(' ').join('');
-        if (phoneTrimmed.length !== 13 || phoneTrimmed.slice(0, 4) !== '+375') return false;
+        if (phoneTrimmed.length < 10 || phoneTrimmed.slice(0, 1) !== '+') return false;
         return this.isValidNumbers(phoneTrimmed.slice(1));
     }
 
@@ -240,15 +375,22 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     }
 
     private isValidAddress(address: string): boolean {
-        if (address.length === 0) return false;
+        if (address.length < 17) return false;
         const eng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const rus = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
         const unwantedSymbols = '~`!@$%^*_+={}[]|;:';
+
+        const words = address.trim().split(' ').length >= 3;
+        const wordsLength = address
+            .trim()
+            .split(' ')
+            .every((word) => word.length >= 5);
+
         const freeFromSymbols = address.split('').every((symbol) => !unwantedSymbols.includes(symbol));
         const hasLetters = address.split('').some((symbol) => {
             return eng.includes(symbol.toUpperCase()) || rus.includes(symbol.toUpperCase());
         });
-        return freeFromSymbols && hasLetters;
+        return freeFromSymbols && hasLetters && words && wordsLength;
     }
 
     private isMailValid(mail: string): boolean {
@@ -258,31 +400,19 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     }
 
     private isValidTHRU(numberStr: string) {
-        if (numberStr.length !== 4) return false;
-        return this.isValidNumbers(numberStr);
+        if (numberStr.length < 4) return false;
+        const months = Number(numberStr.slice(0, 2));
+        const month = Number(numberStr.slice(2, 4));
+        return months <= 12 && months >= 1 && month <= 31 && month >= 1;
     }
 
     private isValidCVV(numberStr: string) {
-        if (numberStr.length !== 3) return false;
+        if (numberStr.length < 3) return false;
         return this.isValidNumbers(numberStr);
     }
 
     private isValidCardNumber(creditCardNumber: string): boolean {
         if (creditCardNumber.toString().length !== 16) return false;
-        const transformArr = creditCardNumber
-            .split('')
-            .reverse()
-            .map((number, index) => {
-                if ((index + 1) % 2 !== 0) return +number;
-                const transformedNum = +number * 2;
-                if (transformedNum > 9) {
-                    const numberStr = transformedNum.toString();
-                    const firstNum = numberStr[0];
-                    const secondNum = numberStr[1];
-                    return +firstNum + +secondNum;
-                }
-                return +transformedNum;
-            });
-        return transformArr.reduce((acc, number) => acc + number, 0) % 10 === 0;
+        return true;
     }
 }
