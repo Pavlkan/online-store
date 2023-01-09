@@ -22,6 +22,8 @@ export class SizerComponent extends BaseComponent<SizerComponentProps> {
     render() {
         const smallSize = document.createElement('button');
         const bigSize = document.createElement('button');
+        smallSize.className = 'button';
+        bigSize.className = 'button';
         smallSize.innerText = 'small';
         bigSize.innerText = 'big';
         smallSize.id = 'small';

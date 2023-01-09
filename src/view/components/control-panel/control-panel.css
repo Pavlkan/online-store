@@ -2,11 +2,43 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: var(--border-thin);
+    border-radius: var(--border-radius-container);
+    background-color: var(--color-bg-footer-header);
+    margin: 0 auto;
+    gap: 0.5rem;
+    padding: 0.3% 1%;
+    width: 98%;
 }
 
 .control-panel__size-options {
-    width: 15%;
+    width: 23%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.1rem;
+    color: var(--color-price);
+}
+
+.control-panel__counter {
+    font-weight: 600;
+    color: var(--color-price);
+}
+
+.control-panel__search {
+    width: 12rem;
+    font-size: 1rem;
+    background-color: var(--color-bg-footer-header);
+    border: var(--border-thick);
+    border-radius: var(--border-radius-container);
+    color: var(--color-price);
+}
+
+.control-panel__select-options {
+    width: 12rem;
+    font-size: 1rem;
+    background-color: var(--color-bg-footer-header);
+    border: var(--border-thick);
+    border-radius: var(--border-radius-container);
+    cursor: pointer;
 }

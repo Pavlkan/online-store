@@ -23,6 +23,10 @@ export class StockFilterComponent extends BaseComponent<StockFilterComponentProp
     }
 
     protected render(): void {
+        const filterTitle = document.createElement('h3');
+        filterTitle.className = 'filter__title title';
+        filterTitle.innerText = 'Stock';
+        this.element.append(filterTitle);
         this.createFilterInterface();
 
         this.stockFilterSubscriptionId = this.props.stockFilter.subscribe((stockRange: number[]) => {

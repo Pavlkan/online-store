@@ -1,7 +1,7 @@
 #small._active,
 #big._active {
     opacity: 1;
-    background-color: rgba(255, 0, 0, 0.532);
+    box-shadow: var(--box-shadow);
 }
 
 #small,
