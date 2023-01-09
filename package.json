@@ -1,45 +1,47 @@
 {
-  "name": "online-store",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "devDependencies": {
-    "@types/node": "^18.11.15",
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
-    "css-loader": "^6.7.3",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-webpack-plugin": "^3.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "prettier": "2.8.1",
-    "rimraf": "^3.0.2",
-    "style-loader": "^3.3.1",
-    "ts-loader": "^9.4.2",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
-    "build": "rimraf ./build && webpack",
-    "lint": "eslint ./src",
-    "format": "npx eslint ./src --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pavlkan/online-store.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pavlkan/online-store/issues"
-  },
-  "homepage": "https://github.com/Pavlkan/online-store#readme"
+    "name": "online-store",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "devDependencies": {
+        "@types/node": "^18.11.15",
+        "@typescript-eslint/eslint-plugin": "^5.46.1",
+        "@typescript-eslint/parser": "^5.46.1",
+        "css-loader": "^6.7.3",
+        "eslint": "^8.29.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-webpack-plugin": "^3.2.0",
+        "gh-pages": "^4.0.0",
+        "html-webpack-plugin": "^5.5.0",
+        "prettier": "2.8.1",
+        "rimraf": "^3.0.2",
+        "style-loader": "^3.3.1",
+        "ts-loader": "^9.4.2",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.4",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-dev-server": "^4.11.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
+        "build": "rimraf ./build && webpack",
+        "lint": "eslint ./src",
+        "format": "npx eslint ./src --fix",
+        "deploy": "gh-pages -d ./build -e online-store"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Pavlkan/online-store.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Pavlkan/online-store/issues"
+    },
+    "homepage": "https://github.com/Pavlkan/online-store#readme"
 }
