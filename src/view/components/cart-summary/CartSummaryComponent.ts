@@ -18,6 +18,9 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
     private promoCodeContainer!: HTMLElement;
     private promoCodeInput!: HTMLInputElement;
     private buyButton!: HTMLButtonElement;
+    private promoCodeButton!: HTMLButtonElement;
+    private promoCode!: HTMLElement;
+    private usedPromoCodesContainer!: HTMLElement;
 
     constructor(controller: CartSummaryController, cart: Cart, router: Router) {
         super('cart-page__summary', { controller, cart, router });
@@ -52,10 +55,22 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
         this.promoCodeInput.addEventListener('input', () => {
             const currentValue = this.promoCodeInput.value.toUpperCase();
             if (currentValue === 'RS') {
-                // TODO drop RS discount
+                const rsPromoCode = document.getElementById('RS-promo-code');
+                if (rsPromoCode) return;
+                this.addPromoCode('RS-promo-code');
+                this.promoCodeButton.addEventListener('click', () => {
+                    const rsPromoCode = document.getElementById('RS-promo-code');
+                    rsPromoCode?.remove();
+                });
             }
             if (currentValue === 'EPM') {
-                // TODO drop EPM discount
+                const EpmPromoCode = document.getElementById('RS-promo-code');
+                if (EpmPromoCode) return;
+                this.addPromoCode('EPM-promo-code');
+                this.promoCodeButton.addEventListener('click', () => {
+                    const EpmPromoCode = document.getElementById('RS-promo-code');
+                    EpmPromoCode?.remove();
+                });
             }
         });
 
@@ -66,18 +81,38 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
         });
     }
 
+    private addPromoCode(promoCodeType: string): void {
+        this.promoCode = document.createElement('div');
+        this.promoCode.id = promoCodeType;
+        const promoCodeText = document.createElement('div');
+        this.promoCodeButton = document.createElement('button');
+
+        this.promoCode.classList.add('promo-code__container');
+        promoCodeText.classList.add('promo-code__text');
+        this.promoCodeButton.classList.add('promo-code__button');
+
+        promoCodeText.innerText = `${promoCodeType} -10%`;
+        this.promoCodeButton.innerText = 'DROP';
+        this.promoCodeButton.innerText = 'DROP';
+
+        this.promoCode.append(promoCodeText, this.promoCodeButton);
+        this.usedPromoCodesContainer.append(this.promoCode);
+    }
+
     private createCartInfoSection(): void {
         const cartInfoContainer = document.createElement('div');
         const quantityContainer = document.createElement('div');
         this.quantity = document.createElement('div');
         const amountContainer = document.createElement('div');
         this.amount = document.createElement('div');
+        this.usedPromoCodesContainer = document.createElement('div');
 
         cartInfoContainer.classList.add('summary__info-container');
         quantityContainer.classList.add('summary__quantity-container');
         this.quantity.classList.add('summary__quantity');
         amountContainer.classList.add('summary__amount-container');
         this.amount.classList.add('summary__amount');
+        this.usedPromoCodesContainer.classList.add('summary__promo-codes-container');
 
         quantityContainer.innerText = 'Products:';
         this.quantity.innerText = `${this.props.cart.getProductsQuantity()}`;
@@ -88,7 +123,7 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
         amountContainer.append(this.amount);
         cartInfoContainer.append(quantityContainer, amountContainer);
 
-        this.element.append(cartInfoContainer);
+        this.element.append(cartInfoContainer, this.usedPromoCodesContainer);
     }
 
     private createPromoCodeSection() {
