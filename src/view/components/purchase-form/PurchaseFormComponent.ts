@@ -33,6 +33,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
     }
 
     private createPersonInfoSection(): void {
+        this.element.classList.add('inner-container');
         const personInfoContainer = document.createElement('div');
         const personInfoTitle = document.createElement('h3');
 
@@ -143,6 +144,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         cvvForm.classList.add('purchase-form__card-CVV-form');
         this.cvvInput.classList.add('purchase-form__card-CVV');
         this.confirmButton.classList.add('purchase-form__confirm-button');
+        this.confirmButton.classList.add('button');
 
         this.personNameInput.id = 'untouched';
         this.personPhoneInput.id = 'untouched';

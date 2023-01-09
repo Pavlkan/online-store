@@ -21,7 +21,7 @@ export class CartPageComponent extends BaseComponent<CartPageComponentProps> {
         cartSummaryComponent: CartSummaryComponent,
         cart: Cart
     ) {
-        super('cart-page', { controller, cartCatalogComponent, cartSummaryComponent, cart }, 'main');
+        super('cart-page', { controller, cartCatalogComponent, cartSummaryComponent, cart }, 'div');
     }
 
     public beforeRemove(): void {
@@ -29,6 +29,7 @@ export class CartPageComponent extends BaseComponent<CartPageComponentProps> {
     }
 
     protected render(): void {
+        this.element.classList.add('outer-container');
         this.cartSubscriptionId = this.props.cart.subscribe((cart: CartData) => {
             this.element.innerHTML = '';
 

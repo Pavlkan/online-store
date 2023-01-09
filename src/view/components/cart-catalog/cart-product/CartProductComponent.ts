@@ -29,6 +29,8 @@ export class CartProductComponent extends BaseComponent<CartProductComponentProp
     }
 
     protected render() {
+        this.element.classList.add('inner-container');
+
         const productNum = document.createElement('div');
         productNum.className = 'catalog__product-num';
         productNum.innerText = `${this.props.index}`;
