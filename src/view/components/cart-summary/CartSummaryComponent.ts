@@ -61,17 +61,33 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
                 const rsPromoCode = document.getElementById('RS-promo-code');
                 if (rsPromoCode) return;
                 this.addPromoCode('RS-promo-code');
+                this.amount.innerHTML = `
+                <del>€${this.props.cart.getStandartPrice()}</del><br>
+                €${this.props.cart.getAmount()}
+                `;
+                this.props.cart.addPromoCode();
                 this.promoCodeButton.addEventListener('click', () => {
                     const rsPromoCode = document.getElementById('RS-promo-code');
+                    this.props.cart.removePromoCode();
+                    this.props.cart.notify(new Map(this.props.cart.getData()));
+                    this.amount.innerText = `€${this.props.cart.getAmount()}`;
                     rsPromoCode?.remove();
                 });
             }
             if (currentValue === 'EPM') {
-                const EpmPromoCode = document.getElementById('RS-promo-code');
+                const EpmPromoCode = document.getElementById('EPM-promo-code');
                 if (EpmPromoCode) return;
                 this.addPromoCode('EPM-promo-code');
+                this.props.cart.addPromoCode();
+                this.props.cart.notify(new Map(this.props.cart.getData()));
+                this.amount.innerHTML = `
+                <del>€${this.props.cart.getStandartPrice()}</del><br>
+                €${this.props.cart.getAmount()}
+                `;
                 this.promoCodeButton.addEventListener('click', () => {
-                    const EpmPromoCode = document.getElementById('RS-promo-code');
+                    const EpmPromoCode = document.getElementById('EPM-promo-code');
+                    this.props.cart.removePromoCode();
+                    this.amount.innerText = `€${this.props.cart.getAmount()}`;
                     EpmPromoCode?.remove();
                 });
             }

@@ -69,6 +69,7 @@
 }
 
 .input__container {
+    margin-bottom: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,4 +80,18 @@
 .purchase-form__confirm-button {
     margin-top: 1rem;
     font-size: 1.4rem;
+}
+
+.input__message, .purchase-form__card-number-title,
+.purchase-form__error-alarm {
+    margin-bottom: 1%;
+
+    color: aliceblue;
+}
+
+.purchase-form__card-info-title {
+    margin: 5% 0;
+
+    text-align: center;
+    color: aliceblue;
 }

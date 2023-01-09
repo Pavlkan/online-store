@@ -7,12 +7,22 @@ export type CartData = Map<Product, number>;
 export class Cart extends Observable<CartData> {
     private readonly storageKey = 'cart';
     private assortment: Assortment;
+    private promoCodeCoefficient: number;
 
     constructor(assortment: Assortment) {
         super(new Map());
         this.assortment = assortment;
+        this.promoCodeCoefficient = 0;
 
         this.notify(this.extractData());
+    }
+
+    public getStandartPrice(): number {
+        let amount = 0;
+        this.getData().forEach((quantity, product) => {
+            amount += product.price * quantity;
+        });
+        return amount;
     }
 
     public addToCart(product: Product): void {
@@ -39,12 +49,28 @@ export class Cart extends Observable<CartData> {
         this.notify(new Map());
     }
 
+    public addPromoCode(): void {
+        this.promoCodeCoefficient += 0.9;
+    }
+
+    public removePromoCode(): void {
+        this.promoCodeCoefficient -= 0.9;
+    }
+
     public getAmount(): number {
         let amount = 0;
         this.getData().forEach((quantity, product) => {
             amount += product.price * quantity;
         });
+        const promoCodeValue = this.getPromoCodeСoefficient();
+        if (promoCodeValue > 0) {
+            amount * promoCodeValue;
+        }
         return amount;
+    }
+
+    public getPromoCodeСoefficient(): number {
+        return this.promoCodeCoefficient;
     }
 
     public getProductsQuantity(): number {

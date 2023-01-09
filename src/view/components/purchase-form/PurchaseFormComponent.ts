@@ -185,12 +185,12 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.validThruInput.type = 'text';
         this.cvvInput.type = 'number';
 
-        this.cardNumberTitle.append(this.cardNumberImg);
         validThruContainer.append(validThruForm, validThruInputContainer);
         cvvContainer.append(cvvForm, cvvInputContainer);
         thruCvvContainer.append(validThruContainer, cvvContainer);
         cardInfoContainer.append(
             cardInfoTitle,
+            this.cardNumberTitle,
             cardNumberInputContainer,
             thruCvvContainer,
             this.errorAlarm,
