@@ -31,11 +31,14 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
     }
 
     protected render(): void {
+        this.element.classList.add('inner-container');
         const title = document.createElement('div');
         this.buyButton = document.createElement('button');
 
-        title.classList.add('summery__title');
-        this.buyButton.classList.add('summery__buy-button');
+        title.classList.add('summary__title');
+        title.classList.add('title');
+        this.buyButton.classList.add('summary__buy-button');
+        this.buyButton.classList.add('button');
 
         title.innerText = 'Summary';
         this.buyButton.innerText = 'BUY NOW';
@@ -90,6 +93,7 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
         this.promoCode.classList.add('promo-code__container');
         promoCodeText.classList.add('promo-code__text');
         this.promoCodeButton.classList.add('promo-code__button');
+        this.promoCodeButton.classList.add('button');
 
         promoCodeText.innerText = `${promoCodeType} -10%`;
         this.promoCodeButton.innerText = 'DROP';

@@ -3,7 +3,8 @@
     margin: 5px;
     height: 6rem;
     padding: 0.5rem;
-    width: 98vw;
+    width: 98%;
+    border: var(--border-thick);
 }
 
 .catalog__product-num {
@@ -49,13 +50,13 @@
 .catalog__product-description {
     border-top: var(--border-thick);
     padding: 0.3rem 0 0.5rem;
-   font-size: 100%;
+    font-size: 100%;
 }
 
 .catalog__product-details-other {
     display: flex;
     gap: 5rem;
-   font-size: 100%;
+    font-size: 100%;
 }
 
 .number-control {

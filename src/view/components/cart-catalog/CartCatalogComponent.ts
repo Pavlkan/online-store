@@ -43,6 +43,7 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
     }
 
     protected render(): void {
+        this.element.classList.add('inner-container');
         this.controlPanel = new CartControlPanelComponent(
             this.onControlPanelChange.bind(this),
             this.props.cartPagination,

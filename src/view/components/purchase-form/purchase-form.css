@@ -1,12 +1,13 @@
 .purchase-form {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     height: 80%;
     padding: 2%;
+    border-radius: 1rem;
 
-    border: 1px solid brown;
-    border-radius: 10px;
-
-    background-color: gray;
+    background-color: rgb(7 65 92/90%);
+    flex: 0.1 0 auto;
 }
 
 .purchase-form__person-info-container {
@@ -30,6 +31,8 @@
 
 .purchase-form__person-info-title {
     margin-bottom: 1%;
+    font: 1.8rem;
+    color: var(--color-bg-outer);
 }
 
 .purchase-form__person-info-container input {
@@ -47,6 +50,8 @@
     border-radius: 10px;
 
     transition: 0.3s;
+    width: 100%;
+    background-color: var(--color-bg-outer);
 }
 
 .purchase-form__person-info-container input.valid,
@@ -61,4 +66,17 @@
 .purchase-form__card-THRU.invalid.blur,
 .purchase-form__card-CVV.invalid.blur {
     border: 5px solid red;
+}
+
+.input__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.purchase-form__confirm-button {
+    margin-top: 1rem;
+    font-size: 1.4rem;
 }

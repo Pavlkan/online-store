@@ -24,6 +24,7 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
     }
 
     protected render(): void {
+        this.element.classList.add('title');
         const title = document.createElement('div');
         title.classList.add('control-panel__title');
         title.innerText = 'Products In Cart';
@@ -80,6 +81,7 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
         this.limitLabel = document.createElement('div');
         this.limitLabel.classList.add('control-panel__limit');
         this.limitInput = document.createElement('input');
+        this.limitInput.classList.add('control-panel__limit-input');
         this.limitInput.type = 'number';
         this.limitInput.min = '1';
         this.limitLabel.innerText = 'LIMIT:';
