@@ -35,7 +35,9 @@ export class FiltersPanelComponent extends BaseComponent<FiltersPanelComponentPr
 
         buttonContainer.classList.add('filters__button-container');
         this.resetFiltersButton.classList.add('filters__reset-filters-button');
+        this.resetFiltersButton.classList.add('button');
         this.copyLinkButton.classList.add('filters__copy-filters-button');
+        this.copyLinkButton.classList.add('button');
 
         this.resetFiltersButton.innerText = 'Reset filters';
         this.copyLinkButton.innerText = 'Copy link';

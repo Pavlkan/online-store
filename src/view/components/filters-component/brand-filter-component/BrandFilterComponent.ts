@@ -32,6 +32,15 @@ export class BrandFilterComponent extends BaseComponent<BrandFilterComponentProp
     }
 
     protected render() {
+        const filterTitle = document.createElement('h3');
+        filterTitle.className = 'filter__title_fixed title';
+        filterTitle.innerText = 'Brand';
+
+        const filterInputsContainer = document.createElement('div');
+        filterInputsContainer.className = 'filter__inputs-container';
+
+        this.element.append(filterTitle, filterInputsContainer);
+
         this.createInputElements();
 
         this.brandFilterSubscriptionId = this.props.brandFilter.subscribe((filter: BrandFilterData) => {
