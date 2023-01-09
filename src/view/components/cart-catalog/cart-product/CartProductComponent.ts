@@ -72,14 +72,14 @@ export class CartProductComponent extends BaseComponent<CartProductComponentProp
         incDecControl.className = 'inc-dec-control';
 
         this.incBtn = document.createElement('button');
-        this.incBtn.className = 'btn-increment';
+        this.incBtn.className = 'btn-increment button';
         this.incBtn.innerText = '+';
         this.productQuantity = document.createElement('span');
         this.productQuantity.className = 'products-num';
         this.productQuantity.innerText = this.props.productQuantity.toString();
 
         this.decBtn = document.createElement('button');
-        this.decBtn.className = 'btn-decrement';
+        this.decBtn.className = 'btn-decrement button';
         this.decBtn.innerText = '-';
 
         const amountControl = document.createElement('div');

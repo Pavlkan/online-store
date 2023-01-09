@@ -100,8 +100,10 @@ export class CartControlPanelComponent extends BaseComponent<CartControlPanelCom
         this.nextButton = document.createElement('button');
 
         this.previousButton.classList.add('control-panel__previous-button');
+        this.previousButton.classList.add('button');
         this.paginationCounter.classList.add('control-panel__pagination-counter');
         this.nextButton.classList.add('control-panel__next-button');
+        this.nextButton.classList.add('button');
 
         this.previousButton.innerText = '<';
         this.paginationCounter.readOnly = true;

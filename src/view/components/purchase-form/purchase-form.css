@@ -21,6 +21,8 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .purchase-form__card-thru-cvv-container {
@@ -30,9 +32,16 @@
 }
 
 .purchase-form__person-info-title {
-    margin-bottom: 1%;
+    margin: 2%;
     font-size: 1.8rem;
     color: var(--color-bg-outer);
+}
+
+.purchase-form__card-info-title {
+    margin: 3%;
+    font-size: 1.8rem;
+    color: var(--color-bg-outer);
+    text-align: center;
 }
 
 .purchase-form__person-info-container input {
@@ -52,20 +61,22 @@
     transition: 0.3s;
     width: 100%;
     background-color: var(--color-bg-outer);
+    text-align: center;
 }
 
 .purchase-form__person-info-container input.valid,
 .purchase-form__card-number.valid,
 .purchase-form__card-THRU.valid,
 .purchase-form__card-CVV.valid {
-    border: 5px solid greenyellow;
+    border: 5px solid var(--color-ok);
 }
 
 .purchase-form__person-info-container input.invalid.blur,
 .purchase-form__card-number.invalid.blur,
 .purchase-form__card-THRU.invalid.blur,
 .purchase-form__card-CVV.invalid.blur {
-    border: 5px solid red;
+    border: 5px solid var(--color-alarm);
+
 }
 
 .input__container {
@@ -74,9 +85,18 @@
     align-items: center;
     justify-content: center;
     width: 80%;
+    margin: 0.5rem;
 }
 
 .purchase-form__confirm-button {
     margin-top: 1rem;
     font-size: 1.4rem;
+    width: 60%;
+}
+
+.purchase-form__error-alarm {
+    color: var(--color-alarm);
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
 }
