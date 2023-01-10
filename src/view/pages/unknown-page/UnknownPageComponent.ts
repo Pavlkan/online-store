@@ -23,6 +23,7 @@ export class UnknownPageComponent extends BaseComponent<UnknownPageComponentProp
         this.navigateButton.classList.add('unknown-page__button');
         this.navigateButton.innerText = 'Return to catalog';
 
+        this.element.innerText = '404';
         wrapper.append(this.navigateButton);
         this.element.append(wrapper);
     }

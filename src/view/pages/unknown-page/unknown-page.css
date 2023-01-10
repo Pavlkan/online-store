@@ -4,8 +4,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-image: url('https://cdn.dribbble.com/users/879147/screenshots/6766595/404_4x.jpg');
-    
 }
 
+.unknown-page {
+    text-align: center;
+    font-size: 40px;
+}
+
+.unknown-page__button {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 3% 5%;
+    border: var(--border-thin);
+    border-radius: 5px;
+    background: var(--color-bg-btn);
+    font-weight: 600;
+    font-size: 40px;
+
+    text-transform: uppercase;
+
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+}
