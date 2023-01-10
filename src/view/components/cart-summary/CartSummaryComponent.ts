@@ -59,35 +59,30 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
             const currentValue = this.promoCodeInput.value.toUpperCase();
             if (currentValue === 'RS') {
                 const rsPromoCode = document.getElementById('RS-promo-code');
+
                 if (rsPromoCode) return;
+
                 this.addPromoCode('RS-promo-code');
-                this.amount.innerHTML = `
-                <del>€${this.props.cart.getStandartPrice()}</del><br>
-                €${this.props.cart.getAmount()}
-                `;
-                this.props.cart.addPromoCode();
+                this.runPromoCode();
+
                 this.promoCodeButton.addEventListener('click', () => {
                     const rsPromoCode = document.getElementById('RS-promo-code');
-                    this.props.cart.removePromoCode();
-                    this.props.cart.notify(new Map(this.props.cart.getData()));
-                    this.amount.innerText = `€${this.props.cart.getAmount()}`;
+                    this.erasePromoCode();
                     rsPromoCode?.remove();
                 });
             }
+
             if (currentValue === 'EPM') {
                 const EpmPromoCode = document.getElementById('EPM-promo-code');
+
                 if (EpmPromoCode) return;
+
                 this.addPromoCode('EPM-promo-code');
-                this.props.cart.addPromoCode();
-                this.props.cart.notify(new Map(this.props.cart.getData()));
-                this.amount.innerHTML = `
-                <del>€${this.props.cart.getStandartPrice()}</del><br>
-                €${this.props.cart.getAmount()}
-                `;
+                this.runPromoCode();
+
                 this.promoCodeButton.addEventListener('click', () => {
                     const EpmPromoCode = document.getElementById('EPM-promo-code');
-                    this.props.cart.removePromoCode();
-                    this.amount.innerText = `€${this.props.cart.getAmount()}`;
+                    this.erasePromoCode();
                     EpmPromoCode?.remove();
                 });
             }
@@ -98,6 +93,23 @@ export class CartSummaryComponent extends BaseComponent<CartSummaryComponentProp
             const form = new PurchaseFormComponent(this.props.cart, this.props.router, modal);
             modal.attach(form.element);
         });
+    }
+
+    private runPromoCode(): void {
+        this.props.cart.addPromoCode();
+        this.props.cart.notify(new Map(this.props.cart.getData()));
+        this.amount.innerHTML = `
+        <del>€${this.props.cart.getStandartPrice()}</del><br>
+        €${this.props.cart.getAmount()}
+        `;
+    }
+
+    private erasePromoCode(): void {
+        if (!document.getElementById('EPM-promo-code') && document.getElementById('RS-promo-code')) {
+            this.amount.innerText = `€${this.props.cart.getAmount()}`;
+        }
+        this.props.cart.removePromoCode();
+        this.props.cart.notify(new Map(this.props.cart.getData()));
     }
 
     private addPromoCode(promoCodeType: string): void {
