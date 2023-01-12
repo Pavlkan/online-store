@@ -1,0 +1,10 @@
+#small._active,
+#big._active {
+    opacity: 1;
+    box-shadow: var(--box-shadow);
+}
+
+#small,
+#big {
+    opacity: 0.7;
+}

@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300&display=swap');
+
+/* ———————————————————————————————————————————————————————————————————————————————
+==============================—Style—normalization—===============================
+——————————————————————————————————————————————————————————————————————————————— */
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    user-select: none;
+}
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Chivo Mono', monospace;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 10px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-style: normal;
+    font-weight: 400;
+}
+
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+:root {
+    --color-bg-outer: #e1ecf0;
+    --color-bg-inner: rgb(193, 189, 189, 0.5);
+
+    --color-bg-footer-header: rgb(156 194 209);
+    --color-logo-border: rgb(9, 84, 113);
+    --color-bg-btn: rgb(26 128 168 / 70%);
+    --color-circle: rgb(26 128 168);
+    --color-font-btn: rgb(47, 50, 52);
+    --color-price: rgb(51, 53, 54);
+
+    --font-logo: 2.0rem;
+    --font-card-description: 0.8rem;
+    --font-common: 1.4rem;
+    --font-product-price: 1.8rem;
+    --font-card-title: 1.5rem;
+
+    --border-radius-container: 0.5rem;
+    --border-radius-footer-header: 1.5rem;
+    --border-thick: 1px solid var(--color-logo-border);
+    --border-thin: 2px solid var(--color-logo-border);
+
+    --box-shadow: 0 0 5px 2px #079ac4;
+
+    --text-shadow: 0 0 10px rgb(71 125 178), 0 0 20px rgb(6 87 119), 0 0 30px rgb(242 246 247), 0 0 40px rgb(11 79 106);
+    --font-common-media-500px: 1.0rem;
+}
+
+.inner-container {
+    display: flex;
+    background-color: var(--color-bg-inner);
+    border-radius: var(--border-radius-container);
+}
+
+.outer-container {
+    display: flex;
+    background-color: var(--color-bg-outer);
+}
+
+.title {
+    text-align: center;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    color: var(--color-font-btn);
+    background: var(--color-bg-footer-header);
+    padding: 0.5rem;
+    font-size: var(--font-card-title);
+    font-weight: 600;
+    text-transform: capitalize;
+    width: 100%;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 3% 5%;
+    border: var(--border-thin);
+    border-radius: 5px;
+    background: var(--color-bg-btn);
+    font-weight: 600;
+    text-transform: uppercase;
+
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-outer);
+}
+
+.main {
+    min-height: calc(100vh - 8.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

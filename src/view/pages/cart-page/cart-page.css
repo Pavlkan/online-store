@@ -1,0 +1,118 @@
+.cart-page {
+    display: flex;
+    gap: 1rem;
+    padding: 2% 1%;
+    background-color: var(--color-bg-outer);
+    align-self: flex-start;
+}
+
+.cart-page__catalog {
+    flex-direction: column;
+    width: 70vw;
+    flex: 4 0 auto;
+}
+
+.cart-page__control-panel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.control-panel__controls-container {
+    display: flex;
+    gap: 3rem;
+}
+
+.control-panel__limit,
+.control-panel__pagination {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.control-panel__limit-input {
+    border: var(--border-thin);
+    text-align: center;
+    border-radius: var(--border-radius-container);
+    background-color: var(--color-bg-btn);
+    width: 3rem;
+}
+
+.control-panel__pagination-counter {
+    text-align: center;
+    background-color: transparent;
+    width: 1rem;
+}
+
+.control-panel__previous-button,
+.control-panel__next-button {
+    border: var(--border-thin);
+    text-align: center;
+    border-radius: var(--border-radius-container);
+    background-color: var(--color-bg-btn);
+    color: var(--color-logo-border);
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding: 0.1rem;
+}
+
+.catalog__products-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+}
+
+.cart-page__summary {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+    flex: 1 0 auto;
+    height: fit-content;
+}
+
+.summary__info-container {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+}
+
+.summary__quantity-container,
+.summary__amount-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-size: 135%;
+    font-weight: 600;
+}
+
+.promo-code__text {
+    padding: 0.5rem;
+
+}
+
+.summary__promo-code-input {
+    border: var(--border-thin);
+    text-align: center;
+    border-radius: var(--border-radius-container);
+    background-color: var(--color-bg-btn);
+    color: var(--color-logo-border);
+    margin: 0 2rem 0;
+}
+
+.summary__promo-code-guidance {
+    padding: 0.5rem 0;
+}
+
+.summary__buy-button {
+    margin: 2rem auto 1rem;
+    flex: 0;
+}
+
+.promo-code__button {
+    flex: 0;
+    margin: 0 auto;
+}

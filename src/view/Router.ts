@@ -1,0 +1,102 @@
+import { BaseController } from '../controller/BaseController';
+import { CartPageController } from '../controller/pages/CartPageController';
+import { CatalogPageController } from '../controller/pages/CatalogPageController';
+import { ProductPageController } from '../controller/pages/ProductPageController';
+import { UnknownPageController } from '../controller/pages/UnknownPageController';
+import { OnlineStore } from '../model/OnlineStore';
+
+export class Router {
+    private onlineStore: OnlineStore;
+    private pageMap: Map<string, () => BaseController>;
+    private container: HTMLElement;
+    private currentPage?: string;
+    private pageController?: BaseController;
+
+    constructor(container: HTMLElement, onlineStore: OnlineStore) {
+        this.container = container;
+        this.onlineStore = onlineStore;
+        this.pageMap = new Map<string, () => BaseController>([
+            ['catalog', () => new CatalogPageController(this.onlineStore, this)],
+            ['product', () => new ProductPageController(this.onlineStore, this)],
+            ['cart', () => new CartPageController(this.onlineStore, this)],
+            ['404', () => new UnknownPageController(this)],
+        ]);
+
+        const currentPage: string = this.getCurrentPage();
+        this.navigateTo(currentPage);
+        this.onNavigation();
+    }
+
+    public navigateTo(page: string) {
+        if (this.currentPage === page) return;
+        const factory = this.getControllerFactory(page);
+
+        this.updateUrl(page);
+        this.pageController?.remove();
+        this.pageController = factory();
+        this.container.innerHTML = '';
+        this.container.append(this.pageController.component.element);
+        this.currentPage = page;
+    }
+
+    public getSegments(): string[] {
+        return document.location.pathname.split('/').filter(Boolean);
+    }
+
+    public updateQueryParams(name: string, value: string): void {
+        const search = new URLSearchParams(document.location.search);
+        if (value) {
+            search.set(name, value);
+        } else {
+            search.delete(name);
+        }
+        const path = document.location.pathname.slice(1);
+        window.history.pushState(null, '', `${path}?${search.toString()}`);
+    }
+
+    public getQueryParam(name: string): string[] {
+        const search = new URLSearchParams(document.location.search);
+        let param = search.get(name);
+        param = param ? decodeURIComponent(param) : '';
+        return param.split(',').filter(Boolean);
+    }
+
+    public getFullUrl(): string {
+        return document.location.href;
+    }
+
+    private updateUrl(url: string): void {
+        let pageInUrl = false;
+        for (const declaredPage of this.pageMap.keys()) {
+            if (url.includes(declaredPage)) pageInUrl = true;
+        }
+        if (!pageInUrl && url === '') {
+            url = 'catalog';
+        }
+        if (url !== this.getCurrentPage()) window.history.pushState(null, '', `${url}${document.location.search}`);
+    }
+
+    private getCurrentPage(): string {
+        const segments: string[] = this.getSegments();
+        return segments.join('/');
+    }
+
+    private getControllerFactory(page: string): () => BaseController {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        if (page === '') return this.pageMap.get('catalog')!;
+        let pageToFind = '';
+        for (const declaredPage of this.pageMap.keys()) {
+            const main = page.split('/')[0] ?? '';
+            if (main === declaredPage) pageToFind = declaredPage;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.pageMap.get(pageToFind || '404')!;
+    }
+
+    private onNavigation(): void {
+        window.addEventListener('popstate', () => {
+            const currentPage: string = this.getCurrentPage();
+            this.navigateTo(currentPage);
+        });
+    }
+}

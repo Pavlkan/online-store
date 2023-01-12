@@ -1,0 +1,107 @@
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 80%;
+    padding: 2%;
+    border-radius: 1rem;
+
+    background-color: rgb(7 65 92/90%);
+    flex: 0.1 0 auto;
+}
+
+.purchase-form__person-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.purchase-form__card-info-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-form__card-thru-cvv-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.purchase-form__person-info-title {
+    margin-bottom: 1%;
+    font-size: 1.8rem;
+    color: var(--color-bg-outer);
+}
+
+.purchase-form__person-info-container input {
+    width: 50%;
+}
+
+.purchase-form__person-info-container input,
+.purchase-form__card-number,
+.purchase-form__card-THRU,
+.purchase-form__card-CVV {
+    margin-bottom: 1%;
+    padding: 1%;
+
+    border: 1px solid yellow;
+    border-radius: 10px;
+
+    transition: 0.3s;
+    width: 100%;
+    background-color: var(--color-bg-outer);
+}
+
+.purchase-form__person-info-container input.valid,
+.purchase-form__card-number.valid,
+.purchase-form__card-THRU.valid,
+.purchase-form__card-CVV.valid {
+    border: 5px solid greenyellow;
+}
+
+.purchase-form__person-info-container input.invalid.blur,
+.purchase-form__card-number.invalid.blur,
+.purchase-form__card-THRU.invalid.blur,
+.purchase-form__card-CVV.invalid.blur {
+    border: 5px solid red;
+}
+
+.input__container {
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.purchase-form__confirm-button {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+}
+
+.input__message, .purchase-form__card-number-title,
+.purchase-form__error-alarm {
+    margin-bottom: 1%;
+
+    color: aliceblue;
+}
+
+.purchase-form__card-info-title {
+    margin: 5% 0;
+
+    text-align: center;
+    color: aliceblue;
+}
+
+.purchase-form__card-number-title {
+    display: flex;
+    align-items: center;
+}
+
+.purchase-form__card-number-title img{
+    height: 15px;
+    margin-left: 5px;
+}

@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-logo);
+    font-weight: 600;
+    border-radius: 0 0 var(--border-radius-footer-header) var(--border-radius-footer-header);
+    border-bottom: var(--border-thin);
+    background-color: var(--color-bg-footer-header);
+    padding: 0.5% 1.5% 0.5%;
+    text-shadow: var(--text-shadow);
+    color: var(--color-logo-border);
+    height: 4.5rem;
+}
+
+.header__logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    gap: 1rem;
+}
+
+.header__icon {
+    font-size: 200%;
+    font-weight: 400;
+}
+
+.header__title {
+    font-weight: 600;
+}
+
+.header__amount-container {
+    font-size: 1.5rem;
+}
