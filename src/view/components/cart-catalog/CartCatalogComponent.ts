@@ -6,6 +6,7 @@ import { BaseComponent } from '../../BaseComponent';
 import { Router } from '../../Router';
 import { CartProductComponent } from './cart-product/CartProductComponent';
 import { CartControlPanelComponent } from './control-panel/CartControlPanelComponent';
+import './cart-catalog.css';
 
 interface CartCatalogComponentProps {
     controller: CartCatalogController;
@@ -66,10 +67,21 @@ export class CartCatalogComponent extends BaseComponent<CartCatalogComponentProp
 
     private renderProductComponents(): void {
         this.removeProductComponents();
-        this.props.productComponents = this.getPaginationData().map(([product, quantity], index) => {
-            return new CartProductComponent(this.props.controller, product, this.props.router, quantity, index + 1);
+        this.props.productComponents = this.getPaginationData().map(([product, quantity]) => {
+            return new CartProductComponent(
+                this.props.controller,
+                product,
+                this.props.router,
+                quantity,
+                this.getProductIndex(product) + 1
+            );
         });
         this.props.productComponents.forEach((component) => this.productsContainer.append(component.element));
+    }
+
+    private getProductIndex(product: Product): number {
+        const cartProducts = Array.from(this.props.cart.getData()).map((cartElement) => cartElement[0]);
+        return cartProducts.indexOf(product);
     }
 
     private getPaginationData(): [Product, number][] {

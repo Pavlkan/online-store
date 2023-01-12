@@ -95,3 +95,13 @@
     text-align: center;
     color: aliceblue;
 }
+
+.purchase-form__card-number-title {
+    display: flex;
+    align-items: center;
+}
+
+.purchase-form__card-number-title img{
+    height: 15px;
+    margin-left: 5px;
+}

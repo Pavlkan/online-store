@@ -185,6 +185,7 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
         this.validThruInput.type = 'text';
         this.cvvInput.type = 'number';
 
+        this.cardNumberTitle.append(this.cardNumberImg);
         validThruContainer.append(validThruForm, validThruInputContainer);
         cvvContainer.append(cvvForm, cvvInputContainer);
         thruCvvContainer.append(validThruContainer, cvvContainer);
@@ -249,18 +250,24 @@ export class PurchaseFormComponent extends BaseComponent<PurchaseFormComponentPr
             const currentValue = this.cardNumberInput.value;
             const message = this.cardNumberInput.previousElementSibling;
             if (currentValue[0] === '2') {
-                this.cardNumberTitle.innerText = 'Payment system: МИР';
-                this.cardNumberImg.src = 'http://img.advertology.ru/aimages/2018/03/19/Mir_Logo_Id_04.jpg';
+                this.cardNumberTitle.innerText = 'Payment system: МИР'
+                this.cardNumberTitle.append(this.cardNumberImg);
+                this.cardNumberImg.src = 'https://scotch-soda.ru/local/templates/main/img/payment-rules/mir.webp';
             } else if (currentValue[0] === '4') {
                 this.cardNumberTitle.innerText = 'Payment system: VISA';
-            } else if (currentValue[0] === '7') {
-                this.cardNumberTitle.innerText = 'Payment system: УЭК';
-            } else if (currentValue[0] === '5') {
+                this.cardNumberTitle.append(this.cardNumberImg);
+                this.cardNumberImg.src = 'https://logos-download.com/wp-content/uploads/2016/02/Visa_Logo_1992.png';
+            } else if (currentValue[0] === '5' && currentValue[1] !== '1') {
                 this.cardNumberTitle.innerText = 'Payment system: MasterCard';
+                this.cardNumberTitle.append(this.cardNumberImg);
+                this.cardNumberImg.src = 'https://cdn130.picsart.com/297884750233201.png';
             } else if (currentValue.slice(0, 2) === '51') {
                 this.cardNumberTitle.innerText = 'Payment system: Maestro';
+                this.cardNumberTitle.append(this.cardNumberImg);
+                this.cardNumberImg.src = 'https://dividend-center.com/wp-content/uploads/2019/10/maestro-logotip-2.png';
             } else {
                 this.cardNumberTitle.innerText = 'Payment system: ';
+                this.cardNumberImg.src = '';
             }
             if (currentValue.length > 16) {
                 this.cardNumberInput.value = currentValue.slice(0, 16);

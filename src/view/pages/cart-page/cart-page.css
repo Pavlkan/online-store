@@ -8,7 +8,7 @@
 
 .cart-page__catalog {
     flex-direction: column;
-    width: 70%;
+    width: 70vw;
     flex: 4 0 auto;
 }
 
